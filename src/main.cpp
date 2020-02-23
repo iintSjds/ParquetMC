@@ -97,12 +97,12 @@ void InitPara() {
   // initialize external momentum
   for (int i = 0; i < ExtMomBinSize; i++) {
     // the external momentum only has x component
-    // Para.ExtMomTable[i][0] = i * Para.MaxExtMom / ExtMomBinSize;
-    for (int j = 0; j < D; j++)
+    Para.ExtMomTable[i][0] = i * Para.MaxExtMom / ExtMomBinSize;
+    for (int j = 1; j < D; j++)
       Para.ExtMomTable[i][j] = 0.0;
   }
-  Para.ExtMomTable[0][0] = 0.0;
-  Para.ExtMomTable[1][0] = 2. * Para.Kf;
+  // Para.ExtMomTable[0][0] = 0.0;
+  // Para.ExtMomTable[1][0] = 2. * Para.Kf;
 
   LOG_INFO("Inverse Temperature: " << Para.Beta << "\n"
                                    << "UV Energy Scale: " << Para.UVScale

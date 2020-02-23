@@ -222,8 +222,8 @@ void verQTheta::Save(bool Simple) {
         VerFile << endl;
         VerFile << "# ExtMomBinTable: ";
         for (int qindex = 0; qindex < ExtMomBinSize; ++qindex){
-          for (int dim=0;dim < D; dim++)
-            VerFile << Para.ExtMomTable[qindex][dim] << " ";
+          // for (int dim=0;dim < D; dim++)
+          VerFile << Para.ExtMomTable[qindex][0] << " ";
           VerFile << endl;
         }
         VerFile << endl;
@@ -245,8 +245,8 @@ void verQTheta::Save(bool Simple) {
               for (int dir = 0; dir < 2; ++dir){
                 VerFile << Para.FreqTable[freq]<< "\t";
                 VerFile << Para.AngleTable[angle] << "\t";
-                for(int dim=0;dim<D;dim++)
-                  VerFile << Para.ExtMomTable[qindex][dim] << "\t";
+                // for(int dim=0;dim<D;dim++)
+                VerFile << Para.ExtMomTable[qindex][0] << "\t";
                 VerFile << dir << "\t";
                 VerFile << Chan[chan].Estimator(order, angle, qindex, dir) *
                   PhyWeightT
