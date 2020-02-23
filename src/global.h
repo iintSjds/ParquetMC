@@ -18,7 +18,7 @@ const bool DEBUGMODE = true;
 // D=2 or D=3
 const int D = 3;
 // number of q bins of the external momentum
-const int ExtMomBinSize = 2;
+const int ExtMomBinSize = 32;
 // number of bins for the angle between InL and InR legs
 const int AngBinSize = 64;
 // number of energy scales, only useful in RG approach
@@ -26,6 +26,8 @@ const int ScaleBinSize = 64;
 const int TauBinSize = 128;
 const int TauBasisNum = 32;
 const int SpinIndex = 2;
+
+const int FreqBinSize = 50;
 
 enum selfenergy { BARE, FOCK, DRESSED }; // self energy type
 enum type { GU, GW, RG, PARQUET };
@@ -79,6 +81,7 @@ struct parameter {
   std::array<double, ScaleBinSize + 1> dScaleTable;
   std::array<double, AngBinSize> AngleTable;
   std::array<double, AngBinSize> dAngleTable;
+  std::array<double, FreqBinSize> FreqTable;
 };
 
 //////////   Diagram  ////////////////////////////

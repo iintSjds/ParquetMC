@@ -1,0 +1,2651 @@
+
+dse.cpp,389
+int AddToTList(13,223
+momentum *verDiag::NextMom(NextMom26,671
+ver4 verDiag::Build(Build32,835
+ver4 verDiag::Vertex(Vertex57,1742
+ver4 verDiag::Ver0(Ver0118,3609
+vector<mapT2> CreateMapT2(137,4268
+ver4 verDiag::ChanUST(ChanUST177,5595
+vector<mapT4> CreateMapT4(285,9615
+ver4 verDiag::ChanI(ChanI326,11122
+string verDiag::ToString(ToString410,13949
+bool verTest(501,17152
+
+dse.h,2692
+#define dse_H2,14
+enum caltype 18,246
+enum caltype { BARE,18,246
+enum caltype { BARE, RG,18,246
+enum caltype { BARE, RG, PARQUET,18,246
+enum caltype { BARE, RG, PARQUET, RENORMALIZED,18,246
+enum caltype { BARE, RG, PARQUET, RENORMALIZED, VARIATIONAL 18,246
+enum channel 19,309
+enum channel { I 19,309
+enum channel { I = 0, T,19,309
+enum channel { I = 0, T, U,19,309
+enum channel { I = 0, T, U, S 19,309
+struct ver4 24,376
+  int ID;25,390
+  int LoopNum;26,400
+  int TauNum;27,415
+  int Side;28,429
+  bool IsFullVer4;30,487
+  bool RenormVer4;31,506
+  bool RexpandBare;32,560
+  vector<bubble> Bubble;34,625
+  vector<envelope> Envelope;35,697
+  array<momentum momentum37,771
+  array<momentum *, 4> LegK;37,771
+  vector<array<int,int38,830
+  vector<array<int, 4>> T;38,830
+  vector<ver::weightMatrix> Weight;39,885
+class gMatrix 44,1016
+  gMatrix(46,1040
+  gMatrix(50,1090
+  double &operator()(operator()58,1262
+  double &operator()(operator()62,1354
+  momentum *K;K66,1465
+  int _TauNum;69,1490
+  int _InTL;70,1505
+  vector<double> _G;71,1518
+struct mapT2 74,1543
+  int LVerTidx;75,1558
+  int RVerTidx;76,1590
+  int Tidx;78,1679
+  array<array80,1760
+  array<int, 2> G0T;80,1760
+  array<array81,1797
+  array<int, 2> GT;81,1797
+struct pair 84,1821
+  ver4 LVer;85,1835
+  ver4 RVer;86,1848
+  channel Channel;87,1861
+  double SymFactor;88,1880
+  vector<mapT2> Map;89,1900
+struct bubble 92,1925
+  int InTL;93,1941
+  bool IsProjected;94,1953
+  bool HasTU;95,1973
+  bool HasS;96,1987
+  vector<channel> Channel;97,2000
+  array<array98,2056
+  array<double, 4> ProjFactor;98,2056
+  array<array99,2087
+  array<array<momentum *, 4>, 4> LegK;99,2087
+  array<array100,2162
+  array<gMatrix, 4> G;100,2162
+  vector<pair> Pair;101,2185
+class g2Matrix 106,2317
+  g2Matrix(108,2342
+  g2Matrix(112,2388
+  int InT,118,2485
+  int InT, OutT;118,2485
+  momentum *K;K119,2527
+  double Weight;120,2561
+struct mapT4 123,2582
+  int LDVerTidx;124,2597
+  int RDVerTidx;125,2614
+  int LUVerTidx;126,2631
+  int RUVerTidx;127,2648
+  array<array129,2722
+  array<int, 4> Tidx;129,2722
+  array<array131,2835
+  array<array<int, 2>, 9> GT;131,2835
+struct envelope 134,2869
+  bool IsProjected;135,2887
+  int InTL;136,2907
+  array<array137,2919
+  array<momentum *, 4> LegK;137,2919
+  array<array138,2962
+  array<ver4, 10> Ver;138,2962
+  array<array139,2985
+  array<g2Matrix, 9> G;139,2985
+  vector<mapT4> Map;140,3009
+  array<array141,3030
+  array<double, 4> SymFactor;141,3030
+class verDiag 146,3136
+  int DiagNum 153,3360
+  int MomNum 154,3379
+  array<array155,3406
+  array<momentum, MaxMomNum> *LoopMom;LoopMom155,3406
+
+global.h,3021
+#define FeynCalc_global_h2,26
+const bool DEBUGMODE 12,205
+const int D 19,439
+const int ExtMomBinSize 21,501
+const int AngBinSize 23,588
+const int ScaleBinSize 25,670
+const int TauBinSize 26,699
+const int TauBasisNum 27,727
+const int SpinIndex 28,755
+const int FreqBinSize 30,781
+enum selfenergy 32,810
+enum selfenergy { BARE,32,810
+enum selfenergy { BARE, FOCK,32,810
+enum selfenergy { BARE, FOCK, DRESSED 32,810
+enum type 33,871
+enum type { GU,33,871
+enum type { GU, GW,33,871
+enum type { GU, GW, RG,33,871
+enum type { GU, GW, RG, PARQUET 33,871
+enum obstype 34,906
+enum obstype { SCATTERING,34,906
+enum obstype { SCATTERING, LANDAU 34,906
+enum ver4type 35,943
+enum ver4type { POINT,35,943
+enum ver4type { POINT, FULL,35,943
+enum ver4type { POINT, FULL, MOM,35,943
+enum ver4type { POINT, FULL, MOM, MOM_ANGLE 35,943
+typedef Vec<double,double37,991
+typedef Vec<double, D> momentum;37,991
+struct parameter 41,1118
+  double Rs,43,1162
+  double Rs, Ef,43,1162
+  double Rs, Ef, Kf,43,1162
+      Mu;44,1183
+  double Beta;45,1261
+  double UVScale;46,1305
+  double UVCoupling;47,1362
+  double Mass2;48,1424
+  double Lambda;49,1467
+  double Delta;50,1484
+  double Charge2;51,1500
+  double MaxExtMom;52,1542
+  selfenergy SelfEnergyType;53,1595
+  ver4type Vertex4Type;54,1624
+  int Order;57,1664
+  type Type;58,1677
+  obstype ObsType;59,1722
+  bool UseVer4;60,1801
+  int TotalStep;61,1868
+  int Seed;62,1927
+  int PID;63,1964
+  long long int Counter;64,2006
+  int Sweep;65,2070
+  std::vector<std::string> GroupName;66,2138
+  std::vector<double> ReWeight;67,2197
+  int PrinterTimer;70,2282
+  int SaveFileTimer;71,2353
+  int MessageTimer;72,2418
+  int ReweightTimer;73,2493
+  std::string DiagFileFormat;74,2559
+  std::array<std::array76,2629
+      ExtMomTable;77,2667
+  std::array<std::array78,2735
+      ExtLegKTable;79,2770
+  std::array<std::array80,2837
+  std::array<double, ScaleBinSize + 1> ScaleTable;80,2837
+  std::array<std::array81,2888
+  std::array<double, ScaleBinSize + 1> dScaleTable;81,2888
+  std::array<std::array82,2940
+  std::array<double, AngBinSize> AngleTable;82,2940
+  std::array<std::array83,2985
+  std::array<double, AngBinSize> dAngleTable;83,2985
+  std::array<std::array84,3031
+  std::array<double, FreqBinSize> FreqTable;84,3031
+const int MaxOrder 88,3131
+const int MaxLoopNum 89,3189
+const int MaxMomNum 90,3247
+const int MaxTauNum 91,3308
+const double TM32 94,3433
+const double EPS 95,3475
+const int MAXINT 96,3502
+const int MININT 97,3533
+const double PI 98,3565
+const double MACHEPS 99,3618
+const double MAXREAL 100,3686
+const double MINREAL 101,3717
+enum spin 103,3750
+enum spin { DOWN,103,3750
+enum spin { DOWN, UP 103,3750
+#define FLIPSPIN(105,3775
+const int IN 108,3836
+const int OUT 109,3854
+const int LEFT 111,3874
+const int RIGHT 112,3894
+const int INL 114,3916
+const int DIRECT 116,3965
+const int IRR 118,4002
+const int DIR 119,4056
+#define FLIP(121,4084
+#define FMT_HEADER_ONLY124,4164
+
+main.cpp,117
+parameter Para;24,473
+RandomFactory Random;25,524
+int main(27,547
+void InitPara(39,960
+void MonteCarlo(121,3476
+
+markov.cpp,516
+#define NAME(19,336
+#define PAIR(26,602
+markov::markov(28,644
+void markov::Measure(Measure114,3062
+void markov::AdjustGroupReWeight(AdjustGroupReWeight123,3436
+void markov::LoadFile(LoadFile125,3475
+void markov::SaveToFile(SaveToFile127,3536
+void markov::ClearStatis(ClearStatis129,3610
+std::string markov::_DetailBalanceStr(_DetailBalanceStr131,3674
+void markov::PrintMCInfo(PrintMCInfo155,4659
+int markov::DynamicTest(DynamicTest165,4948
+void markov::PrintDeBugMCInfo(PrintDeBugMCInfo167,4978
+
+markov.h,972
+#define markov_H2,17
+typedef array<double, ExtMomBinSize> polar;15,224
+class markov 17,269
+  markov(19,292
+  long long Counter;20,304
+  void PrintMCInfo(22,326
+  void PrintDeBugMCInfo(23,348
+  void AdjustGroupReWeight(24,375
+  void ChangeTau(27,422
+  void ChangeMomentum(28,442
+  void ChangeOrder(29,467
+  void ChangeScale(30,489
+  void ChangeChannel(31,511
+  void Measure(33,536
+  void ClearStatis(34,554
+  void SaveToFile(35,576
+  void LoadFile(36,608
+  int DynamicTest(38,628
+  diag::weight Weight;41,668
+  diag::variable &Var;Var42,691
+  ver::weightMatrix NewWeight;45,724
+  double NewAbsWeight;46,755
+  std::string UpdatesName[UpdatesName64,1203
+  double Accepted[Accepted65,1241
+  double Proposed[Proposed66,1285
+  enum Updates 68,1330
+    INCREASE_ORDER 69,1347
+    DECREASE_ORDER,70,1371
+    CHANGE_GROUP,71,1391
+    CHANGE_TAU,72,1409
+    CHANGE_MOM,73,1425
+    CHANGE_SCALE,74,1441
+    CHANGE_CHANNEL,75,1459
+    END76,1479
+
+markov_update.cpp,654
+int markov::GetTauNum(GetTauNum19,336
+int markov::GetLoopNum(GetLoopNum20,391
+void markov::ChangeOrder(ChangeOrder22,448
+void markov::ChangeTau(ChangeTau90,2354
+void markov::ChangeMomentum(ChangeMomentum117,3100
+void markov::ChangeChannel(ChangeChannel196,5246
+double markov::GetNewTau(GetNewTau222,5919
+double markov::RemoveOldTau(RemoveOldTau234,6239
+double markov::GetNewK(GetNewK243,6451
+double markov::RemoveOldK(RemoveOldK290,8018
+double markov::ShiftK(ShiftK321,9102
+double markov::ShiftExtTransferK(ShiftExtTransferK378,10760
+double markov::ShiftExtLegK(ShiftExtLegK383,10908
+double markov::ShiftTau(ShiftTau404,11617
+
+utility/abort.cpp,389
+int InterruptHandler::__Signal 12,174
+void InterruptHandler::__SignalHandler(__SignalHandler14,212
+void InterruptHandler::__DelayedSignalHandler(__DelayedSignalHandler20,383
+InterruptHandler::InterruptHandler(InterruptHandler26,523
+InterruptHandler::~InterruptHandler(~InterruptHandler34,685
+void InterruptHandler::Delay(Delay39,786
+void InterruptHandler::Resume(Resume46,936
+
+utility/abort.h,240
+#define __FeynCalc__error_handler__10,179
+#define THROW(38,1255
+#define ABORT(45,1675
+#define ASSERT_ALLWAYS(47,1713
+class InterruptHandler 53,2052
+  bool IsDelaying(59,2163
+  bool __IsDelaying;65,2390
+  static int __Signal;66,2411
+
+utility/fmt/chrono.h,4490
+#define FMT_CHRONO_H_9,200
+enum class numeric_system 23,379
+  standard,24,407
+  alternative26,495
+template <typename Char,30,582
+FMT_CONSTEXPR const Char *parse_chrono_format(parse_chrono_format31,625
+struct chrono_format_checker 185,4231
+  void report_no_date(186,4262
+  void on_text(189,4349
+  void on_abbr_weekday(190,4395
+  void on_full_weekday(191,4442
+  void on_dec0_weekday(192,4489
+  void on_dec1_weekday(193,4550
+  void on_abbr_month(194,4611
+  void on_full_month(195,4656
+  void on_24_hour(196,4701
+  void on_12_hour(197,4738
+  void on_minute(198,4775
+  void on_second(199,4811
+  void on_datetime(200,4847
+  void on_loc_date(201,4904
+  void on_loc_time(202,4961
+  void on_us_date(203,5018
+  void on_iso_date(204,5060
+  void on_12_hour_time(205,5103
+  void on_24_hour_time(206,5131
+  void on_iso_time(207,5159
+  void on_am_pm(208,5183
+  void on_utc_offset(209,5204
+  void on_tz_name(210,5249
+inline int to_int(214,5319
+template <typename FormatContext,220,5521
+struct chrono_formatter 221,5574
+  FormatContext &context;context222,5600
+  OutputIt out;223,5626
+  std::chrono::seconds s;224,5642
+  std::chrono::milliseconds ms;225,5668
+  typedef typename FormatContext::char_type char_type;227,5701
+  explicit chrono_formatter(229,5757
+  int hour(232,5848
+  int hour12(234,5912
+  int minute(239,6022
+  int second(240,6085
+  std::tm time(242,6142
+  void write(250,6299
+    typedef typename int_traits<int_traits251,6336
+  void format_localized(259,6626
+  void on_text(269,7033
+  void on_abbr_weekday(274,7211
+  void on_full_weekday(275,7239
+  void on_dec0_weekday(276,7267
+  void on_dec1_weekday(277,7309
+  void on_abbr_month(278,7351
+  void on_full_month(279,7377
+  void on_datetime(280,7403
+  void on_loc_date(281,7441
+  void on_loc_time(282,7479
+  void on_us_date(283,7517
+  void on_iso_date(284,7540
+  void on_utc_offset(285,7564
+  void on_tz_name(286,7590
+  void on_24_hour(288,7614
+  void on_12_hour(296,7813
+  void on_minute(304,8014
+  void on_second(312,8215
+  void on_12_hour_time(326,8547
+  void on_24_hour_time(328,8609
+  void on_iso_time(334,8705
+  void on_am_pm(340,8798
+template <typename Period> FMT_CONSTEXPR const char *get_units(get_units344,8881
+template <> FMT_CONSTEXPR const char *get_units<get_units347,8969
+template <> FMT_CONSTEXPR const char *get_units<get_units348,9047
+template <> FMT_CONSTEXPR const char *get_units<get_units349,9126
+template <> FMT_CONSTEXPR const char *get_units<get_units350,9204
+template <> FMT_CONSTEXPR const char *get_units<get_units351,9282
+template <> FMT_CONSTEXPR const char *get_units<get_units352,9362
+template <> FMT_CONSTEXPR const char *get_units<get_units353,9441
+template <> FMT_CONSTEXPR const char *get_units<get_units354,9520
+template <> FMT_CONSTEXPR const char *get_units<get_units355,9598
+template <> FMT_CONSTEXPR const char *get_units<get_units356,9679
+template <> FMT_CONSTEXPR const char *get_units<get_units357,9758
+template <> FMT_CONSTEXPR const char *get_units<get_units358,9837
+template <> FMT_CONSTEXPR const char *get_units<get_units359,9915
+template <> FMT_CONSTEXPR const char *get_units<get_units360,9993
+template <> FMT_CONSTEXPR const char *get_units<get_units361,10071
+template <> FMT_CONSTEXPR const char *get_units<get_units362,10149
+template <> FMT_CONSTEXPR const char *get_units<get_units363,10227
+template <> FMT_CONSTEXPR const char *get_units<get_units364,10304
+template <> FMT_CONSTEXPR const char *get_units<get_units367,10388
+template <typename Rep,371,10475
+template <typename Rep, typename Period,371,10475
+struct formatter<formatter372,10531
+  align_spec spec;374,10602
+  internal::arg_ref<Char> width_ref;375,10621
+  mutable basic_string_view<Char> format_str;376,10658
+  typedef std::chrono::duration<Rep,Rep377,10704
+  typedef std::chrono::duration<Rep, Period> duration;377,10704
+  struct spec_handler 379,10760
+    formatter &f;f380,10784
+    basic_parse_context<Char> &context;context381,10802
+    typedef internal::arg_ref<Char> arg_ref_type;383,10843
+    FMT_CONSTEXPR arg_ref_type make_arg_ref(386,10921
+    FMT_CONSTEXPR arg_ref_type make_arg_ref(391,11056
+    void on_error(395,11178
+    void on_fill(396,11242
+    void on_align(397,11295
+    void on_width(398,11357
+    void on_dynamic_width(401,11446
+  formatter(407,11548
+      -> decltype(410,11634
+      -> decltype(424,12211
+    typedef output_range<decltype(decltype427,12326
+
+utility/fmt/color.h,6816
+#define FMT_COLOR_H_9,219
+enum color 18,359
+enum color { black,18,359
+enum color { black, red,18,359
+enum color { black, red, green,18,359
+enum color { black, red, green, yellow,18,359
+enum color { black, red, green, yellow, blue,18,359
+enum color { black, red, green, yellow, blue, magenta,18,359
+enum color { black, red, green, yellow, blue, magenta, cyan,18,359
+enum color { black, red, green, yellow, blue, magenta, cyan, white 18,359
+inline void print_colored(22,611
+inline void print_colored(27,811
+inline void vprint_colored(32,1002
+inline void vprint_colored(40,1258
+enum class color 50,1533
+  alice_blue 51,1563
+  antique_white 52,1621
+  aqua 53,1679
+  aquamarine 54,1735
+  azure 55,1793
+  beige 56,1851
+  bisque 57,1909
+  black 58,1967
+  blanched_almond 59,2019
+  blue 60,2077
+  blue_violet 61,2131
+  brown 62,2188
+  burly_wood 63,2244
+  cadet_blue 64,2302
+  chartreuse 65,2359
+  chocolate 66,2415
+  coral 67,2472
+  cornflower_blue 68,2529
+  cornsilk 69,2587
+  crimson 70,2645
+  cyan 71,2701
+  dark_blue 72,2757
+  dark_cyan 73,2811
+  dark_golden_rod 74,2867
+  dark_gray 75,2924
+  dark_green 76,2982
+  dark_khaki 77,3036
+  dark_magenta 78,3094
+  dark_olive_green 79,3150
+  dark_orange 80,3206
+  dark_orchid 81,3262
+  dark_red 82,3319
+  dark_salmon 83,3373
+  dark_sea_green 84,3431
+  dark_slate_blue 85,3489
+  dark_slate_gray 86,3545
+  dark_turquoise 87,3600
+  dark_violet 88,3656
+  deep_pink 89,3712
+  deep_sky_blue 90,3769
+  dim_gray 91,3825
+  dodger_blue 92,3883
+  fire_brick 93,3940
+  floral_white 94,3996
+  forest_green 95,4054
+  fuchsia 96,4110
+  gainsboro 97,4166
+  ghost_white 98,4224
+  gold 99,4282
+  golden_rod 100,4338
+  gray 101,4395
+  green 102,4453
+  green_yellow 103,4507
+  honey_dew 104,4564
+  hot_pink 105,4622
+  indian_red 106,4680
+  indigo 107,4736
+  ivory 108,4791
+  khaki 109,4849
+  lavender 110,4907
+  lavender_blush 111,4965
+  lawn_green 112,5023
+  lemon_chiffon 113,5079
+  light_blue 114,5137
+  light_coral 115,5195
+  light_cyan 116,5253
+  light_golden_rod_yellow 117,5311
+  light_gray 118,5369
+  light_green 119,5427
+  light_pink 120,5485
+  light_salmon 121,5543
+  light_sea_green 122,5601
+  light_sky_blue 123,5658
+  light_slate_gray 124,5716
+  light_steel_blue 125,5774
+  light_yellow 126,5832
+  lime 127,5890
+  lime_green 128,5944
+  linen 129,6000
+  magenta 130,6058
+  maroon 131,6114
+  medium_aquamarine 132,6168
+  medium_blue 133,6226
+  medium_orchid 134,6280
+  medium_purple 135,6337
+  medium_sea_green 136,6395
+  medium_slate_blue 137,6452
+  medium_spring_green 138,6510
+  medium_turquoise 139,6566
+  medium_violet_red 140,6623
+  midnight_blue 141,6680
+  mint_cream 142,6736
+  misty_rose 143,6794
+  moccasin 144,6852
+  navajo_white 145,6910
+  navy 146,6968
+  old_lace 147,7022
+  olive 148,7080
+  olive_drab 149,7136
+  orange 150,7193
+  orange_red 151,7249
+  orchid 152,7304
+  pale_golden_rod 153,7362
+  pale_green 154,7420
+  pale_turquoise 155,7478
+  pale_violet_red 156,7536
+  papaya_whip 157,7594
+  peach_puff 158,7652
+  peru 159,7710
+  pink 160,7767
+  plum 161,7825
+  powder_blue 162,7883
+  purple 163,7941
+  rebecca_purple 164,7997
+  red 165,8054
+  rosy_brown 166,8108
+  royal_blue 167,8166
+  saddle_brown 168,8223
+  salmon 169,8279
+  sandy_brown 170,8337
+  sea_green 171,8394
+  sea_shell 172,8450
+  sienna 173,8508
+  silver 174,8564
+  sky_blue 175,8622
+  slate_blue 176,8680
+  slate_gray 177,8737
+  snow 178,8795
+  spring_green 179,8853
+  steel_blue 180,8909
+  tan 181,8966
+  teal 182,9024
+  thistle 183,9080
+  tomato 184,9138
+  turquoise 185,9194
+  violet 186,9251
+  wheat 187,9309
+  white 188,9367
+  white_smoke 189,9425
+  yellow 190,9483
+  yellow_green 191,9539
+enum class terminal_color 194,9621
+  black 195,9659
+  red,196,9673
+  green,197,9680
+  yellow,198,9689
+  blue,199,9699
+  magenta,200,9707
+  cyan,201,9718
+  white,202,9726
+  bright_black 203,9735
+  bright_red,204,9756
+  bright_green,205,9770
+  bright_yellow,206,9786
+  bright_blue,207,9803
+  bright_magenta,208,9818
+  bright_cyan,209,9836
+  bright_white210,9851
+enum class emphasis 213,9900
+  bold 214,9932
+  italic 215,9944
+  underline 216,9963
+  strikethrough 217,9985
+struct rgb 223,10179
+  FMT_CONSTEXPR_DECL rgb(224,10192
+  FMT_CONSTEXPR_DECL rgb(225,10241
+  FMT_CONSTEXPR_DECL rgb(227,10331
+  FMT_CONSTEXPR_DECL rgb(229,10440
+  uint8_t r;232,10580
+  uint8_t g;233,10593
+  uint8_t b;234,10606
+namespace internal 237,10623
+struct color_type 240,10709
+  FMT_CONSTEXPR color_type(241,10729
+  FMT_CONSTEXPR color_type(243,10798
+  FMT_CONSTEXPR color_type(247,10945
+  FMT_CONSTEXPR color_type(252,11165
+  bool is_rgb;256,11319
+  union color_union 257,11334
+    uint8_t term_color;258,11356
+    uint32_t rgb_color;259,11380
+  } value;260,11404
+class text_style 265,11484
+  FMT_CONSTEXPR text_style(267,11512
+  FMT_CONSTEXPR text_style &operator|=(operator|=270,11646
+  text_style operator|(295,12660
+  FMT_CONSTEXPR text_style &operator&=(operator&=299,12752
+  text_style operator&(324,13768
+  FMT_CONSTEXPR bool has_foreground(328,13860
+  FMT_CONSTEXPR bool has_background(331,13956
+  FMT_CONSTEXPR bool has_emphasis(334,14052
+  FMT_CONSTEXPR internal::color_type get_foreground(337,14156
+  FMT_CONSTEXPR internal::color_type get_background(341,14338
+  FMT_CONSTEXPR emphasis get_emphasis(345,14520
+ FMT_CONSTEXPR text_style(351,14681
+  internal::color_type foreground_color;370,15252
+  internal::color_type background_color;371,15293
+  bool set_foreground_color;372,15334
+  bool set_background_color;373,15363
+  emphasis ems;374,15392
+FMT_CONSTEXPR text_style fg(377,15412
+FMT_CONSTEXPR text_style bg(381,15548
+FMT_CONSTEXPR text_style operator|(385,15685
+namespace internal 389,15798
+struct ansi_color_escape 392,15845
+  FMT_CONSTEXPR ansi_color_escape(393,15872
+  FMT_CONSTEXPR ansi_color_escape(430,17158
+  FMT_CONSTEXPR operator const operator const453,17997
+  Char buffer[buffer456,18085
+  static FMT_CONSTEXPR void to_esc(458,18120
+make_foreground_color(469,18501
+make_background_color(475,18717
+make_emphasis(481,18933
+inline void fputs(486,19041
+inline void fputs<fputs491,19151
+inline void reset_color(496,19287
+inline void reset_color<reset_color501,19401
+struct is_string<is_string510,19748
+struct is_string<is_string512,19812
+  typename S,516,19906
+  typename S, typename Char 516,19906
+template <typename String,548,20933
+typename std::enable_if<internal::is_string<String>::value>::type print(549,20978
+  typedef typename internal::char_t<internal::char_t553,21199
+  typedef typename buffer_context<buffer_context554,21257
+template <typename String,566,21667
+typename std::enable_if<internal::is_string<String>::value>::type print(567,21712
+
+utility/fmt/core.h,16200
+#define FMT_CORE_H_9,196
+#define FMT_VERSION 19,425
+# define FMT_HAS_FEATURE(22,473
+# define FMT_HAS_FEATURE(24,524
+# define FMT_HAS_INCLUDE(29,684
+# define FMT_HAS_INCLUDE(31,735
+# define FMT_HAS_CPP_ATTRIBUTE(35,800
+# define FMT_HAS_CPP_ATTRIBUTE(37,863
+# define FMT_GCC_VERSION 41,952
+# define FMT_GCC_VERSION 43,1017
+# define FMT_HAS_GXX_CXX11 47,1118
+# define FMT_HAS_GXX_CXX11 49,1167
+# define FMT_MSC_VER 53,1220
+# define FMT_MSC_VER 55,1256
+# define FMT_USE_CONSTEXPR 61,1432
+# define FMT_CONSTEXPR 66,1615
+# define FMT_CONSTEXPR_DECL 67,1648
+# define FMT_CONSTEXPR 69,1692
+# define FMT_CONSTEXPR_DECL70,1722
+# define FMT_USE_CONSTEXPR11 74,1786
+# define FMT_CONSTEXPR11 78,1921
+# define FMT_CONSTEXPR1180,1962
+#  define FMT_OVERRIDE 86,2130
+#  define FMT_OVERRIDE88,2169
+# define FMT_USE_EXPLICIT 94,2309
+# define FMT_EXPLICIT 95,2337
+# define FMT_USE_EXPLICIT 97,2374
+# define FMT_EXPLICIT98,2402
+#  define FMT_NULL 104,2560
+#  define FMT_USE_NULLPTR 105,2587
+#  define FMT_NULL 107,2622
+# define FMT_USE_NULLPTR 111,2685
+#  define FMT_EXCEPTIONS 118,2873
+#  define FMT_EXCEPTIONS 120,2907
+# define FMT_USE_NOEXCEPT 126,3044
+# define FMT_DETECTED_NOEXCEPT 131,3212
+# define FMT_HAS_CXX11_NOEXCEPT 132,3252
+# define FMT_DETECTED_NOEXCEPT 134,3292
+# define FMT_HAS_CXX11_NOEXCEPT 135,3331
+#  define FMT_NOEXCEPT 140,3440
+#  define FMT_NOEXCEPT142,3492
+#  define FMT_INLINE_NAMESPACE 149,3659
+#  define FMT_END_NAMESPACE 150,3707
+#  define FMT_INLINE_NAMESPACE 152,3745
+#  define FMT_END_NAMESPACE 153,3786
+# define FMT_BEGIN_NAMESPACE 155,3846
+#  define FMT_API 160,3993
+#  define FMT_API 162,4060
+# define FMT_API166,4131
+# define FMT_ASSERT(170,4175
+# define FMT_STRING_VIEW 178,4498
+# define FMT_STRING_VIEW 181,4659
+struct result_of<result_of200,5146
+    typename std::remove_reference<F>::type(Args...)>::type type;203,5282
+FMT_CONSTEXPR typename std::make_unsigned<Int>::type to_unsigned(208,5418
+class basic_buffer 215,5702
+  T *ptr_;ptr_220,5830
+  std::size_t size_;221,5841
+  std::size_t capacity_;222,5862
+  basic_buffer(226,5974
+  basic_buffer(228,6048
+  void set(232,6222
+  typedef T value_type;241,6477
+  typedef const T &const_reference;const_reference242,6501
+  virtual ~basic_buffer(244,6538
+  T *begin(begin246,6568
+  T *end(end247,6611
+  std::size_t size(250,6703
+  std::size_t capacity(253,6808
+  T *data(data256,6922
+  const T *data(data259,7012
+  void resize(264,7159
+  void clear(270,7276
+  void reserve(273,7370
+  void push_back(278,7478
+typedef basic_buffer<char> buffer;291,7821
+typedef basic_buffer<wchar_t> wbuffer;292,7856
+class container_buffer 296,7956
+  Container &container_;container_298,8045
+  void grow(301,8083
+  explicit container_buffer(307,8220
+inline Container &get_container(get_container313,8443
+  typedef std::back_insert_iterator<Container> bi_iterator;314,8518
+  struct accessor:accessor315,8578
+    accessor(316,8611
+    using bi_iterator::container;317,8665
+struct error_handler 322,8741
+  FMT_CONSTEXPR error_handler(323,8764
+  FMT_CONSTEXPR error_handler(324,8799
+struct no_formatter_error 331,9008
+struct is_constructible:is_constructible336,9152
+struct is_constructible 339,9228
+class basic_string_view 350,9656
+  const Char *data_;data_352,9692
+  size_t size_;353,9713
+  typedef Char char_type;356,9739
+  typedef const Char *iterator;iterator357,9765
+  FMT_CONSTEXPR basic_string_view(359,9798
+  FMT_CONSTEXPR basic_string_view(362,9953
+  basic_string_view(371,10216
+  FMT_CONSTEXPR basic_string_view(376,10416
+  FMT_CONSTEXPR basic_string_view(381,10575
+  FMT_CONSTEXPR const Char *data(data386,10742
+  FMT_CONSTEXPR size_t size(389,10836
+  FMT_CONSTEXPR iterator begin(391,10891
+  FMT_CONSTEXPR iterator end(392,10948
+  FMT_CONSTEXPR void remove_prefix(394,11012
+  int compare(400,11159
+  friend bool operator==(operator==408,11470
+  friend bool operator!=(operator!=411,11581
+  friend bool operator<(414,11692
+  friend bool operator<=(operator<=417,11801
+  friend bool operator>(420,11912
+  friend bool operator>=(operator>=423,12021
+typedef basic_string_view<char> string_view;428,12136
+typedef basic_string_view<wchar_t> wstring_view;429,12181
+  to_string_view(455,13057
+  to_string_view(459,13172
+inline basic_string_view<Char> to_string_view(462,13263
+  to_string_view(467,13418
+struct compile_string 472,13636
+struct is_compile_string 475,13685
+  typename S,478,13763
+  typename Enable 479,13777
+template <typename T,490,14101
+template <typename T, typename Char 490,14101
+template <typename T,503,14630
+template <typename T, typename Char,503,14630
+template <typename T, typename Char, typename Enable 503,14630
+namespace internal 507,14820
+struct dummy_string_view 509,14842
+struct dummy_string_view { typedef void char_type;509,14842
+using fmt::v5::to_string_view;511,14935
+struct is_string 515,15068
+struct char_t 519,15229
+  typedef decltype(to_string_view(520,15245
+  typedef typename result::char_type type;521,15302
+template <typename T,527,15398
+enum type 530,15454
+  none_type,531,15466
+  none_type, named_arg_type,531,15466
+  int_type,533,15531
+  int_type, uint_type,533,15531
+  int_type, uint_type, long_long_type,533,15531
+  int_type, uint_type, long_long_type, ulong_long_type,533,15531
+  int_type, uint_type, long_long_type, ulong_long_type, bool_type,533,15531
+  int_type, uint_type, long_long_type, ulong_long_type, bool_type, char_type,533,15531
+  last_integer_type 534,15609
+  double_type,536,15681
+  double_type, long_double_type,536,15681
+  double_type, long_double_type, last_numeric_type 536,15681
+  cstring_type,537,15752
+  cstring_type, string_type,537,15752
+  cstring_type, string_type, pointer_type,537,15752
+  cstring_type, string_type, pointer_type, custom_type537,15752
+FMT_CONSTEXPR bool is_integral(540,15811
+FMT_CONSTEXPR bool is_arithmetic(545,15995
+struct string_value 551,16206
+  const Char *value;value552,16228
+  std::size_t size;553,16249
+struct custom_value 557,16301
+  const void *value;value558,16323
+class value 564,16457
+  typedef typename Context::char_type char_type;566,16480
+    int int_value;569,16540
+    unsigned uint_value;570,16559
+    long long long_long_value;571,16584
+    unsigned long long ulong_long_value;572,16615
+    double double_value;573,16656
+    long double long_double_value;574,16681
+    const void *pointer;pointer575,16716
+    string_value<char_type> string;576,16741
+    string_value<signed char> sstring;577,16777
+    string_value<unsigned char> ustring;578,16816
+    custom_value<Context> custom;579,16857
+  FMT_CONSTEXPR value(582,16897
+  value(583,16952
+  value(584,16996
+  value(585,17046
+  value(586,17106
+  value(587,17150
+  value(588,17204
+  value(589,17258
+  value(594,17425
+  value(599,17594
+  value(603,17703
+  explicit value(606,17772
+  const named_arg_base<char_type> &as_named_arg(as_named_arg611,17878
+  static void format_custom_arg(618,18110
+template <typename Context,630,18673
+template <typename Context, typename T,630,18673
+struct init 631,18724
+  T val;632,18738
+  static const type type_tag 633,18747
+  FMT_CONSTEXPR init(635,18785
+  FMT_CONSTEXPR operator value<Context>(operator value<Context>636,18830
+template <typename Context,639,18914
+#define FMT_MAKE_VALUE(642,19021
+#define FMT_MAKE_VALUE_SAME(648,19212
+typedef std::conditional<sizeof(sizeof660,19687
+typedef std::conditional<sizeof(sizeof664,19878
+template <typename C,676,20413
+  init<C, int, char_type>>::type make_value(679,20541
+  !std::is_same<typename C::char_type, char>::value,value683,20673
+  init<C, int, char_type>>::type make_value(684,20726
+template <typename C,718,22314
+    make_value(720,22426
+template <typename C,724,22535
+    std::is_enum<T>::value && convert_to_int<T, typename C::char_type>::value,value726,22601
+  make_value(728,22714
+template <typename C,730,22776
+template <typename C, typename T,730,22776
+template <typename C, typename T, typename Char 730,22776
+template <typename C,737,23102
+template <typename C, typename T,737,23102
+template <typename C, typename T, typename Char 737,23102
+template <typename C,748,23656
+    make_value(750,23727
+template <typename C,756,23932
+    make_value(760,24112
+enum { max_packed_args 769,24416
+enum : unsigned long long { is_unpacked_bit 770,24447
+class basic_format_arg 779,24721
+  internal::value<Context> value_;781,24756
+  internal::type type_;782,24791
+  template <typename ContextType,784,24816
+  template <typename Visitor,788,24956
+  typedef typename Context::char_type char_type;795,25231
+  class handle 798,25290
+    explicit handle(800,25318
+    void format(802,25399
+    internal::custom_value<Context> custom_;805,25488
+  FMT_CONSTEXPR basic_format_arg(808,25539
+  FMT_EXPLICIT operator bool(operator bool810,25607
+  internal::type type(814,25705
+  bool is_integral(816,25754
+  bool is_arithmetic(817,25822
+struct monostate 820,25898
+template <typename Visitor,829,26160
+FMT_CONSTEXPR typename internal::result_of<internal::result_of830,26206
+  typedef typename Context::char_type 832,26345
+template <typename Visitor,869,27589
+FMT_CONSTEXPR typename internal::result_of<internal::result_of870,27635
+template <typename Char,877,27945
+template <typename Char, typename ErrorHandler 877,27945
+  typedef Char char_type;884,28149
+  typedef typename basic_string_view<basic_string_view885,28175
+typedef basic_parse_context<char> format_parse_context;925,29449
+typedef basic_parse_context<wchar_t> wformat_parse_context;926,29505
+typedef basic_parse_context<char> parse_context;929,29581
+typedef basic_parse_context<wchar_t> wparse_context;930,29630
+namespace internal 932,29684
+class arg_map 935,29799
+  typedef typename Context::char_type char_type;940,29907
+  struct entry 942,29957
+    basic_string_view<char_type> name;943,29974
+    basic_format_arg<Context> arg;944,30013
+  entry *map_;map_947,30054
+  unsigned size_;948,30069
+  void push_back(950,30088
+  arg_map(957,30305
+  ~arg_map(959,30400
+  basic_format_arg<Context> find(961,30434
+class locale_ref 972,30805
+  const void *locale_;locale_974,30834
+  locale_ref(978,30932
+template <typename OutputIt,987,31098
+template <typename OutputIt, typename Context,987,31098
+class context_base 988,31160
+  typedef OutputIt iterator;990,31190
+  basic_parse_context<Char> parse_context_;993,31230
+  iterator out_;994,31274
+  basic_format_args<Context> args_;995,31291
+  locale_ref loc_;996,31327
+  typedef Char char_type;999,31359
+  typedef basic_format_arg<Context> format_arg;1000,31385
+  context_base(1002,31434
+  format_arg do_get_arg(1008,31724
+  format_arg get_arg(1017,31995
+  basic_parse_context<char_type> &parse_context(parse_context1023,32152
+  basic_format_args<Context> args(1024,32229
+  basic_format_arg<Context> arg(1025,32304
+  internal::error_handler error_handler(1027,32382
+  void on_error(1031,32474
+  iterator out(1034,32613
+  iterator begin(1035,32647
+  void advance_to(1038,32743
+  locale_ref locale(1040,32790
+template <typename Context,1043,32833
+struct get_type 1044,32873
+  typedef decltype(make_value<make_value1045,32891
+  static const type value 1047,32994
+FMT_CONSTEXPR11 unsigned long long get_types(1051,33076
+template <typename Context,1053,33138
+template <typename Context, typename Arg,1053,33138
+FMT_CONSTEXPR11 unsigned long long get_types(1054,33198
+template <typename Context,1058,33329
+FMT_CONSTEXPR basic_format_arg<Context> make_arg(1059,33369
+template <bool IS_PACKED,1066,33572
+template <bool IS_PACKED, typename Context,1066,33572
+    make_arg(1068,33692
+template <bool IS_PACKED,1072,33763
+template <bool IS_PACKED, typename Context,1072,33763
+    make_arg(1074,33895
+template <typename OutputIt,1080,34012
+class basic_format_context 1081,34056
+  typedef Char char_type;1086,34231
+  struct formatter_type 1090,34335
+  struct formatter_type { typedef formatter<T,T1090,34335
+  struct formatter_type { typedef formatter<T, char_type> type;1090,34335
+  internal::arg_map<basic_format_context> map_;1093,34413
+  typedef internal::context_base<OutputIt,OutputIt1098,34583
+  typedef internal::context_base<OutputIt, basic_format_context,1098,34583
+  typedef internal::context_base<OutputIt, basic_format_context, Char> base;1098,34583
+  typedef typename base::format_arg format_arg;1099,34660
+  using base::get_arg;1100,34708
+  using typename base::iterator;1103,34741
+  basic_format_context(1109,34938
+  format_arg next_arg(1114,35210
+  format_arg get_arg(1117,35306
+struct buffer_context 1125,35562
+    std::back_insert_iterator<std::back_insert_iterator1127,35618
+    std::back_insert_iterator<internal::basic_buffer<Char>>, Char> type;1127,35618
+typedef buffer_context<char>::type format_context;1129,35694
+typedef buffer_context<wchar_t>::type wformat_context;1130,35745
+template <typename Context,1139,36006
+class format_arg_store 1140,36052
+  static const size_t NUM_ARGS 1142,36087
+  static const bool IS_PACKED 1145,36196
+  typedef typename std::conditional<std::conditional1147,36267
+    internal::value<Context>, basic_format_arg<Context>>::type value_type;1148,36314
+  static const size_t DATA_SIZE 1151,36466
+  value_type data_[data_1153,36559
+  static FMT_CONSTEXPR11 unsigned long long get_types(1157,36635
+  static FMT_CONSTEXPR11 unsigned long long TYPES 1165,36846
+  static const unsigned long long TYPES;1167,36917
+  format_arg_store(1173,37136
+  format_arg_store(1179,37323
+template <typename Context,1185,37464
+const unsigned long long format_arg_store<Context, Args...>::TYPES TYPES1186,37510
+template <typename Context 1197,37846
+class basic_format_args 1203,38072
+  typedef unsigned size_type;1205,38107
+  typedef basic_format_arg<Context>  format_arg;1206,38137
+  unsigned long long types_;1211,38339
+    const internal::value<Context> *values_;values_1218,38754
+    const format_arg *args_;args_1219,38799
+  bool is_packed(1222,38834
+  typename internal::type type(1224,38914
+  void set_data(1232,39145
+  void set_data(1233,39223
+  format_arg do_get(1235,39282
+  basic_format_args(1254,39739
+  basic_format_args(1262,39912
+  basic_format_args(1272,40179
+  format_arg get(1278,40365
+  size_type max_size(1285,40582
+struct format_args 1294,40914
+  format_args(1296,41001
+struct wformat_args 1299,41103
+  wformat_args(1301,41192
+#define FMT_ENABLE_IF_T(1305,41297
+# define FMT_USE_ALIAS_TEMPLATES 1308,41396
+using char_t 1313,41555
+#define FMT_CHAR(1315,41657
+struct char_t 1318,41720
+#define FMT_CHAR(1320,41827
+namespace internal 1323,41880
+struct named_arg_base 1325,41926
+  basic_string_view<Char> name;1326,41950
+    sizeof(basic_forc_fo1330,42036
+  named_arg_base(1332,42105
+  basic_format_arg<Context> deserialize(1335,42195
+template <typename T,1342,42368
+struct named_arg 1343,42405
+  const T &value;value1344,42447
+  named_arg(1346,42466
+template <typename... Args,1350,42574
+  check_format_string(1352,42681
+template <typename... Args,1353,42717
+template <typename S,1357,42843
+struct checked_args 1358,42883
+  typedef typename buffer_context<buffer_context1360,42980
+  checked_args(1362,43043
+  basic_format_args<context> operator*(1367,43213
+inline internal::named_arg<T, char> arg(1391,43865
+inline internal::named_arg<T, wchar_t> arg(1396,43986
+template <typename S,1401,44157
+template <typename S, typename T,1401,44157
+struct is_contiguous:is_contiguous1405,44289
+struct is_contiguous<is_contiguous1408,44357
+struct is_contiguous<is_contiguous1411,44450
+template <typename Container,1414,44581
+  vformat_to(1417,44729
+template <typename Container,1426,45043
+template <typename Container, typename S,1426,45043
+  is_contiguous<Container>::value && internal::is_string<S>::value,value1428,45135
+    format_to(1430,45249
+template <typename S,1436,45488
+template <typename S, typename Char 1436,45488
+template <typename S,1453,45923
+inline std::basic_string<basic_string1454,45963
+template <typename S,1475,46611
+inline FMT_ENABLE_IF_T(1476,46651
+template <typename S,1494,47156
+inline FMT_ENABLE_IF_T(1495,47196
+
+utility/fmt/format-inl.h,4832
+#define FMT_FORMAT_INL_H_9,184
+#  define WIN32_LEAN_AND_MEAN28,584
+#  define NOMINMAX33,702
+#  undef NOMINMAX35,744
+# define FMT_TRY 40,797
+# define FMT_CATCH(41,818
+# define FMT_TRY 43,856
+# define FMT_CATCH(44,883
+inline fmt::internal::null<> strerror_r(58,1346
+inline fmt::internal::null<> strerror_s(61,1442
+# define FMT_SNPRINTF 70,1598
+inline int fmt_snprintf(72,1648
+# define FMT_SNPRINTF 79,1870
+# define FMT_SWPRINTF 83,1996
+# define FMT_SWPRINTF 85,2034
+typedef void (*FormatFunc)FormatFunc88,2142
+int safe_strerror(99,2620
+  class dispatcher 103,2787
+    int error_code_;105,2820
+    char *&buffer_;buffer_106,2841
+    std::size_t buffer_size_;107,2861
+    void operator=(operator=110,2951
+    int handle(113,3059
+    int handle(119,3263
+    int handle(128,3563
+    int fallback(133,3740
+    int fallback(141,4037
+    dispatcher(149,4175
+    int run(152,4310
+void format_error_code(159,4469
+  typedef internal::int_traits<int>::main_type main_type169,4985
+void report_error(186,5500
+FMT_FUNC size_t internal::count_code_points(count_code_points197,5883
+namespace internal 208,6216
+locale_ref::locale_ref(211,6265
+Locale locale_ref::get(get216,6418
+FMT_FUNC Char thousands_sep_impl(222,6620
+FMT_FUNC Char internal::thousands_sep_impl(thousands_sep_impl229,6798
+FMT_FUNC void system_error::init(init234,6906
+namespace internal 243,7207
+int char_traits<char>::format_float(format_float245,7250
+int char_traits<wchar_t>::format_float(format_float253,7520
+const char basic_data<T>::DIGITS[DIGITS262,7803
+#define FMT_POWERS_OF_10(269,8077
+const uint32_t basic_data<T>::POWERS_OF_10_32[POWERS_OF_10_32281,8321
+const uint32_t basic_data<T>::ZERO_OR_POWERS_OF_10_32[ZERO_OR_POWERS_OF_10_32286,8424
+const uint64_t basic_data<T>::ZERO_OR_POWERS_OF_10_64[ZERO_OR_POWERS_OF_10_64291,8535
+const uint64_t basic_data<T>::POW10_SIGNIFICANDS[POW10_SIGNIFICANDS301,8842
+const int16_t basic_data<T>::POW10_EXPONENTS[POW10_EXPONENTS336,10826
+template <typename T> const char basic_data<T>::FOREGROUND_COLOR[FOREGROUND_COLOR347,11505
+template <typename T> const char basic_data<T>::BACKGROUND_COLOR[BACKGROUND_COLOR348,11588
+template <typename T> const char basic_data<T>::RESET_COLOR[RESET_COLOR349,11671
+template <typename T> const wchar_t basic_data<T>::WRESET_COLOR[WRESET_COLOR350,11746
+class fp 353,11878
+  typedef uint64_t significand_type;355,11899
+  static FMT_CONSTEXPR_DECL const int char_size 358,11965
+  static FMT_CONSTEXPR_DECL const int double_significand_size 362,12156
+  static FMT_CONSTEXPR_DECL const uint64_t implicit_bit 364,12265
+  significand_type f;368,12370
+  int e;369,12392
+  static FMT_CONSTEXPR_DECL const int significand_size 371,12402
+  fp(374,12502
+  fp(375,12524
+  explicit fp(380,12742
+    typedef std::numeric_limits<Double> limits;382,12837
+  template <int SHIFT 400,13685
+  void compute_boundaries(418,14338
+inline fp operator-(429,14740
+FMT_FUNC fp operator*(442,15280
+FMT_FUNC fp get_cached_power(453,15730
+FMT_FUNC bool grisu2_round(466,16390
+FMT_FUNC bool grisu2_gen_digits(484,16902
+# define FMT_FALLTHROUGH 534,18882
+# define FMT_FALLTHROUGH 536,18960
+# define FMT_FALLTHROUGH538,19013
+struct gen_digits_params 541,19046
+  int num_digits;542,19073
+  bool fixed;543,19091
+  bool upper;544,19105
+  bool trailing_zeros;545,19119
+struct prettify_handler 548,19146
+  char *data;data549,19172
+  ptrdiff_t size;550,19186
+  buffer &buf;buf551,19204
+  explicit prettify_handler(553,19220
+  ~prettify_handler(555,19313
+  void insert(561,19446
+  void insert(567,19605
+  void append(573,19751
+  void append(578,19858
+  void remove_trailing(580,19903
+FMT_FUNC void write_exponent(587,20075
+struct fill 608,20552
+  size_t n;609,20566
+  void operator()(operator()610,20578
+FMT_FUNC void grisu2_prettify(619,20808
+struct char_counter 659,22162
+  ptrdiff_t size;660,22184
+  void insert(663,22227
+  void insert(664,22283
+  void append(665,22326
+  void append(666,22374
+  void remove_trailing(667,22406
+FMT_FUNC gen_digits_params process_specs(673,22623
+void sprintf_format(764,25811
+  enum { MAX_FORMAT_SIZE 770,26071
+FMT_FUNC internal::utf8_to_utf16::utf8_to_utf16(utf8_to_utf16810,27217
+FMT_FUNC internal::utf16_to_utf8::utf16_to_utf8(utf16_to_utf8834,28074
+FMT_FUNC int internal::utf16_to_utf8::convert(convert841,28280
+FMT_FUNC void windows_error::init(init865,28984
+FMT_FUNC void internal::format_windows_error(format_windows_error874,29297
+FMT_FUNC void format_system_error(906,30362
+FMT_FUNC void internal::error_handler::on_error(on_error929,31039
+FMT_FUNC void report_system_error(933,31149
+FMT_FUNC void report_windows_error(939,31328
+FMT_FUNC void vprint(945,31504
+FMT_FUNC void vprint(952,31781
+FMT_FUNC void vprint(958,32005
+FMT_FUNC void vprint(962,32109
+
+utility/fmt/format.h,32920
+#define FMT_FORMAT_H_29,1390
+# define FMT_CLANG_VERSION 41,1584
+# define FMT_CLANG_VERSION 43,1659
+# define FMT_ICC_VERSION 47,1720
+# define FMT_ICC_VERSION 49,1783
+# define FMT_ICC_VERSION 51,1820
+# define FMT_CUDA_VERSION 55,1871
+# define FMT_CUDA_VERSION 57,1955
+# define FMT_SECURE_SCL 79,2559
+# define FMT_SECURE_SCL 81,2601
+# define FMT_HAS_BUILTIN(89,2704
+# define FMT_HAS_BUILTIN(91,2755
+# define FMT_GNUC_LIBSTD_VERSION 95,2816
+#   define FMT_THROW(113,3259
+#   define FMT_THROW(115,3318
+#  define FMT_THROW(118,3366
+#  define FMT_USE_USER_DEFINED_LITERALS 129,3822
+#  define FMT_USE_USER_DEFINED_LITERALS 131,3871
+# define FMT_UDL_TEMPLATE 142,4244
+# define FMT_UDL_TEMPLATE 144,4278
+#  define FMT_USE_EXTERN_TEMPLATES 149,4372
+#  define FMT_USE_EXTERN_TEMPLATES 153,4533
+# define FMT_USE_TRAILING_RETURN 159,4677
+# define FMT_USE_TRAILING_RETURN 161,4718
+# define FMT_USE_GRISU 165,4783
+#  define FMT_BUILTIN_CLZ(173,5063
+#  define FMT_BUILTIN_CLZLL(177,5182
+namespace internal 188,5622
+# define FMT_BUILTIN_CLZ(204,6097
+inline uint32_t clzll(210,6240
+# define FMT_BUILTIN_CLZLL(230,6787
+FMT_CONSTEXPR auto begin(const C &c) -> decltype(251,7419
+template <typename T,254,7503
+FMT_CONSTEXPR T *begin(begin255,7540
+FMT_CONSTEXPR auto end(const C &c) -> decltype(257,7631
+template <typename T,258,7707
+FMT_CONSTEXPR T *end(end259,7744
+struct function 263,7877
+  struct result 265,7919
+  struct result { typedef Result type;265,7919
+struct dummy_int 268,7965
+  int data[data269,7984
+  operator int(operator int270,7999
+typedef std::numeric_limits<internal::dummy_int> fputil;272,8039
+typename Allocator::value_type *allocate(allocate282,8427
+inline T const_check(293,8771
+namespace std 297,8863
+class numeric_limits<numeric_limits303,9122
+  static bool isinfinity(308,9274
+  static bool isnotanumber(319,9652
+template <typename OutputIt,332,9967
+template <typename OutputIt, typename T 332,9967
+  typedef void sentinel;338,10105
+  typedef OutputIt iterator;342,10164
+  typedef T value_type;343,10193
+class back_insert_range:back_insert_range351,10397
+  typedef output_range<std::back_insert_iterator<Container>> base;353,10486
+  typedef typename Container::value_type value_type;355,10562
+  back_insert_range(357,10616
+  back_insert_range(358,10682
+typedef basic_writer<back_insert_range<internal::buffer>> writer;361,10747
+typedef basic_writer<back_insert_range<internal::wbuffer>> wwriter;362,10813
+class format_error 365,10939
+  explicit format_error(367,10997
+  explicit format_error(370,11078
+namespace internal 374,11169
+struct checked 378,11232
+struct checked { typedef stdext::checked_array_iterator<T*> type;378,11232
+inline stdext::checked_array_iterator<T*> make_checked(382,11378
+struct checked 387,11509
+struct checked { typedef T *type;type387,11509
+inline T *make_checked(make_checked389,11568
+void basic_buffer<T>::append(append394,11676
+enum char8_t:char8_t407,12192
+class u8string_view 411,12256
+  typedef char8_t char_type;413,12323
+  u8string_view(415,12353
+  u8string_view(417,12456
+inline namespace literals 422,12631
+inline u8string_view operator"" _operator"" 423,12659
+enum { inline_buffer_size 431,12872
+template <typename T,462,13799
+template <typename T, std::size_t SIZE 462,13799
+  typedef T value_type;478,14261
+  typedef const T &const_reference;const_reference479,14285
+  basic_memory_buffer &operator=(operator=523,15536
+template <typename T,534,15808
+template <typename T, std::size_t SIZE,534,15808
+void basic_memory_buffer<T, SIZE, Allocator>::grow(grow535,15868
+typedef basic_memory_buffer<char> memory_buffer;553,16698
+typedef basic_memory_buffer<wchar_t> wmemory_buffer;554,16747
+namespace internal 556,16801
+struct char_traits<char_traits562,16881
+struct char_traits<char_traits570,17103
+    reserve(596,18125
+inline Iterator &reserve(reserve604,18363
+class counting_iterator 615,18711
+  std::size_t count_;617,18747
+  mutable T blackhole_;618,18769
+  typedef std::output_iterator_tag iterator_category;621,18803
+  typedef T value_type;622,18857
+  typedef std::ptrdiff_t difference_type;623,18881
+  typedef T* pointer;624,18923
+  typedef T& reference;625,18945
+  typedef counting_iterator _Unchecked_type;626,18969
+  counting_iterator(628,19045
+  std::size_t count(630,19082
+  counting_iterator& operator++(632,19130
+  counting_iterator operator++(637,19203
+  T &operator*(operator*643,19295
+class truncating_iterator_base 647,19374
+  OutputIt out_;649,19419
+  std::size_t limit_;650,19436
+  std::size_t count_;651,19458
+  truncating_iterator_base(653,19481
+  typedef std::output_iterator_tag iterator_category;657,19596
+  typedef void difference_type;658,19650
+  typedef void pointer;659,19682
+  typedef void reference;660,19706
+  typedef truncating_iterator_base _Unchecked_type;661,19732
+  OutputIt base(663,19814
+  std::size_t count(664,19855
+template <typename OutputIt,669,20005
+template <typename OutputIt, typename Enable 669,20005
+  typedef std::iterator_traits<OutputIt> traits;676,20296
+  typedef typename traits::value_type 681,20406
+  truncating_iterator& operator++(686,20569
+  truncating_iterator operator++(692,20689
+  value_type& operator*(698,20783
+  typedef typename OutputIt::container_type::value_type 707,21029
+  truncating_iterator& operator=(operator=712,21210
+  truncating_iterator& operator++(718,21347
+  truncating_iterator& operator++(719,21401
+  truncating_iterator& operator*(720,21458
+    std::numeric_limits<T>::is_signed, bool>::type is_negative(727,21709
+    !std::numeric_limits<T>::is_signed,is_signed732,21866
+    !std::numeric_limits<T>::is_signed, bool>::type is_negative(732,21866
+struct int_traits 737,21976
+  typedef typename std::conditional<std::conditional740,22091
+typedef basic_data<> data;764,22854
+inline int count_digits(769,23042
+inline int count_digits(777,23438
+inline size_t count_code_points(794,23939
+inline char8_t to_char8_t(799,24140
+template <typename InputIt,801,24211
+struct needs_conversion:needs_conversion802,24257
+template <typename OutChar,807,24445
+template <typename OutChar, typename InputIt,807,24445
+  !needs_conversion<InputIt, OutChar>::value,value809,24535
+    copy_str(810,24597
+template <typename OutChar,814,24692
+template <typename OutChar, typename InputIt,814,24692
+    copy_str(817,24843
+# define FMT_ALWAYS_INLINE 822,24996
+# define FMT_ALWAYS_INLINE824,25060
+inline char *lg(lg832,25264
+class decimal_formatter 847,26086
+  char *buffer_;buffer_849,26122
+  void write_pair(851,26140
+  explicit decimal_formatter(856,26261
+  template <unsigned N> char *on(on858,26320
+class decimal_formatter_null 886,27214
+  explicit decimal_formatter_null(888,27281
+  template <unsigned N> char *on(on890,27355
+inline int count_digits(899,27591
+struct no_thousands_sep 906,27803
+  typedef char char_type;907,27829
+  void operator()(operator()910,27883
+  enum { size 912,27913
+class add_thousands_sep 917,28009
+  basic_string_view<Char> sep_;919,28045
+  unsigned digit_index_;922,28157
+  typedef Char char_type;925,28192
+  explicit add_thousands_sep(927,28219
+  void operator()(operator()930,28314
+  enum { size 938,28570
+inline Char thousands_sep(945,28695
+inline wchar_t thousands_sep(950,28800
+template <typename UInt,957,29073
+template <typename UInt, typename Char,957,29073
+inline Char *format_decimal(format_decimal958,29136
+template <typename OutChar,985,30161
+template <typename OutChar, typename UInt,985,30161
+template <typename OutChar, typename UInt, typename Iterator,985,30161
+inline Iterator format_decimal(987,30256
+  typedef typename ThousandsSep::char_type 990,30408
+  enum { max_size 992,30535
+template <typename OutChar,999,30823
+template <typename OutChar, typename It,999,30823
+inline It format_decimal(1000,30879
+template <unsigned BASE_BITS,1004,31023
+template <unsigned BASE_BITS, typename Char,1004,31023
+inline Char *format_uint(format_uint1005,31083
+template <unsigned BASE_BITS,1018,31583
+template <unsigned BASE_BITS, typename Char,1018,31583
+template <unsigned BASE_BITS, typename Char, typename It,1018,31583
+inline It format_uint(1019,31656
+# define FMT_USE_WINDOWS_H 1029,32065
+# define FMT_USE_WINDOWS_H 1031,32128
+class utf8_to_utf16 1039,32430
+  wmemory_buffer buffer_;1041,32462
+  operator wstring_view(operator wstring_view1045,32547
+  size_t size(1046,32625
+  const wchar_t *c_str(c_str1047,32678
+  std::wstring str(1048,32733
+class utf16_to_utf8 1053,32926
+  memory_buffer buffer_;1055,32958
+  utf16_to_utf8(1058,32993
+  operator string_view(operator string_view1060,33064
+  size_t size(1061,33140
+  const char *c_str(c_str1062,33193
+  std::string str(1063,33245
+template <typename T 1075,33700
+enum alignment 1079,33771
+  ALIGN_DEFAULT,1080,33788
+  ALIGN_DEFAULT, ALIGN_LEFT,1080,33788
+  ALIGN_DEFAULT, ALIGN_LEFT, ALIGN_RIGHT,1080,33788
+  ALIGN_DEFAULT, ALIGN_LEFT, ALIGN_RIGHT, ALIGN_CENTER,1080,33788
+  ALIGN_DEFAULT, ALIGN_LEFT, ALIGN_RIGHT, ALIGN_CENTER, ALIGN_NUMERIC1080,33788
+enum { SIGN_FLAG 1084,33872
+enum { SIGN_FLAG = 1, PLUS_FLAG 1084,33872
+enum { SIGN_FLAG = 1, PLUS_FLAG = 2, MINUS_FLAG 1084,33872
+enum { SIGN_FLAG = 1, PLUS_FLAG = 2, MINUS_FLAG = 4, HASH_FLAG 1084,33872
+struct align_spec 1087,33970
+  unsigned width_;1088,33990
+  wchar_t fill_;1091,34140
+  alignment align_;1092,34157
+  FMT_CONSTEXPR align_spec(1094,34178
+  FMT_CONSTEXPR unsigned width(1095,34257
+  FMT_CONSTEXPR wchar_t fill(1096,34315
+  FMT_CONSTEXPR alignment align(1097,34370
+struct core_format_specs 1100,34433
+  int precision;1101,34460
+  uint_least8_t flags;1102,34477
+  char type;1103,34500
+  FMT_CONSTEXPR core_format_specs(1105,34514
+  FMT_CONSTEXPR bool has(1106,34588
+struct basic_format_specs 1111,34711
+  FMT_CONSTEXPR basic_format_specs(1112,34771
+typedef basic_format_specs<char> format_specs;1115,34815
+template <typename Char,1117,34863
+FMT_CONSTEXPR unsigned basic_parse_context<Char, ErrorHandler>::next_arg_id(next_arg_id1118,34911
+namespace internal 1125,35153
+  grisu2_format(1134,35565
+FMT_CONSTEXPR void handle_int_type_spec(1140,35761
+FMT_CONSTEXPR void handle_float_type_spec(1163,36174
+template <typename Char,1183,36554
+FMT_CONSTEXPR void handle_char_specs(1184,36597
+template <typename Char,1193,36948
+FMT_CONSTEXPR void handle_cstring_type_spec(1194,36991
+template <typename Char,1203,37232
+FMT_CONSTEXPR void check_string_type_spec(1204,37280
+template <typename Char,1209,37432
+FMT_CONSTEXPR void check_pointer_type_spec(1210,37480
+class int_type_checker 1216,37666
+  FMT_CONSTEXPR explicit int_type_checker(1218,37723
+  FMT_CONSTEXPR void on_dec(1220,37805
+  FMT_CONSTEXPR void on_hex(1221,37838
+  FMT_CONSTEXPR void on_bin(1222,37871
+  FMT_CONSTEXPR void on_oct(1223,37904
+  FMT_CONSTEXPR void on_num(1224,37937
+  FMT_CONSTEXPR void on_error(1226,37971
+class float_type_checker 1232,38100
+  FMT_CONSTEXPR explicit float_type_checker(1234,38159
+  FMT_CONSTEXPR void on_general(1237,38247
+  FMT_CONSTEXPR void on_exp(1238,38284
+  FMT_CONSTEXPR void on_fixed(1239,38317
+  FMT_CONSTEXPR void on_hex(1240,38352
+  FMT_CONSTEXPR void on_error(1242,38386
+class char_specs_checker 1248,38515
+  char type_;1250,38574
+  FMT_CONSTEXPR char_specs_checker(1253,38598
+  FMT_CONSTEXPR void on_int(1256,38701
+  FMT_CONSTEXPR void on_char(1259,38809
+class cstring_type_checker 1263,38880
+  FMT_CONSTEXPR explicit cstring_type_checker(1265,38940
+  FMT_CONSTEXPR void on_string(1268,39030
+  FMT_CONSTEXPR void on_pointer(1269,39066
+void arg_map<Context>::init(init1273,39135
+class arg_formatter_base 1305,39913
+  typedef typename Range::value_type char_type;1307,39949
+  typedef decltype(internal::declval<Range>().begin(begin1308,39997
+  typedef basic_format_specs<char_type> format_specs;1309,40062
+  typedef basic_writer<Range> writer_type;1312,40127
+  writer_type writer_;1313,40170
+  format_specs *specs_;specs_1314,40193
+  struct char_writer 1316,40218
+    char_type value;1317,40241
+    size_t size(1319,40263
+    size_t width(1320,40301
+    void operator()(operator()1323,40368
+  void write_char(1326,40428
+  void write_pointer(1333,40580
+  writer_type &writer(writer1341,40808
+  format_specs *spec(spec1342,40852
+  iterator out(1343,40894
+  void write(1345,40938
+  void write(1350,41077
+  arg_formatter_base(1359,41378
+  iterator operator()(operator()1362,41478
+    std::is_integral<T>::value || std::is_same<T, char_type>::value,value1369,41635
+    iterator>::type operator()(operator()1370,41704
+  typename std::enable_if<std::enable_if1387,42295
+      operator()(operator()1388,42371
+  struct char_spec_handler 1393,42490
+    arg_formatter_base &formatter;formatter1394,42545
+    char_type value;1395,42580
+    char_spec_handler(1397,42602
+    void on_int(1400,42699
+    void on_char(1406,42867
+  struct cstring_spec_handler 1409,42925
+    arg_formatter_base &formatter;formatter1410,42983
+    const char_type *value;value1411,43018
+    cstring_spec_handler(1413,43047
+    void on_string(1416,43154
+    void on_pointer(1417,43203
+  iterator operator()(operator()1420,43267
+  iterator operator()(operator()1427,43484
+  iterator operator()(operator()1438,43763
+FMT_CONSTEXPR bool is_name_start(1447,43971
+template <typename Char,1453,44234
+FMT_CONSTEXPR unsigned parse_nonnegative_int(1454,44282
+template <typename Char,1479,44963
+class custom_formatter:custom_formatter1480,45006
+  Context &ctx_;ctx_1482,45064
+  explicit custom_formatter(1485,45091
+  bool operator()(operator()1487,45148
+  bool operator()(operator()1493,45286
+struct is_integer 1497,45357
+    value 1499,45386
+    value = std::is_integral<T>::value && !std::is_same<T, bool>bool1499,45386
+    value = std::is_integral<T>::value && !std::is_same<T, bool>::value value1499,45386
+            !std::is_same<std::is_same1500,45461
+            !std::is_same<T,T1500,45461
+            !std::is_same<T, char>char1500,45461
+            !std::is_same<T, char>::value value1500,45461
+            !std::is_same<T, char>::value && !std::is_same<std::is_same1500,45461
+            !std::is_same<T, char>::value && !std::is_same<T,T1500,45461
+            !std::is_same<T, char>::value && !std::is_same<T, wchar_t>wchar_t1500,45461
+            !std::is_same<T, char>::value && !std::is_same<T, wchar_t>::valuevalue1500,45461
+class width_checker:width_checker1505,45581
+  explicit FMT_CONSTEXPR width_checker(1507,45649
+  typename std::enable_if<std::enable_if1511,45765
+      is_integer<T>::value, unsigned long long>::type operator()(operator()1512,45792
+      !is_integer<T>::value,value1520,46060
+      !is_integer<T>::value, unsigned long long>::type operator()(operator()1520,46060
+  ErrorHandler &handler_;handler_1526,46207
+class precision_checker:precision_checker1530,46270
+  explicit FMT_CONSTEXPR precision_checker(1532,46342
+  FMT_CONSTEXPR typename std::enable_if<std::enable_if1535,46446
+      is_integer<T>::value, unsigned long long>::type operator()(operator()1536,46487
+      !is_integer<T>::value,value1544,46759
+      !is_integer<T>::value, unsigned long long>::type operator()(operator()1544,46759
+  ErrorHandler &handler_;handler_1550,46910
+class specs_setter 1555,47035
+  explicit FMT_CONSTEXPR specs_setter(1557,47065
+  FMT_CONSTEXPR specs_setter(1560,47159
+  FMT_CONSTEXPR void on_align(1562,47241
+  FMT_CONSTEXPR void on_fill(1563,47315
+  FMT_CONSTEXPR void on_plus(1564,47380
+  FMT_CONSTEXPR void on_minus(1565,47454
+  FMT_CONSTEXPR void on_space(1566,47518
+  FMT_CONSTEXPR void on_hash(1567,47581
+  FMT_CONSTEXPR void on_zero(1569,47644
+  FMT_CONSTEXPR void on_width(1574,47741
+  FMT_CONSTEXPR void on_precision(1575,47814
+  FMT_CONSTEXPR void end_precision(1578,47926
+  FMT_CONSTEXPR void on_type(1580,47967
+  basic_format_specs<Char> &specs_;specs_1585,48069
+class specs_checker 1591,48235
+  FMT_CONSTEXPR specs_checker(1593,48283
+  FMT_CONSTEXPR specs_checker(1596,48410
+  FMT_CONSTEXPR void on_align(1599,48521
+  FMT_CONSTEXPR void on_plus(1605,48671
+  FMT_CONSTEXPR void on_minus(1610,48751
+  FMT_CONSTEXPR void on_space(1615,48833
+  FMT_CONSTEXPR void on_hash(1620,48915
+  FMT_CONSTEXPR void on_zero(1625,49009
+  FMT_CONSTEXPR void end_precision(1630,49103
+  FMT_CONSTEXPR void require_numeric_argument(1636,49288
+  FMT_CONSTEXPR void check_sign(1641,49446
+  internal::type arg_type_;1649,49726
+template <template <typename> class Handler, typename T,1652,49758
+          typename Context,1653,49815
+FMT_CONSTEXPR void set_dynamic_spec(1654,49866
+struct auto_id 1663,50200
+class specs_handler:specs_handler1667,50304
+  typedef typename Context::char_type char_type;1669,50385
+  FMT_CONSTEXPR specs_handler(1671,50435
+  FMT_CONSTEXPR void on_dynamic_width(1676,50605
+  FMT_CONSTEXPR void on_dynamic_precision(1682,50798
+  void on_error(1687,50977
+  FMT_CONSTEXPR basic_format_arg<Context> get_arg(1692,51063
+  FMT_CONSTEXPR basic_format_arg<Context> get_arg(1697,51186
+  Context &context_;context_1702,51342
+struct arg_ref 1707,51418
+  enum Kind 1708,51435
+  enum Kind { NONE,1708,51435
+  enum Kind { NONE, INDEX,1708,51435
+  enum Kind { NONE, INDEX, NAME 1708,51435
+  FMT_CONSTEXPR arg_ref(1710,51471
+  FMT_CONSTEXPR explicit arg_ref(1711,51523
+  explicit arg_ref(1712,51603
+  FMT_CONSTEXPR arg_ref &operator=(operator=1716,51705
+  Kind kind;1722,51814
+    unsigned index;1724,51837
+    string_value<Char> name;1725,51857
+struct dynamic_format_specs 1733,52183
+  arg_ref<Char> width_ref;1734,52240
+  arg_ref<Char> precision_ref;1735,52267
+class dynamic_specs_handler 1741,52472
+  typedef typename ParseContext::char_type char_type;1744,52571
+  FMT_CONSTEXPR dynamic_specs_handler(1746,52626
+  FMT_CONSTEXPR dynamic_specs_handler(1750,52801
+  FMT_CONSTEXPR void on_dynamic_width(1755,52995
+  FMT_CONSTEXPR void on_dynamic_precision(1760,53121
+  FMT_CONSTEXPR void on_error(1764,53230
+  typedef arg_ref<char_type> arg_ref_type;1769,53330
+  FMT_CONSTEXPR arg_ref_type make_arg_ref(1772,53399
+  FMT_CONSTEXPR arg_ref_type make_arg_ref(1777,53527
+  dynamic_format_specs<char_type> &specs_;specs_1781,53634
+  ParseContext &context_;context_1782,53677
+template <typename Char,1785,53707
+FMT_CONSTEXPR const Char *parse_arg_id(parse_arg_id1786,53752
+template <typename SpecHandler,1810,54554
+struct width_adapter 1811,54601
+  explicit FMT_CONSTEXPR width_adapter(1812,54624
+  FMT_CONSTEXPR void operator()(operator()1814,54696
+  FMT_CONSTEXPR void operator()(operator()1815,54771
+  FMT_CONSTEXPR void operator()(operator()1816,54850
+  FMT_CONSTEXPR void on_error(1820,54951
+  SpecHandler &handler;handler1824,55040
+template <typename SpecHandler,1828,55130
+struct precision_adapter 1829,55177
+  explicit FMT_CONSTEXPR precision_adapter(1830,55204
+  FMT_CONSTEXPR void operator()(operator()1832,55280
+  FMT_CONSTEXPR void operator()(operator()1833,55359
+  FMT_CONSTEXPR void operator()(operator()1836,55448
+  FMT_CONSTEXPR void on_error(1840,55553
+  SpecHandler &handler;handler1842,55636
+template <typename Char,1846,55694
+FMT_CONSTEXPR const Char *parse_align(parse_align1847,55737
+template <typename Char,1883,56552
+FMT_CONSTEXPR const Char *parse_width(parse_width1884,56595
+template <typename Char,1902,57215
+FMT_CONSTEXPR const Char *parse_format_specs(parse_format_specs1903,57262
+template <bool IS_CONSTEXPR,1969,58845
+template <bool IS_CONSTEXPR, typename T,1969,58845
+template <bool IS_CONSTEXPR, typename T, typename Ptr 1969,58845
+inline bool find<find1979,59096
+template <typename Handler,1985,59327
+struct id_adapter 1986,59370
+  FMT_CONSTEXPR void operator()(operator()1987,59390
+  FMT_CONSTEXPR void operator()(operator()1988,59449
+  FMT_CONSTEXPR void operator()(operator()1989,59521
+  FMT_CONSTEXPR void on_error(1992,59614
+  Handler &handler;handler1995,59702
+template <bool IS_CONSTEXPR,1998,59726
+template <bool IS_CONSTEXPR, typename Char,1998,59726
+FMT_CONSTEXPR void parse_format_string(1999,59788
+  struct writer 2001,59893
+    FMT_CONSTEXPR void operator()(operator()2002,59911
+    Handler &handler_;handler_2015,60357
+template <typename T,2051,61534
+    parse_format_specs(2053,61634
+template <typename Char,2059,61793
+template <typename Char, typename ErrorHandler,2059,61793
+class format_string_checker 2060,61859
+  explicit FMT_CONSTEXPR format_string_checker(2062,61898
+  FMT_CONSTEXPR void on_text(2067,62159
+  FMT_CONSTEXPR void on_arg_id(2069,62220
+  FMT_CONSTEXPR void on_arg_id(2073,62317
+  FMT_CONSTEXPR void on_arg_id(2078,62436
+  FMT_CONSTEXPR void on_replacement_field(2080,62496
+  FMT_CONSTEXPR const Char *on_format_specs(on_format_specs2082,62556
+  FMT_CONSTEXPR void on_error(2088,62755
+  typedef basic_parse_context<Char,Char2093,62855
+  typedef basic_parse_context<Char, ErrorHandler> parse_context_type;2093,62855
+  enum { NUM_ARGS 2094,62925
+  FMT_CONSTEXPR void check_arg_id(2096,62965
+  typedef const Char *(*parse_func)parse_func2102,63133
+  unsigned arg_id_;2104,63193
+  parse_context_type context_;2105,63213
+  parse_func parse_funcs_[parse_funcs_2106,63244
+template <typename Char,2109,63304
+template <typename Char, typename ErrorHandler,2109,63304
+FMT_CONSTEXPR bool do_check_format_string(2110,63370
+template <typename... Args,2117,63608
+    check_format_string(2119,63707
+  typedef typename S::char_type 2120,63747
+template <typename Context,2129,64135
+struct format_type 2130,64175
+template <template <typename> class Handler, typename Spec,2133,64276
+void handle_dynamic_spec(2134,64354
+  typedef typename Context::char_type 2136,64455
+class arg_formatter:arg_formatter2155,64996
+  typedef typename Range::value_type char_type;2160,65164
+  typedef internal::arg_formatter_base<Range> base;2161,65212
+  typedef basic_format_context<typename base::iterator,2162,65264
+  typedef basic_format_context<typename base::iterator, char_type> context_type;2162,65264
+  context_type &ctx_;ctx_2164,65346
+  typedef Range range;2167,65378
+  typedef typename base::iterator iterator;2168,65401
+  typedef typename base::format_specs format_specs;2169,65445
+  explicit arg_formatter(2178,65706
+  arg_formatter(2182,65860
+  iterator operator()(operator()2188,66044
+class system_error 2198,66288
+  int error_code_;2203,66437
+  system_error(2205,66457
+  system_error(2227,67160
+  int error_code(2232,67328
+class basic_writer 2259,68219
+  typedef typename Range::value_type char_type;2261,68249
+  typedef decltype(internal::declval<Range>().begin(begin2262,68297
+  typedef basic_format_specs<char_type> format_specs;2263,68362
+  iterator out_;2266,68427
+  internal::locale_ref locale_;2267,68465
+  auto reserve(std::size_t n) -> decltype(2271,68642
+  void write_padded(2279,68900
+  struct padded_int_writer 2303,69791
+    size_t size_;2304,69820
+    string_view prefix;2305,69838
+    char_type fill;2306,69862
+    std::size_t padding;2307,69882
+    F f;2308,69907
+    size_t size(2310,69917
+    size_t width(2311,69959
+    void operator()(operator()2314,70030
+  template <typename Spec,2325,70392
+  void write_int(2326,70431
+  void write_decimal(2349,71301
+    typedef typename internal::int_traits<internal::int_traits2350,71335
+  template <typename Int,2363,71910
+  struct int_writer 2364,71951
+    typedef typename internal::int_traits<Int>::main_type unsigned_type;2365,71973
+    basic_writer<Range> &writer;writer2367,72047
+    const Spec &spec;spec2368,72080
+    unsigned_type abs_value;2369,72102
+    char prefix[prefix2370,72131
+    unsigned prefix_size;2371,72151
+    string_view get_prefix(2373,72178
+    int count_digits(2377,72357
+    int_writer(2386,72549
+    struct dec_writer 2399,72969
+      unsigned_type abs_value;2400,72993
+      int num_digits;2401,73024
+      void operator()(operator()2404,73076
+    void on_dec(2409,73208
+    struct hex_writer 2415,73407
+      int_writer &self;self2416,73431
+      int num_digits;2417,73455
+      void operator()(operator()2420,73507
+    void on_hex(2426,73682
+    struct bin_writer 2437,74025
+      unsigned_type abs_value;2438,74049
+      int num_digits;2439,74080
+      void operator()(operator()2442,74132
+    void on_bin(2447,74267
+    void on_oct(2457,74593
+    enum { SEP_SIZE 2469,75031
+    struct num_writer 2471,75059
+      unsigned_type abs_value;2472,75083
+      int size;2473,75114
+      char_type sep;2474,75130
+      void operator()(operator()2477,75181
+    void on_num(2484,75421
+    void on_error(2492,75752
+  template <typename T,2498,75876
+  void write_int(2499,75915
+  enum {INF_SIZE INF_SIZE2504,76089
+  struct inf_or_nan_writer 2506,76161
+    char sign;2507,76190
+    const char *str;str2508,76205
+    size_t size(2510,76227
+    size_t width(2513,76325
+    void operator()(operator()2516,76397
+  struct double_writer 2524,76614
+    size_t n;2525,76639
+    char sign;2526,76653
+    internal::buffer &buffer;buffer2527,76668
+    size_t size(2529,76699
+    size_t width(2530,76766
+    void operator()(operator()2533,76838
+  struct str_writer 2547,77212
+    const Char *s;s2548,77234
+    size_t size_;2549,77253
+    size_t size(2551,77272
+    size_t width(2552,77314
+    void operator()(operator()2557,77452
+  explicit basic_writer(2567,77690
+  iterator out(2571,77825
+  void write(2573,77866
+  void write(2574,77916
+  void write(2575,77967
+  void write(2577,78024
+  void write(2578,78079
+  void write(2579,78139
+  template <typename T,2586,78287
+  template <typename T, typename FormatSpec,2586,78287
+  typename std::enable_if<std::enable_if2587,78357
+      write(2588,78423
+  void write(2594,78579
+  void write(2604,78802
+  void write(2609,78925
+  void write(2612,78981
+  void write(2622,79172
+  void write(2626,79321
+  void write(2634,79575
+  void write(2639,79730
+  typename std::enable_if<std::enable_if2649,80081
+      write(2650,80143
+struct float_spec_handler 2658,80306
+  char type;2659,80334
+  bool upper;2660,80347
+  explicit float_spec_handler(2662,80362
+  void on_general(2664,80428
+  void on_exp(2671,80523
+  void on_fixed(2676,80587
+  void on_hex(2686,80746
+  void on_error(2691,80810
+void basic_writer<Range>::write_double(write_double2698,80941
+  struct write_inf_or_nan_t 2713,81408
+    basic_writer &writer;writer2714,81438
+    format_specs spec;2715,81464
+    char sign;2716,81487
+    void operator()(operator()2717,81502
+class windows_error 2766,83062
+  windows_error(2800,84199
+class format_int 2813,84609
+  enum {BUFFER_SIZE BUFFER_SIZE2817,84742
+  mutable char buffer_[buffer_2818,84820
+  char *str_;str_2819,84857
+  char *format_decimal(format_decimal2822,84942
+  void format_signed(2843,85776
+  explicit format_int(2854,86064
+  explicit format_int(2855,86123
+  explicit format_int(2856,86183
+  explicit format_int(2857,86248
+  explicit format_int(2858,86319
+  explicit format_int(2859,86395
+  std::size_t size(2862,86549
+  const char *data(data2870,86762
+  const char *c_str(c_str2876,86916
+  std::string str(2886,87106
+inline void format_decimal(2894,87388
+  typedef typename internal::int_traits<internal::int_traits2895,87441
+template <typename T,2918,88202
+        typename buffer_context<Char>::type,type2922,88321
+  FMT_CONSTEXPR typename ParseContext::iterator parse(2927,88524
+    typedef internal::dynamic_specs_handler<ParseContext> handler_type;2928,88599
+  auto format(const T &val, FormatContext &ctx) -> decltype(2978,90330
+                         typename FormatContext::char_type> range_type;2984,90683
+  internal::dynamic_format_specs<Char> specs_;2990,90902
+template <typename Char 3003,91319
+                         typename FormatContext::char_type> range;3038,92585
+template <typename Range,3056,93145
+  basic_format_context<Range, Char>::get_arg(get_arg3058,93241
+template <typename ArgFormatter,3067,93491
+template <typename ArgFormatter, typename Char,3067,93491
+struct format_handler 3068,93557
+  typedef typename ArgFormatter::range range;3069,93607
+  format_handler(3071,93654
+  void on_text(3076,93861
+  void on_arg_id(3084,94115
+  void on_arg_id(3085,94164
+  void on_arg_id(3089,94277
+  void on_replacement_field(3093,94360
+  const Char *on_format_specs(on_format_specs3100,94618
+  Context context;3118,95356
+  basic_format_arg<Context> arg;3119,95375
+template <typename ArgFormatter,3123,95473
+template <typename ArgFormatter, typename Char,3123,95473
+typename Context::iterator vformat_to(3124,95539
+inline const void *ptr(ptr3138,96039
+template <typename It,3140,96089
+struct arg_join 3141,96127
+  It begin;3142,96145
+  It end;3143,96157
+  basic_string_view<Char> sep;3144,96167
+  arg_join(3146,96199
+template <typename It,3150,96303
+    typedef formatter<typename std::iterator_traits<It>::value_type, Char> base;3156,96588
+arg_join<It, char> join(3172,97015
+arg_join<It, wchar_t> join(3177,97148
+std::string to_string(3209,98072
+std::wstring to_wstring(3220,98336
+template <typename Char,3227,98497
+std::basic_string<Char> to_string(3228,98540
+typename buffer_context<Char>::type::iterator internal::vformat_to(vformat_to3233,98706
+  typedef back_insert_range<internal::basic_buffer<Char> > range;3236,98916
+template <typename S,3241,99072
+template <typename S, typename Char 3241,99072
+    typename S,3249,99399
+    typename S, typename... Args,3249,99399
+    std::size_t SIZE 3250,99433
+  typedef typename buffer_context<buffer_context3256,99741
+namespace internal 3262,99975
+struct void_ 3270,100246
+struct void_ { typedef void type;3270,100246
+template <typename T,3272,100284
+template <typename T, typename Enable 3272,100284
+struct it_category<it_category3276,100394
+struct it_category<T*> { typedef std::random_access_iterator_tag type;3276,100394
+  typedef typename T::iterator_category 3280,100568
+class is_output_iterator 3285,100706
+  typedef decltype(test<It>(typename it_category<It>::type{})) type;3299,101330
+  typedef typename std::remove_reference<type>::type result;3300,101399
+  static const bool value 3302,101469
+template <typename OutputIt,3306,101546
+template <typename OutputIt, typename Char 3306,101546
+struct format_context_t { typedef basic_format_context<OutputIt, Char> type;3308,101662
+template <typename OutputIt,3310,101743
+template <typename OutputIt, typename Char 3310,101743
+    typename format_context_t<OutputIt, Char>::type> type;3314,101923
+template <typename String,3317,101986
+template <typename String, typename OutputIt,3317,101986
+    vformat_to(3320,102175
+  typedef output_range<OutputIt,OutputIt3322,102310
+template <typename OutputIt,3338,102751
+template <typename OutputIt, typename S,3338,102751
+inline FMT_ENABLE_IF_T(3339,102810
+  typedef typename format_context_t<format_context_t3344,103059
+struct format_to_n_result 3351,103321
+  OutputIt out;3353,103401
+  std::size_t size;3355,103461
+template <typename OutputIt,3358,103485
+template <typename OutputIt, typename Char 3358,103485
+template <typename OutputIt,3362,103666
+template <typename OutputIt, typename Char 3362,103666
+    typename format_to_n_context<OutputIt, Char>::type> type;3365,103797
+template <typename OutputIt,3368,103863
+template <typename OutputIt, typename Char,3368,103863
+    make_format_to_n_args(3371,104013
+template <typename OutputIt,3376,104168
+template <typename OutputIt, typename Char,3376,104168
+    format_to_n_result<OutputIt>>::type vformat_to_n(3379,104313
+  typedef internal::truncating_iterator<OutputIt> It;3382,104496
+template <typename OutputIt,3394,104846
+template <typename OutputIt, typename S,3394,104846
+inline FMT_ENABLE_IF_T(3395,104905
+  typedef FMT_CHAR(S)3402,105211
+inline std::basic_string<Char> internal::vformat(vformat3410,105501
+inline std::size_t formatted_size(3423,105903
+namespace internal 3430,106158
+template <typename Char,3433,106202
+class udl_formatter 3434,106242
+  std::basic_string<Char> operator()(operator()3437,106303
+struct udl_formatter 3448,106682
+  const Char *str;str3449,106705
+                  -> decltype(3453,106796
+struct udl_arg 3460,106984
+  const Char *str;str3461,107001
+  named_arg<named_arg3464,107045
+  named_arg<T, Char> operator=(operator=3464,107045
+inline namespace literals 3471,107170
+template <typename Char,3474,107221
+FMT_CONSTEXPR internal::udl_formatter<internal::udl_formatter3475,107261
+FMT_CONSTEXPR internal::udl_formatter<Char, CHARS...> operator""_formaoperator""_form3475,107261
+operator"" _formaoperator"" _form3490,107589
+operator"" _formaoperator"" _form3492,107692
+operator"" _operator"" 3506,108012
+operator"" _operator"" 3508,108104
+#define FMT_STRING(3513,108255
+# define fmt(3540,109120
+# define FMT_FUNC 3544,109181
+# define FMT_FUNC3547,109237
+
+utility/fmt/locale.h,682
+#define FMT_LOCALE_H_9,205
+  typedef back_insert_range<basic_buffer<Char> > range;22,552
+std::basic_string<Char> vformat(28,750
+template <typename S,37,1043
+template <typename S, typename Char 37,1043
+template <typename S,44,1320
+inline std::basic_string<basic_string45,1360
+template <typename String,52,1610
+template <typename String, typename OutputIt,52,1610
+    vformat_to(55,1799
+  typedef output_range<OutputIt,OutputIt57,1958
+template <typename OutputIt,62,2140
+template <typename OutputIt, typename S,62,2140
+    internal::is_output_iterator<OutputIt>::value,value65,2268
+    format_to(66,2335
+  typedef typename format_context_t<format_context_t69,2500
+
+utility/fmt/ostream.h,814
+#define FMT_OSTREAM_H_9,207
+class formatbuf 18,335
+  typedef typename std::basic_streambuf<Char>::int_type int_type;20,399
+  typedef typename std::basic_streambuf<Char>::traits_type traits_type;21,465
+  basic_buffer<Char> &buffer_;buffer_23,538
+  formatbuf(26,579
+  int_type overflow(36,1073
+  std::streamsize xsputn(42,1269
+struct test_stream 49,1432
+template <typename T,57,1672
+class is_streamable 58,1709
+  typedef decltype(test<test68,1950
+  static const bool value 71,1999
+void write(76,2106
+  typedef std::make_unsigned<std::streamsize>::type type78,2207
+template <typename Char,90,2606
+void format_value(91,2643
+template <typename T,102,3074
+  static const bool value 104,3150
+template <typename T,110,3345
+inline void vprint(128,3976
+template <typename S,144,4412
+print(146,4520
+
+utility/fmt/posix.h,1601
+#define FMT_POSIX_H_9,188
+# undef __STRICT_ANSI__13,326
+#  define FMT_POSIX(33,763
+#  define FMT_POSIX(35,804
+# define FMT_POSIX_CALL(41,941
+# define FMT_SYSTEM(43,994
+#  define FMT_POSIX_CALL(46,1082
+#  define FMT_POSIX_CALL(48,1130
+# define FMT_RETRY_VAL(55,1290
+# define FMT_RETRY_VAL(60,1446
+#define FMT_RETRY(63,1533
+class basic_cstring_view 93,2495
+  const Char *data_;data_95,2532
+  basic_cstring_view(99,2626
+  basic_cstring_view(106,2776
+  const Char *c_str(c_str109,2898
+typedef basic_cstring_view<char> cstring_view;112,2948
+typedef basic_cstring_view<wchar_t> wcstring_view;113,2995
+class error_code 116,3065
+  int value_;118,3094
+  explicit error_code(121,3118
+  int get(123,3188
+class buffered_file 127,3262
+  FILE *file_;file_129,3294
+  explicit buffered_file(133,3332
+  buffered_file(137,3463
+  buffered_file(148,3742
+  buffered_file& operator=(operator=152,3850
+  FILE *get(get166,4191
+  void vprint(172,4398
+  inline void print(177,4533
+class file 188,5076
+  int fd_;190,5099
+  explicit file(193,5187
+    RDONLY 198,5307
+    WRONLY 199,5367
+    RDWR 200,5427
+  file(204,5564
+  file(214,5810
+  file& operator=(operator=218,5888
+  int descriptor(229,6130
+# define FMT_LOCALE271,7601
+class Locale 276,7672
+  typedef _locale_t locale_t;279,7714
+  enum { LC_NUMERIC_MASK 281,7745
+  static locale_t newlocale(283,7787
+  static void freelocale(287,7921
+  static double strtod_l(291,7996
+  locale_t locale_;296,8131
+  typedef locale_t Type;302,8240
+  Locale(304,8266
+  ~Locale(308,8416
+  Type get(310,8454
+  double strtod(314,8596
+
+utility/fmt/printf.h,8320
+#define FMT_PRINTF_H_9,180
+class null_terminating_iterator 23,553
+  typedef std::ptrdiff_t difference_type;25,596
+  typedef Char value_type;26,638
+  typedef const Char* pointer;27,665
+  typedef const Char& reference;28,696
+  typedef std::random_access_iterator_tag iterator_category;29,729
+  null_terminating_iterator(31,791
+  FMT_CONSTEXPR null_terminating_iterator(33,844
+  FMT_CONSTEXPR explicit null_terminating_iterator(37,979
+  FMT_CONSTEXPR null_terminating_iterator &operator=(operator=40,1087
+  FMT_CONSTEXPR Char operator*(46,1223
+  FMT_CONSTEXPR null_terminating_iterator operator++(50,1311
+  FMT_CONSTEXPR null_terminating_iterator operator++(55,1403
+  FMT_CONSTEXPR null_terminating_iterator operator--(61,1544
+  FMT_CONSTEXPR null_terminating_iterator operator+(66,1636
+  FMT_CONSTEXPR null_terminating_iterator operator-(70,1768
+  FMT_CONSTEXPR null_terminating_iterator operator+=(operator+=74,1900
+  FMT_CONSTEXPR difference_type operator-(79,2012
+  FMT_CONSTEXPR bool operator!=(operator!=84,2137
+  bool operator>=(operator>=88,2246
+  const Char *ptr_;ptr_99,2612
+  const Char *end_;end_100,2632
+FMT_CONSTEXPR const T *pointer_from(pointer_from104,2678
+FMT_CONSTEXPR const Char *pointer_from(pointer_from107,2766
+template <typename Iterator,115,3099
+FMT_CONSTEXPR unsigned parse_nonnegative_int(116,3151
+struct int_checker 146,3984
+  static bool fits_in_int(148,4029
+  static bool fits_in_int(152,4147
+struct int_checker<int_checker156,4212
+  static bool fits_in_int(158,4263
+  static bool fits_in_int(162,4412
+class printf_precision_handler:printf_precision_handler165,4464
+  typename std::enable_if<std::enable_if168,4552
+      operator()(operator()169,4617
+  typename std::enable_if<!std::is_integral<T>::value,value176,4839
+  typename std::enable_if<!std::is_integral<T>::value, int>::type operator()(operator()176,4839
+class is_zero_int:is_zero_int183,5068
+  typename std::enable_if<std::enable_if186,5144
+      operator()(operator()187,5210
+  typename std::enable_if<!std::is_integral<T>::value,value190,5284
+      operator()(operator()191,5351
+struct make_unsigned_or_bool 195,5415
+struct make_unsigned_or_bool<make_unsigned_or_bool198,5485
+  typedef bool type;199,5522
+template <typename T,202,5547
+class arg_converter:arg_converter203,5587
+  typedef typename Context::char_type Char;205,5642
+  basic_format_arg<Context> &arg_;arg_207,5687
+  typename Context::char_type type_;208,5722
+  arg_converter(211,5769
+  void operator()(operator()214,5861
+      operator()(operator()221,6035
+    typedef typename std::conditional<std::conditional223,6114
+        typedef typename make_unsigned_or_bool<make_unsigned_or_bool231,6467
+  typename std::enable_if<!std::is_integral<U>::value>::type operator()(operator()249,7143
+template <typename T,258,7518
+template <typename T, typename Context,258,7518
+void convert_arg(259,7573
+class char_converter:char_converter265,7781
+  basic_format_arg<Context> &arg_;arg_267,7837
+  explicit char_converter(270,7882
+      operator()(operator()274,8040
+    typedef typename Context::char_type 275,8068
+  typename std::enable_if<!std::is_integral<T>::value>::type operator()(operator()280,8209
+class printf_width_handler:printf_width_handler288,8475
+  typedef basic_format_specs<Char> format_specs;290,8541
+  format_specs &spec_;spec_292,8591
+  explicit printf_width_handler(295,8624
+  typename std::enable_if<std::enable_if298,8718
+      operator()(operator()299,8788
+    typedef typename internal::int_traits<internal::int_traits300,8816
+  typename std::enable_if<!std::is_integral<T>::value,value313,9252
+      operator()(operator()314,9323
+template <typename Char,320,9420
+void printf(321,9463
+using internal::printf;327,9666
+    typename OutputIt,333,9794
+    typename OutputIt, typename Char,333,9794
+    typename ArgFormatter 334,9832
+class printf_arg_formatter:printf_arg_formatter344,10054
+  typedef typename Range::value_type char_type;349,10229
+  typedef decltype(internal::declval<Range>().begin(begin350,10277
+  typedef internal::arg_formatter_base<Range> base;351,10342
+  typedef basic_printf_context<iterator,iterator352,10394
+  typedef basic_printf_context<iterator, char_type> context_type;352,10394
+  context_type &context_;context_354,10461
+  void write_null_pointer(356,10488
+  void write_null_pointer(361,10581
+  typedef typename base::format_specs format_specs;367,10687
+  printf_arg_formatter(376,10949
+  typename std::enable_if<std::enable_if383,11231
+      operator()(operator()384,11301
+  typename std::enable_if<std::enable_if407,12069
+      operator()(operator()408,12145
+  iterator operator()(operator()413,12259
+  iterator operator()(operator()424,12544
+  iterator operator()(operator()434,12783
+  iterator operator()(operator()438,12884
+  iterator operator()(operator()443,12994
+  iterator operator()(operator()452,13246
+struct printf_formatter 459,13409
+  auto parse(ParseContext &ctx) -> decltype(461,13470
+  auto format(const T &value, FormatContext &ctx) -> decltype(464,13588
+template <typename OutputIt,471,13833
+template <typename OutputIt, typename Char,471,13833
+class basic_printf_context 472,13900
+  typedef Char char_type;479,14219
+  struct formatter_type 482,14270
+  struct formatter_type { typedef printf_formatter<T> type;482,14270
+  typedef internal::context_base<OutputIt,OutputIt485,14344
+  typedef internal::context_base<OutputIt, basic_printf_context,485,14344
+  typedef internal::context_base<OutputIt, basic_printf_context, Char> base;485,14344
+  typedef typename base::format_arg format_arg;486,14421
+  typedef basic_format_specs<char_type> format_specs;487,14469
+  typedef internal::null_terminating_iterator<char_type> iterator;488,14523
+  basic_printf_context(509,15231
+  using base::parse_context;513,15416
+  using base::out;514,15445
+  using base::advance_to;515,15464
+template <typename OutputIt,521,15582
+template <typename OutputIt, typename Char,521,15582
+void basic_printf_context<OutputIt, Char, AF>::parse_flags(parse_flags522,15639
+template <typename OutputIt,548,16157
+template <typename OutputIt, typename Char,548,16157
+  basic_printf_context<OutputIt, Char, AF>::get_arg(get_arg550,16276
+template <typename OutputIt,558,16545
+template <typename OutputIt, typename Char,558,16545
+unsigned basic_printf_context<OutputIt, Char, AF>::parse_header(parse_header559,16602
+template <typename OutputIt,595,17705
+template <typename OutputIt, typename Char,595,17705
+void basic_printf_context<OutputIt, Char, AF>::format(format596,17762
+struct basic_printf_context_t 702,20660
+    std::back_insert_iterator<std::back_insert_iterator704,20724
+    std::back_insert_iterator<Buffer>, typename Buffer::value_type> type;704,20724
+typedef basic_printf_context_t<internal::buffer>::type printf_context;707,20802
+typedef basic_printf_context_t<internal::wbuffer>::type wprintf_context;708,20873
+typedef basic_format_args<printf_context> printf_args;710,20947
+typedef basic_format_args<wprintf_context> wprintf_args;711,21002
+  make_printf_args(721,21306
+  make_wprintf_args(731,21618
+template <typename S,733,21683
+template <typename S, typename Char 733,21683
+template <typename S,752,22184
+inline FMT_ENABLE_IF_T(753,22224
+  typedef internal::basic_buffer<FMT_CHAR(FMT_CHAR757,22419
+  typedef typename basic_printf_context_t<basic_printf_context_t758,22473
+template <typename S,764,22686
+template <typename S, typename Char 764,22686
+template <typename S,784,23283
+inline FMT_ENABLE_IF_T(785,23323
+  typedef internal::basic_buffer<FMT_CHAR(FMT_CHAR788,23500
+  typedef typename basic_printf_context_t<basic_printf_context_t789,23554
+template <typename S,795,23770
+template <typename S, typename Char 795,23770
+template <typename S,811,24187
+inline FMT_ENABLE_IF_T(812,24227
+  typedef internal::basic_buffer<FMT_CHAR(FMT_CHAR815,24397
+  typedef typename basic_printf_context_t<basic_printf_context_t816,24451
+template <typename S,822,24666
+template <typename S, typename Char 822,24666
+template <typename S,842,25235
+inline FMT_ENABLE_IF_T(843,25275
+  typedef internal::basic_buffer<FMT_CHAR(FMT_CHAR847,25495
+  typedef typename basic_printf_context_t<basic_printf_context_t848,25549
+
+utility/fmt/ranges.h,2565
+#define FMT_RANGES_H_13,347
+# define FMT_RANGE_OUTPUT_LENGTH_LIMIT 20,497
+struct formatting_base 26,594
+  FMT_CONSTEXPR auto parse(ParseContext &ctx) -> decltype(28,654
+template <typename Char,33,759
+template <typename Char, typename Enable 33,759
+template <typename Char,45,1265
+template <typename Char, typename Enable 45,1265
+namespace internal 55,1622
+template <typename RangeT,57,1644
+void copy(58,1696
+void copy(64,1873
+void copy(72,2036
+class is_like_std_string 78,2194
+  static FMT_CONSTEXPR_DECL const bool value 86,2391
+struct is_like_std_string<is_like_std_string91,2523
+struct conditional_helper 94,2627
+template <typename T,96,2658
+template <typename T, typename _ 96,2658
+                    void>::type> : std::true_type 105,3035
+class is_tuple_like_ 110,3159
+  static FMT_CONSTEXPR_DECL const bool value 119,3409
+template <typename T,125,3609
+using integer_sequence 126,3639
+using index_sequence 128,3724
+using make_index_sequence 130,3799
+template <typename T,132,3862
+struct integer_sequence 133,3892
+  typedef T value_type;134,3918
+  static FMT_CONSTEXPR std::size_t size(136,3943
+using index_sequence 142,4048
+template <typename T,144,4109
+template <typename T, std::size_t N,144,4109
+struct make_integer_sequence 145,4155
+template <typename T,146,4236
+using make_index_sequence 150,4368
+void for_each(154,4489
+get_indexes(163,4788
+void for_each(166,4859
+FMT_CONSTEXPR const char* format_str_quoted(172,5029
+FMT_CONSTEXPR const char* format_str_quoted(179,5274
+FMT_CONSTEXPR const char* format_str_quoted(185,5503
+FMT_CONSTEXPR const wchar_t* format_str_quoted(188,5623
+FMT_CONSTEXPR const char* format_str_quoted(192,5754
+FMT_CONSTEXPR const wchar_t* format_str_quoted(195,5871
+struct is_tuple_like 202,6045
+  static FMT_CONSTEXPR_DECL const bool value 203,6068
+template <typename TupleT,207,6193
+  struct format_each 213,6423
+    void operator()(operator()215,6472
+    formatting_tuple<Char>& formatting;229,6837
+    std::size_t& i;230,6877
+    typename std::add_lvalue_reference<decltype(std::declval<FormatContext>().out())>::type out;231,6897
+  formatting_tuple<Char> formatting;235,7008
+  FMT_CONSTEXPR auto parse(ParseContext &ctx) -> decltype(238,7081
+  template <typename FormatContext 242,7193
+struct is_range 259,7668
+  static FMT_CONSTEXPR_DECL const bool value 260,7686
+template <typename RangeT,264,7815
+  formatting_range<Char> formatting;268,7956
+  FMT_CONSTEXPR auto parse(ParseContext &ctx) -> decltype(271,8029
+  typename FormatContext::iterator format(276,8177
+
+utility/fmt/time.h,900
+#define FMT_TIME_H_9,199
+#define FMT_NOMACRO19,393
+inline std::tm localtime(29,720
+  struct dispatcher 30,765
+    std::time_t time_;31,787
+    std::tm tm_;32,810
+    dispatcher(34,828
+    bool run(36,872
+    bool handle(41,981
+    bool handle(43,1038
+    bool fallback(48,1168
+    bool fallback(51,1234
+inline std::tm gmtime(67,1631
+  struct dispatcher 68,1673
+    std::time_t time_;69,1695
+    std::tm tm_;70,1718
+    dispatcher(72,1736
+    bool run(74,1780
+    bool handle(79,1886
+    bool handle(81,1943
+    bool fallback(86,2070
+    bool fallback(89,2136
+namespace internal 103,2450
+inline std::size_t strftime(104,2471
+inline std::size_t strftime(109,2653
+struct formatter<formatter116,2868
+  auto parse(ParseContext &ctx) -> decltype(118,2937
+  auto format(const std::tm &tm, FormatContext &ctx) -> decltype(132,3329
+  basic_memory_buffer<Char> tm_format;156,4227
+
+utility/logger.cpp,393
+Logger* Logger::m_ 9,149
+pthread_mutex_t Logger::lock_ 12,200
+inline void Logger::lock(lock13,259
+inline void Logger::unlock(unlock18,323
+void Logger::lock(lock23,396
+void Logger::unlock(unlock26,420
+Logger::Logger(39,750
+void Logger::configure(configure55,1231
+Logger::~Logger(~Logger90,2168
+Logger& Logger::getInstance(getInstance104,2442
+void Logger::print(print123,2920
+
+utility/logger.h,1301
+#define LOGGER_H2,17
+enum LogLevel 14,236
+enum LogLevel { MYDEBUG,14,236
+                INFO,15,261
+                WARNING,16,283
+                ERROR,17,308
+const std::string LOGSTR[LOGSTR21,354
+#define LOGGER_CONF(32,683
+#define LOGGER(45,1301
+#define LOG_DEBUG(52,1773
+#define LOG_INFO(53,1817
+#define LOG_WARNING(54,1857
+#define LOG_ERROR(55,1903
+class Logger 65,2289
+    enum loggerConf_ 69,2360
+    enum loggerConf_ { L_nofile_ 69,2360
+                       L_file_ 70,2403
+                       L_noscreen_ 71,2444
+                       L_screen_ 72,2489
+    static pthread_mutex_t lock_;78,2637
+    bool configured_;81,2679
+    static Logger* m_;86,2773
+    std::string logFile_;92,2922
+    std::string loggerName_;98,2997
+    loggerConf_ configuration_;107,3300
+    std::ofstream out_;112,3392
+    struct timeval initialTime_;117,3485
+    unsigned int fileVerbosityLevel_;122,3573
+    unsigned int screenVerbosityLevel_;127,3667
+    typedef loggerConf_ loggerConf;143,3944
+    static const loggerConf file_on 144,3980
+    static const loggerConf file_off 145,4029
+    static const loggerConf screen_on 146,4077
+    static const loggerConf screen_off 147,4130
+inline Logger::loggerConf operator|(163,4650
+inline Logger::loggerConf operator&(168,4817
+
+utility/rng.cpp,396
+RandomFactory::RandomFactory(RandomFactory14,193
+RandomFactory::RandomFactory(RandomFactory20,274
+RandomFactory::RandomFactory(RandomFactory25,339
+void RandomFactory::Reset(Reset30,417
+void RandomFactory::Reset(Reset36,495
+void RandomFactory::Reset(Reset41,557
+std::ostream& operator<<(54,873
+std::istream& operator>>(60,972
+std::string ToString(66,1071
+RandomFactory RNG;72,1193
+
+utility/rng.h,302
+#define FeynCalc_random_h10,161
+#define M_RAN_INVM32 15,225
+#define M_RAN_INVM52 16,274
+#define RANDBL_32(22,657
+#define RANDBL_32_NO_ZERO(25,723
+#define RANDBL_52_NO_ZERO(29,845
+class RandomFactory32,990
+    std::mt19937 _eng;39,1229
+    inline double urn(48,1434
+    inline int irn(54,1580
+
+utility/rng_test.cpp,90
+void Test_RNG_IO(18,300
+void Test_RNG_Bound_And_Efficiency(33,610
+int TestRNG(105,2576
+
+utility/scopeguard.h,286
+#define Feynman_Simulator_scopeguard_h10,179
+#define SCOPEGUARD_LINENAME_CAT(14,242
+#define SCOPEGUARD_LINENAME(15,297
+#define ON_SCOPE_EXIT(16,373
+class ScopeGuard 24,565
+    explicit ScopeGuard(26,592
+    ~ScopeGuard(32,728
+    void Dismiss(39,824
+    bool dismissed_;46,932
+
+utility/sput.h,1814
+#define HAVE_SPUT_H47,1888
+#define SPUT_VERSION_MAJOR 62,2212
+#define SPUT_VERSION_MINOR 63,2241
+#define SPUT_VERSION_PATCH 64,2270
+#define SPUT_VERSION_STRING 65,2299
+#define SPUT_DEFAULT_SUITE_NAME 67,2336
+#define SPUT_DEFAULT_CHECK_NAME 68,2386
+#define SPUT_INITIALIZED 70,2437
+static struct sput 76,2667
+    FILE *out;out77,2688
+    char initialized;78,2703
+    struct sput_overall 80,2726
+        unsigned long checks;81,2752
+        unsigned long suites;82,2782
+        unsigned long ok;83,2812
+        unsigned long nok;84,2838
+    } overall;85,2865
+    struct sput_suite 87,2881
+        const char *name;name88,2905
+        unsigned long nr;89,2931
+        unsigned long checks;90,2957
+        unsigned long ok;91,2987
+        unsigned long nok;92,3013
+    } suite;93,3040
+    struct sput_test 95,3054
+        const char *name;name96,3077
+        unsigned long nr;97,3103
+    } test;98,3129
+    struct sput_check 100,3142
+        const char *name;name101,3166
+        const char *cond;cond102,3192
+        const char *type;type103,3218
+        unsigned long line;104,3244
+    } check;105,3272
+    struct sput_time 107,3286
+        time_t start;108,3309
+        time_t end;109,3331
+    } time;110,3351
+} __sput;111,3363
+#define _sput_die_unless_initialized(117,3573
+#define _sput_die_unless_suite_set(123,3816
+#define _sput_die_unless_test_set(129,4067
+#define _sput_check_failed(135,4306
+#define _sput_check_succeeded(143,6035
+#define sput_start_testing(155,7196
+#define sput_leave_suite(163,7507
+#define sput_get_return_value(176,9141
+#define sput_enter_suite(179,9235
+#define sput_finish_testing(190,10242
+#define sput_set_output_stream(202,13899
+#define sput_fail_if(207,14069
+#define sput_fail_unless(226,15429
+#define sput_run_test(245,16789
+
+utility/timer.cpp,249
+double timer::elapsed_time(elapsed_time15,458
+void timer::start(start29,868
+void timer::restart(restart49,1423
+void timer::stop(stop66,1903
+void timer::check(check82,2377
+bool timer::check(check94,2762
+std::ostream& operator<<(110,3233
+
+utility/timer.h,178
+#define __timer_H_7,114
+class timer 13,189
+    bool running;17,278
+    clock_t start_clock;18,296
+    time_t start_time;19,321
+    double acc_time;20,344
+    timer(27,513
+
+utility/timer_test.cpp,21
+int TestTimer(8,113
+
+utility/utility.cpp,297
+bool Equal(16,465
+bool Equal(17,544
+bool Equal(18,606
+double fabs(20,681
+int iabs(23,754
+bool Zero(26,827
+bool CleanFile(28,888
+bool DoesFileExist(39,1108
+std::string ToString(50,1308
+std::string Center(59,1637
+string Right(69,2002
+string Left(78,2259
+std::string ProgressBar(87,2515
+
+utility/utility.h,561
+#define MathUtils_H8,305
+const double eps0 17,498
+bool Equal(34,941
+template <typename T> std::string ToString(41,1116
+template <typename T> std::string ToString(47,1242
+template <typename T> void AssignFromTo(69,2106
+template <typename T> void InitialArray(74,2243
+#define CHECKNULL(83,2469
+template <int A,100,3189
+template <int A, int B> struct get_power 100,3189
+  static const int value 101,3232
+  static const int value = A * get_power<A, B - 1>::value;value101,3232
+template <int A> struct get_power<A, 0> { static const int value 103,3294
+
+utility/vector.h,693
+#define __FeynCalc__vector__3,30
+using namespace std;10,161
+template <typename T,12,183
+template <typename T, int D> class Vec 12,183
+  T _Array[_Array14,233
+  Vec(17,257
+  Vec(19,269
+  Vec(27,431
+  Vec(32,510
+  void CopyToArray(39,662
+  T *data(data44,766
+  const T *begin(begin45,797
+  const T *end(end46,841
+  uint size(47,887
+  Vec operator*(53,1042
+  Vec operator*(60,1163
+  Vec operator+(67,1294
+  Vec operator-(74,1434
+  Vec &operator+=(operator+=81,1574
+  Vec &operator-=(operator-=87,1697
+  double dot(121,2628
+  double squaredNorm(129,2793
+  double norm(137,2961
+template <typename T,173,3881
+template <typename T, int D> std::string ToString(173,3881
+
+vertex.cpp,1223
+verTensor::verTensor(verTensor22,416
+verTensor::~verTensor(~verTensor31,658
+void verTensor::Initialize(Initialize36,735
+double &verTensor::Interaction(Interaction50,1209
+double &verTensor::Estimator(Estimator54,1335
+verQTheta::verQTheta(verQTheta59,1554
+void verQTheta::Interaction(Interaction82,2198
+void verQTheta::Measure(Measure176,5849
+void verQTheta::Save(Save198,6731
+void verQTheta::ClearStatis(ClearStatis263,9154
+void verQTheta::LoadWeight(LoadWeight275,9550
+fermi::fermi(fermi294,10136
+double fermi::Fock(Fock305,10401
+double fermi::BuildFockSigma(BuildFockSigma322,10968
+double fermi::FockSigma(FockSigma356,12225
+double fermi::PhyGreen(PhyGreen377,12853
+double fermi::Green(Green430,14195
+double ver::Index2Mom(Index2Mom450,14737
+int ver::Mom2Index(Mom2Index454,14840
+double ver::Angle3D(Angle3D458,14932
+double ver::Index2Angle(Index2Angle465,15156
+int ver::Angle2Index(Angle2Index470,15334
+double ver::Index2Scale(Index2Scale485,15786
+int ver::Scale2Index(Scale2Index488,15878
+int ver::Tau2Index(Tau2Index492,15978
+double ver::Index2Tau(Index2Tau496,16067
+void ver::_TestAngle2D(_TestAngle2D500,16161
+void ver::_TestAngleIndex(_TestAngleIndex525,16876
+
+vertex.h,1027
+#define vertex_H2,17
+enum channel 13,185
+enum channel { I 13,185
+enum channel { I = 0, T,13,185
+enum channel { I = 0, T, U,13,185
+enum channel { I = 0, T, U, S 13,185
+class weightMatrix 17,252
+  weightMatrix(20,350
+  void SetZero(21,382
+  double Sum(25,448
+  double Abs(32,550
+  double &operator(operator40,792
+  array<double,double43,857
+  array<double, 2> _Weight;43,857
+class fermi 46,889
+  double UpperBound,54,1101
+  double UpperBound, LowerBound;54,1101
+  double DeltaK;55,1134
+  double UpperBound2,56,1151
+  double UpperBound2, LowerBound2;56,1151
+  double DeltaK2;57,1220
+  double Sigma[Sigma64,1499
+  double Sigma2[Sigma265,1528
+class verTensor 68,1562
+  double *_Estimator;_Estimator77,1765
+  double *_Interaction;_Interaction78,1787
+  int QIndex;79,1811
+  int AngleIndex;80,1825
+  int OrderIndex;81,1843
+class verQTheta 84,1865
+  array<array99,2396
+  array<verTensor, 4> Chan;99,2396
+  double Normalization;103,2473
+  double PhyWeightT;104,2497
+  double PhyWeightI;105,2518
+
+weight.cpp,350
+#define TIND(16,282
+void weight::Initialization(Initialization18,359
+ver::weightMatrix weight::Evaluate(Evaluate31,802
+array<ver::weightMatrix,FreqBinSize> weight::FreqEvaluate(FreqEvaluate87,2562
+void weight::Ver0(Ver0148,4733
+void weight::Vertex4(Vertex4164,5309
+void weight::ChanUST(ChanUST179,5572
+void weight::ChanI(ChanI283,9329
+
+weight.h,736
+#define weight_H2,17
+#define MAXMOMNUM 15,236
+struct variable 17,293
+  int CurrOrder;18,311
+  int CurrChannel;19,328
+  long int CurrVersion;20,373
+  int CurrExtMomBin;22,398
+  double CurrTau;23,459
+  double CurrScale;24,504
+  int CurrIRScaleBin;25,582
+  ver::weightMatrix CurrWeight;26,604
+  double CurrAbsWeight;27,636
+  array<array29,661
+  array<momentum, MaxMomNum> LoopMom;29,661
+  array<array30,730
+  array<double, MaxTauNum> Tau;30,730
+  int CurrCTOrder;33,848
+  array<array34,890
+  array<int, MaxTauNum> CounterTermOrder;34,890
+class weight 37,936
+  variable Var;39,959
+  ver::fermi Fermi;41,1008
+  ver::verQTheta VerQTheta;42,1058
+  dse::verDiag VerDiag;51,1319
+  dse::ver4 Ver4Root[Ver4Root53,1407

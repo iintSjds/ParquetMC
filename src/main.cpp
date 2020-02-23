@@ -90,6 +90,10 @@ void InitPara() {
     Para.dAngleTable[i] = 2.0 / AngBinSize;
   }
 
+  for (int i = 0; i < FreqBinSize; i++) {
+    Para.FreqTable[i] = PI/Para.Beta*(1+2*i);
+  }
+
   // initialize external momentum
   for (int i = 0; i < ExtMomBinSize; i++) {
     // the external momentum only has x component

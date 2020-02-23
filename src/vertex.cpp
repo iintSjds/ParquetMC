@@ -221,16 +221,37 @@ void verQTheta::Save(bool Simple) {
 
         VerFile << endl;
         VerFile << "# ExtMomBinTable: ";
-        for (int qindex = 0; qindex < ExtMomBinSize; ++qindex)
-          VerFile << Para.ExtMomTable[qindex][0] << " ";
+        for (int qindex = 0; qindex < ExtMomBinSize; ++qindex){
+          for (int dim=0;dim < D; dim++)
+            VerFile << Para.ExtMomTable[qindex][dim] << " ";
+          VerFile << endl;
+        }
         VerFile << endl;
 
-        for (int angle = 0; angle < AngBinSize; ++angle)
-          for (int qindex = 0; qindex < ExtMomBinSize; ++qindex)
-            for (int dir = 0; dir < 2; ++dir)
-              VerFile << Chan[chan].Estimator(order, angle, qindex, dir) *
-                             PhyWeightT
-                      << "  ";
+        // for (int angle = 0; angle < AngBinSize; ++angle)
+        //   for (int qindex = 0; qindex < ExtMomBinSize; ++qindex)
+        //     for (int dir = 0; dir < 2; ++dir){
+        //       VerFile << Para.AngleTable[angle] << "\t";
+        //       for(int dim=0;dim<D;dim++)
+        //         VerFile << Para.ExtMomTable[qindex][dim] << "\t";
+        //       VerFile << dir << "\t";
+        //       VerFile << Chan[chan].Estimator(order, angle, qindex, dir) *
+        //         PhyWeightT
+        //               << endl;
+        //     }
+        for (int freq = 0; freq < FreqBinSize; freq++)
+          for (int angle = 0; angle < AngBinSize; ++angle)
+            for (int qindex = 0; qindex < ExtMomBinSize; ++qindex)
+              for (int dir = 0; dir < 2; ++dir){
+                VerFile << Para.FreqTable[freq]<< "\t";
+                VerFile << Para.AngleTable[angle] << "\t";
+                for(int dim=0;dim<D;dim++)
+                  VerFile << Para.ExtMomTable[qindex][dim] << "\t";
+                VerFile << dir << "\t";
+                VerFile << Chan[chan].Estimator(order, angle, qindex, dir) *
+                  PhyWeightT
+                        << endl;
+              }
         VerFile.close();
       } else {
         LOG_WARNING("Polarization for PID " << Para.PID << " fails to save!");

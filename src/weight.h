@@ -44,7 +44,7 @@ public:
   void Initialization();
 
   ver::weightMatrix Evaluate(int LoopNum, int Channel);
-
+  array<ver::weightMatrix,FreqBinSize> FreqEvaluate(int LoopNum, int Channel);
   // initialization, read diagrams, then initialize variables
 
 private:

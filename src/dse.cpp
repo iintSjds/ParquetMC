@@ -47,10 +47,11 @@ ver4 verDiag::Build(array<momentum, MaxMomNum> &loopMom, int LoopNum,
     // LegK = {&(*LoopMom)[1], &(*LoopMom)[1], &(*LoopMom)[2], &(*LoopMom)[2]};
   }
 
-  if (Type == PARQUET)
-    return Vertex(LegK, 0, LoopNum, 3, Channel, LEFT, true, false, false);
-  else
-    ABORT("Not implemented!");
+  // if (Type == PARQUET)
+  //   return Vertex(LegK, 0, LoopNum, 3, Channel, LEFT, true, false, false);
+  // else
+  //   ABORT("Not implemented!");
+  return Vertex(LegK, 0, LoopNum, 3, Channel, LEFT, false, false, false);
 }
 
 ver4 verDiag::Vertex(array<momentum *, 4> LegK, int InTL, int LoopNum,
