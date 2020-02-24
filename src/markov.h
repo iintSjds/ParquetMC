@@ -31,8 +31,10 @@ public:
   void ChangeChannel();
 
   void Measure();
+  void MeasureDelta();
   void ClearStatis();
   void SaveToFile(bool Simple);
+  void SaveDelta();
   void LoadFile();
 
   int DynamicTest();

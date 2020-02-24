@@ -112,10 +112,10 @@ void InitPara() {
                                    << "Fermi Mom: " << Para.Kf << "\n"
                                    << "Fermi Energy: " << Para.Ef << "\n");
 
-  Para.PrinterTimer = 10;
-  Para.SaveFileTimer = 10;
-  Para.ReweightTimer = 30;
-  Para.MessageTimer = 10;
+  Para.PrinterTimer = 100;
+  Para.SaveFileTimer = 100;
+  Para.ReweightTimer = 300;
+  Para.MessageTimer = 100;
 }
 
 void MonteCarlo() {
@@ -180,6 +180,7 @@ void MonteCarlo() {
 
       // if (i % 2 == 0)
       Markov.Measure();
+      Markov.MeasureDelta();
       // Markov.DynamicTest();
 
       if (i % 1000 == 0) {
@@ -233,6 +234,7 @@ void MonteCarlo() {
   Markov.PrintMCInfo();
   Interrupt.Delay(); // the process can not be killed in saving
   Markov.SaveToFile(false);
+  Markov.SaveDelta();
   Interrupt.Resume(); // after this point, the process can be killed
   LOG_INFO("Quit Markov.");
 }

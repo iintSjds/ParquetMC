@@ -40,11 +40,11 @@ public:
 
   ver::fermi Fermi;         // propagator factory
   ver::verQTheta VerQTheta; // vertex factory
-
+  ver::delta Delta;
   void Initialization();
 
   ver::weightMatrix Evaluate(int LoopNum, int Channel);
-  array<ver::weightMatrix,FreqBinSize> FreqEvaluate(int LoopNum, int Channel);
+  ver::weightMatrix FreqEvaluate(int freq, int LoopNum, int Channel);
   // initialization, read diagrams, then initialize variables
 
 private:

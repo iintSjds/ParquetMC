@@ -84,65 +84,62 @@ ver::weightMatrix weight::Evaluate(int LoopNum, int Channel) {
   return Weight;
 }
 
-array<ver::weightMatrix,FreqBinSize> weight::FreqEvaluate(int LoopNum, int Channel) {
-  array<ver::weightMatrix,FreqBinSize> Weights;
-  for(int freq=0;freq<FreqBinSize;freq++){
-    ver::weightMatrix &Weight=Weights[freq];
-    if (LoopNum == 0) {
-      // normalization
-      Weight(DIR) = 1.0;
-      Weight(EX) = 0.0;
-    } else {
-      // if (Channel != dse::T)
-      //   return 0.0;
-      Weight.SetZero();
-      // if (Channel == dse::U || Channel == dse::S || Channel == dse::I) {
-      //   //   // cout << "Reject" << Channel << endl;
-      //   if (LoopNum == Para.Order)
-      //     return Weight;
+ver::weightMatrix weight::FreqEvaluate(int freq,int LoopNum, int Channel) {
+  ver::weightMatrix Weight;
+  if (LoopNum == 0) {
+    // normalization
+    Weight(DIR) = 1.0;
+    Weight(EX) = 0.0;
+  } else {
+    // if (Channel != dse::T)
+    //   return 0.0;
+    Weight.SetZero();
+    // if (Channel == dse::U || Channel == dse::S || Channel == dse::I) {
+    //   //   // cout << "Reject" << Channel << endl;
+    //   if (LoopNum == Para.Order)
+    //     return Weight;
+    // }
+
+    ver4 &Root = Ver4Root[LoopNum][Channel];
+    if (Root.Weight.size() != 0) {
+
+      // if (Para.Counter == 12898) {
+      //   cout << Root.ID << endl;
       // }
 
-      ver4 &Root = Ver4Root[LoopNum][Channel];
-      if (Root.Weight.size() != 0) {
+      *Root.LegK[OUTL] = Var.LoopMom[1] - Var.LoopMom[0];
+      *Root.LegK[OUTR] = Var.LoopMom[2] + Var.LoopMom[0];
 
-        // if (Para.Counter == 12898) {
-        //   cout << Root.ID << endl;
-        // }
+      // if (Channel == dse::S) {
+      //   *Root.LegK[INR] = Var.LoopMom[0] - Var.LoopMom[1];
+      //   *Root.LegK[OUTR] = Var.LoopMom[0] - Var.LoopMom[2];
+      // } else {
+      //   *Root.LegK[OUTL] = Var.LoopMom[1] - Var.LoopMom[0];
+      //   *Root.LegK[OUTR] = Var.LoopMom[2] + Var.LoopMom[0];
+      // }
 
-        *Root.LegK[OUTL] = Var.LoopMom[1] - Var.LoopMom[0];
-        *Root.LegK[OUTR] = Var.LoopMom[2] + Var.LoopMom[0];
+      Vertex4(Root);
 
-        // if (Channel == dse::S) {
-        //   *Root.LegK[INR] = Var.LoopMom[0] - Var.LoopMom[1];
-        //   *Root.LegK[OUTR] = Var.LoopMom[0] - Var.LoopMom[2];
-        // } else {
-        //   *Root.LegK[OUTL] = Var.LoopMom[1] - Var.LoopMom[0];
-        //   *Root.LegK[OUTR] = Var.LoopMom[2] + Var.LoopMom[0];
-        // }
+      double Factor = 1.0 / pow(2.0 * PI, D * LoopNum);
 
-        Vertex4(Root);
-
-        double Factor = 1.0 / pow(2.0 * PI, D * LoopNum);
-
-        //////// Measure Scattering amplitude ////////////////////
-        for (int i=0;i<Root.Weight.size();i++) {
-          auto &w = Root.Weight[i];
-          double difftau = Var.Tau[Root.T[i][OUTR]]-Var.Tau[Root.T[i][OUTL]];
-          Weight(DIR) += w(DIR) * Factor * cos(Para.FreqTable[freq]*difftau);
-          Weight(EX) += w(EX) * Factor * cos(Para.FreqTable[freq]*difftau);
-        }
-
-        /////// Measure Landau Parameters  /////////////////////////
-        // for (int i = 0; i < Root.Weight.size(); ++i) {
-        //   double dTau = Var.Tau[Root.T[i][INR]] - Var.Tau[Root.T[i][INL]];
-        //   auto &w = Root.Weight[i];
-        //   Weight(DIR) += w(DIR) * Factor * cos(2.0 * PI / Para.Beta * dTau);
-        //   Weight(EX) += w(EX) * Factor * cos(2.0 * PI / Para.Beta * dTau);
-        // }
+      //////// Measure Scattering amplitude ////////////////////
+      for (int i=0;i<Root.Weight.size();i++) {
+        auto &w = Root.Weight[i];
+        double difftau = Var.Tau[Root.T[i][OUTR]]-Var.Tau[Root.T[i][OUTL]];
+        Weight(DIR) += w(DIR) * Factor * cos(Para.FreqTable[freq]*difftau);
+        Weight(EX) += w(EX) * Factor * cos(Para.FreqTable[freq]*difftau);
       }
+
+      /////// Measure Landau Parameters  /////////////////////////
+      // for (int i = 0; i < Root.Weight.size(); ++i) {
+      //   double dTau = Var.Tau[Root.T[i][INR]] - Var.Tau[Root.T[i][INL]];
+      //   auto &w = Root.Weight[i];
+      //   Weight(DIR) += w(DIR) * Factor * cos(2.0 * PI / Para.Beta * dTau);
+      //   Weight(EX) += w(EX) * Factor * cos(2.0 * PI / Para.Beta * dTau);
+      // }
     }
   }
-  return Weights;
+  return Weight;
 }
 
 void weight::Ver0(ver4 &Ver4) {
