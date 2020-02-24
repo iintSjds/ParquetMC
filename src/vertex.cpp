@@ -22,7 +22,7 @@ extern parameter Para;
 delta::delta(){
   Normalization = 1.0e-10;
   AngleIndex = ExtMomBinSize * 2;
-  FreqIndex = AngleIndex * AngBinSize * 2;
+  FreqIndex = AngleIndex * AngBinSize;
   PhyWeightT = FreqBinSize * ExtMomBinSize * AngBinSize;
   _data = new double[FreqBinSize * AngBinSize * ExtMomBinSize * 2];
 }
