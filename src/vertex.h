@@ -4,6 +4,7 @@
 // #include "utility/vector.h"
 #include "global.h"
 #include <array>
+#include <vector>
 
 double sum2(const momentum &);
 double norm2(const momentum &);
@@ -101,7 +102,7 @@ namespace ver {
     double PhyWeightT;
     int AngleIndex;
     int FreqIndex;
-    double * _data;
+    vector<double> _data;
 
   };
 
@@ -121,7 +122,7 @@ namespace ver {
     void ResetIRScale(int IRScaleBin);
 
     array<verTensor, 4> Chan;
-
+    delta Delta;
     // double TauBasis[TauBinSize][TauBasisNum];
 
     double Normalization;

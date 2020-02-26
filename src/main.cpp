@@ -57,7 +57,7 @@ void InitPara() {
   //// initialize the global parameter //////////////////////
   double Kf;
   if (D == 3) {
-    Kf = pow(9.0 * PI / 4.0, 1.0 / 3.0) / Para.Rs; // 3D
+    Kf=1;//Kf = pow(9.0 * PI / 4.0, 1.0 / 3.0) / Para.Rs; // 3D
   } else if (D == 2) {
     Kf = sqrt(2.0) / Para.Rs; // 2D
   } else {
@@ -91,7 +91,7 @@ void InitPara() {
   }
 
   for (int i = 0; i < FreqBinSize; i++) {
-    Para.FreqTable[i] = PI/Para.Beta*(1+2*i);
+    Para.FreqTable[i] = PI/Para.Beta*(2*i);
   }
 
   // initialize external momentum
@@ -180,7 +180,7 @@ void MonteCarlo() {
 
       // if (i % 2 == 0)
       Markov.Measure();
-      Markov.MeasureDelta();
+      if(i % FreqBinSize==0) Markov.MeasureDelta();
       // Markov.DynamicTest();
 
       if (i % 1000 == 0) {

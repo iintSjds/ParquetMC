@@ -126,7 +126,7 @@ void markov::MeasureDelta() {
 
     for(int freq=0;freq<FreqBinSize;freq++){
       ver::weightMatrix deltaWeight=Weight.FreqEvaluate(freq,Var.CurrOrder,Var.CurrChannel);
-      Weight.Delta.Measure(Var.LoopMom[1], Var.LoopMom[2], Var.CurrExtMomBin,
+      Weight.VerQTheta.Delta.Measure(Var.LoopMom[1], Var.LoopMom[2], Var.CurrExtMomBin,
                            freq,
                            deltaWeight, Factor);
     }
@@ -139,7 +139,7 @@ void markov::LoadFile() { Weight.VerQTheta.LoadWeight(); };
 
 void markov::SaveToFile(bool Simple) { Weight.VerQTheta.Save(Simple); };
 
-void markov::SaveDelta() { Weight.Delta.Save(false); };
+void markov::SaveDelta() { Weight.VerQTheta.Delta.Save(true); };
 
 void markov::ClearStatis() { Weight.VerQTheta.ClearStatis(); }
 

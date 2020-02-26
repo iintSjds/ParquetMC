@@ -24,11 +24,12 @@ delta::delta(){
   AngleIndex = ExtMomBinSize * 2;
   FreqIndex = AngleIndex * AngBinSize;
   PhyWeightT = FreqBinSize * ExtMomBinSize * AngBinSize;
-  _data = new double[FreqBinSize * AngBinSize * ExtMomBinSize * 2];
+  _data = vector<double>(FreqBinSize * AngBinSize * ExtMomBinSize * 2,0);
+  Initialize();
 }
 
 delta::~delta(){
-  delete[] _data;
+  //  delete[] _data;
 }
 
 void delta::Initialize(){
@@ -96,15 +97,15 @@ void delta::Save(bool Simple){
     else{
       for (int freq = 0; freq < FreqBinSize; freq++)
         for (int angle = 0; angle < AngBinSize; ++angle)
-          for (int qindex = 0; qindex < ExtMomBinSize; ++qindex)
-            for (int dir = 0; dir < 2; ++dir){
+          for (int qindex = 0; qindex < ExtMomBinSize; ++qindex){
+            //for (int dir = 0; dir < 2; ++dir){
               VerFile << Para.FreqTable[freq]<< "\t";
               VerFile << Para.AngleTable[angle] << "\t";
               // for(int dim=0;dim<D;dim++)
               VerFile << Para.ExtMomTable[qindex][0] << "\t";
-              VerFile << dir << "\t";
-              VerFile << DeltaVal(freq, angle, qindex, dir) *
-                PhyWeightT
+              //VerFile << dir << "\t";
+              VerFile << (DeltaVal(freq, angle, qindex, 0)+DeltaVal(freq, angle, qindex, 1)) *
+                PhyWeightT / Para.Counter
                       << endl;
             }
     }
@@ -125,7 +126,7 @@ void delta::Measure(const momentum &InL, const momentum &InR,
 }
 
 double &delta::DeltaVal(int Freq, int Angle, int ExtQ, int Dir){
-  return _data[Freq*FreqIndex + Angle * AngleIndex + ExtQ * 2 + Dir];
+  return _data.at(Freq*FreqIndex + Angle * AngleIndex + ExtQ * 2 + Dir);
 }
 
 verTensor::verTensor() {
@@ -586,7 +587,7 @@ int ver::Angle2Index(const double &Angle, const int &AngleNum) {
   // if (Angle > 1.0 - EPS)
   //   return AngleNum - 1;
   // else {
-  double dAngle = 2.0 / AngleNum;
+  double dAngle = 2.0 / (AngleNum-EPS);
   return int((Angle + 1.0) / dAngle);
   // }
 }
