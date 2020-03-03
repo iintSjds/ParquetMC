@@ -27,7 +27,7 @@ const int TauBinSize = 128;
 const int TauBasisNum = 32;
 const int SpinIndex = 2;
 
-const int FreqBinSize = 5;
+const int FreqBinSize = 3;
 
 enum selfenergy { BARE, FOCK, DRESSED }; // self energy type
 enum type { GU, GW, RG, PARQUET };

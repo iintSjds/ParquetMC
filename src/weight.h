@@ -40,7 +40,6 @@ public:
 
   ver::fermi Fermi;         // propagator factory
   ver::verQTheta VerQTheta; // vertex factory
-  ver::delta Delta;
   void Initialization();
 
   ver::weightMatrix Evaluate(int LoopNum, int Channel);

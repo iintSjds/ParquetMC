@@ -42,7 +42,7 @@ Channel = [0, 1, 2, 3]
 # Channel = [3]
 ChanName = {0: "I", 1: "T", 2: "U", 3: "S"}
 # 0: total, 1: order 1, ...
-Order = [0, ]
+Order = [0,1, ]
 
 #folder = "./Beta{0}_rs{1}_lambda{2}/".format(BetaStr, rsStr, Mass2Str)
 folder ="./"

@@ -57,7 +57,7 @@ void InitPara() {
   //// initialize the global parameter //////////////////////
   double Kf;
   if (D == 3) {
-    Kf=1;//Kf = pow(9.0 * PI / 4.0, 1.0 / 3.0) / Para.Rs; // 3D
+    Kf = pow(9.0 * PI / 4.0, 1.0 / 3.0) / Para.Rs; // 3D
   } else if (D == 2) {
     Kf = sqrt(2.0) / Para.Rs; // 2D
   } else {
@@ -97,7 +97,7 @@ void InitPara() {
   // initialize external momentum
   for (int i = 0; i < ExtMomBinSize; i++) {
     // the external momentum only has x component
-    Para.ExtMomTable[i][0] = i * Para.MaxExtMom / ExtMomBinSize;
+    Para.ExtMomTable[i][0] = (i+0.5) * Para.MaxExtMom / ExtMomBinSize;
     for (int j = 1; j < D; j++)
       Para.ExtMomTable[i][j] = 0.0;
   }

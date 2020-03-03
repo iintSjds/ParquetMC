@@ -119,8 +119,6 @@ void markov::ChangeMomentum() {
   // int LoopIndex = int(Random.urn() * (Var.CurrGroup->Order + 3));
 
   // InL momentum is locked
-  if (LoopIndex == 1)
-    return;
 
   Proposed[CHANGE_MOM][Var.CurrOrder]++;
 
@@ -130,17 +128,38 @@ void markov::ChangeMomentum() {
 
   CurrMom = Var.LoopMom[LoopIndex];
 
+  /* Update strategy for cooper gap function equation:
+     Four legs are OL=-K, OR=K, IL=-P, IR=P; K0=P-K, K1=-P, K2=P
+     - For K0(transfer), propose a New K s.t. |K| is random from ExtMomTable, Angle is random.
+     - FOr K1 and K2, always propose P=(P,0,0), P from ExtMomTable.
+   */
+
+  if(LoopIndex == 1){
+    // K1 and K2 are updated simultaneously in LoopIndex==2 case
+    return;
+  }
+
   if (LoopIndex == 0) {
     // transfer momentum
+    // propose a new K from ExtMomTable
     Prop = ShiftExtTransferK(Var.CurrExtMomBin, NewExtMomBin);
-    Var.LoopMom[LoopIndex] = Para.ExtMomTable[NewExtMomBin];
-    if (Var.LoopMom[LoopIndex].norm() > Para.MaxExtMom) {
-      Var.LoopMom[LoopIndex] = CurrMom;
-      return;
-    }
+    // propose an angle between K and P
+    int NewKBin = Random.irn(0, AngBinSize - 1);
+    double AngCos = ver::Index2Angle(NewKBin, AngBinSize);
+    double theta = acos(AngCos);
+    // update transfer K0=K-P
+    Var.LoopMom[LoopIndex][0] = Para.ExtMomTable[NewExtMomBin].norm() * cos(theta)-Var.LoopMom[1][0];
+    Var.LoopMom[LoopIndex][1] = Para.ExtMomTable[NewExtMomBin].norm() * sin(theta);
+
+    // if (Var.LoopMom[LoopIndex].norm() > Para.MaxExtMom) {
+    //   Var.LoopMom[LoopIndex] = CurrMom;
+    //   return;
+    // }
   } else if (LoopIndex == 2) {
     // InR momentum
+    // update InR and InL
     Prop = ShiftExtLegK(CurrMom, Var.LoopMom[LoopIndex]);
+    Var.LoopMom[1][0]=-Var.LoopMom[LoopIndex][0];
   } else {
     Prop = ShiftK(CurrMom, Var.LoopMom[LoopIndex]);
   }
@@ -386,12 +405,15 @@ double markov::ShiftExtLegK(const momentum &OldExtMom, momentum &NewExtMom) {
   // NewExtMom[1] = Para.Kf * sin(Theta);
   // return 1.0;
 
-  int NewKBin = Random.irn(0, AngBinSize - 1);
+  // int NewKBin = Random.irn(0, AngBinSize - 1);
 
-  double AngCos = ver::Index2Angle(NewKBin, AngBinSize);
-  double theta = acos(AngCos);
-  NewExtMom[0] = Para.Kf * cos(theta);
-  NewExtMom[1] = Para.Kf * sin(theta);
+  // double AngCos = ver::Index2Angle(NewKBin, AngBinSize);
+  // double theta = acos(AngCos);
+  // NewExtMom[0] = Para.Kf * cos(theta);
+  // NewExtMom[1] = Para.Kf * sin(theta);
+
+  int NewKBin = Random.irn(0, ExtMomBinSize - 1);
+  NewExtMom = Para.ExtMomTable[NewKBin];
 
   // ASSERT_ALLWAYS(diag::Angle2Index(cos(theta), AngBinSize) == NewKBin,
   //                "Not matched, " << NewKBin << " vs "

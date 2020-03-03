@@ -83,29 +83,29 @@ void delta::Save(bool Simple){
       for (int freq = 0; freq < FreqBinSize; ++freq)
         for (int angle = 0; angle < AngBinSize; ++angle)
           for (int qindex = 0; qindex < ExtMomBinSize; ++qindex)
-            for (int dir = 0; dir < 2; ++dir){
+            for (int dir = 0; dir < 1; ++dir){//2; ++dir){
               // VerFile << Para.AngleTable[angle] << "\t";
               // for(int dim=0;dim<D;dim++)
               //   VerFile << Para.ExtMomTable[qindex][dim] << "\t";
               // VerFile << dir << "\t";
               VerFile << DeltaVal(freq, angle, qindex, dir) *
-                PhyWeightT
+                PhyWeightT/Normalization
                       << " ";
             }
       VerFile << endl;
     }
     else{
       for (int freq = 0; freq < FreqBinSize; freq++)
-        for (int angle = 0; angle < AngBinSize; ++angle)
+        for (int angle = 0; angle < 1; ++angle)//AngBinSize; ++angle)
           for (int qindex = 0; qindex < ExtMomBinSize; ++qindex){
             //for (int dir = 0; dir < 2; ++dir){
               VerFile << Para.FreqTable[freq]<< "\t";
-              VerFile << Para.AngleTable[angle] << "\t";
+              //              VerFile << Para.AngleTable[angle] << "\t";
               // for(int dim=0;dim<D;dim++)
               VerFile << Para.ExtMomTable[qindex][0] << "\t";
               //VerFile << dir << "\t";
               VerFile << (DeltaVal(freq, angle, qindex, 0)+DeltaVal(freq, angle, qindex, 1)) *
-                PhyWeightT / Para.Counter
+                PhyWeightT / Normalization
                       << endl;
             }
     }
@@ -115,13 +115,16 @@ void delta::Save(bool Simple){
   }
 }
 
-void delta::Measure(const momentum &InL, const momentum &InR,
-                    const int QIndex, int Freq,
+void delta::Measure(const momentum &InL, const momentum &Tran,
+                    const int QIndex, int Freq,int Order,
                     ver::weightMatrix &Weight, double Factor){
-  double CosAng = Angle3D(InL, InR);
-  int AngleIndex = Angle2Index(CosAng, AngBinSize);
-  DeltaVal(Freq, AngleIndex, QIndex, DIR) += Weight(DIR) * Factor;
-  DeltaVal(Freq, AngleIndex, QIndex, EX) += Weight(EX) * Factor;
+  if(Order==0) Normalization+=Weight(DIR) * Factor;
+  else{
+    double CosAng = Angle3D(InL, InL+Tran);
+    int AngleIndex = Angle2Index(CosAng, AngBinSize);
+    DeltaVal(Freq, 0, QIndex, DIR) += Weight(DIR) * Factor / AngBinSize * 2*PI;
+    //DeltaVal(Freq, AngleIndex, QIndex, EX) += Weight(EX) * Factor;
+  }
   return;
 }
 
@@ -201,7 +204,7 @@ void verQTheta::Interaction(const array<momentum *, 4> &LegK, double Tau,
   double kExQ = ExQ.norm();
 
   WeightDir = 8.0 * PI * Para.Charge2 / (kDiQ * kDiQ + Para.Mass2);
-  WeightEx = 8.0 * PI * Para.Charge2 / (kExQ * kExQ + Para.Mass2);
+  WeightEx = 0;//8.0 * PI * Para.Charge2 / (kExQ * kExQ + Para.Mass2);
 
   // WeightEx = 0.0;
   // if (CounterTermOrder > 0) {
@@ -337,31 +340,31 @@ void verQTheta::Save(bool Simple) {
         }
         VerFile << endl;
 
-        for (int angle = 0; angle < AngBinSize; ++angle)
-          for (int qindex = 0; qindex < ExtMomBinSize; ++qindex)
-            for (int dir = 0; dir < 2; ++dir){
-              // VerFile << Para.AngleTable[angle] << "\t";
-              // for(int dim=0;dim<D;dim++)
-              //   VerFile << Para.ExtMomTable[qindex][dim] << "\t";
-              // VerFile << dir << "\t";
-              VerFile << Chan[chan].Estimator(order, angle, qindex, dir) *
-                PhyWeightT
-                      << " ";
-            }
-        VerFile << endl;
-        // for (int freq = 0; freq < FreqBinSize; freq++)
-        //   for (int angle = 0; angle < AngBinSize; ++angle)
-        //     for (int qindex = 0; qindex < ExtMomBinSize; ++qindex)
-        //       for (int dir = 0; dir < 2; ++dir){
-        //         VerFile << Para.FreqTable[freq]<< "\t";
-        //         VerFile << Para.AngleTable[angle] << "\t";
-        //         // for(int dim=0;dim<D;dim++)
-        //         VerFile << Para.ExtMomTable[qindex][0] << "\t";
-        //         VerFile << dir << "\t";
-        //         VerFile << Chan[chan].Estimator(order, angle, qindex, dir) *
-        //           PhyWeightT
-        //                 << endl;
-        //       }
+        // for (int angle = 0; angle < AngBinSize; ++angle)
+        //   for (int qindex = 0; qindex < ExtMomBinSize; ++qindex)
+        //     for (int dir = 0; dir < 2; ++dir){
+        //       // VerFile << Para.AngleTable[angle] << "\t";
+        //       // for(int dim=0;dim<D;dim++)
+        //       //   VerFile << Para.ExtMomTable[qindex][dim] << "\t";
+        //       // VerFile << dir << "\t";
+        //       VerFile << Chan[chan].Estimator(order, angle, qindex, dir) *
+        //         PhyWeightT
+        //               << " ";
+        //     }
+        // VerFile << endl;
+        //        for (int freq = 0; freq < FreqBinSize; freq++)
+          for (int angle = 0; angle < AngBinSize; ++angle)
+            for (int qindex = 0; qindex < ExtMomBinSize; ++qindex)
+              for (int dir = 0; dir < 2; ++dir){
+                //      VerFile << Para.FreqTable[freq]<< "\t";
+                VerFile << Para.AngleTable[angle] << "\t";
+                // for(int dim=0;dim<D;dim++)
+                VerFile << Para.ExtMomTable[qindex][0] << "\t";
+                VerFile << dir << "\t";
+                VerFile << Chan[chan].Estimator(order, angle, qindex, dir) *
+                  PhyWeightT/Normalization
+                        << endl;
+              }
         VerFile.close();
       } else {
         LOG_WARNING("Polarization for PID " << Para.PID << " fails to save!");

@@ -43,17 +43,18 @@ markov::markov() : Var(Weight.Var) {
   // for (auto &sp : Var.LoopSpin)
   //   sp = (spin)(Random.irn(0, 1));
 
-  Var.CurrExtMomBin = 0;
-
-  // Var.LoopMom[0].fill(0.0);
-  Var.LoopMom[0] = Para.ExtMomTable[Var.CurrExtMomBin];
 
   for (int i = 1; i < D; i++) {
     Var.LoopMom[1][i] = 0.0;
     Var.LoopMom[2][i] = 0.0;
   }
-  Var.LoopMom[1][0] = Para.Kf;
+  Var.LoopMom[1][0] = -Para.Kf;
   Var.LoopMom[2][0] = Para.Kf;
+
+  Var.CurrExtMomBin = 0;
+
+  // Var.LoopMom[0].fill(0.0);
+  Var.LoopMom[0] = Var.LoopMom[1]-Para.ExtMomTable[Var.CurrExtMomBin];
 
   // initialize external tau
   // Var.Tau[0] = 0.0;
@@ -121,14 +122,14 @@ void markov::Measure() {
 };
 
 void markov::MeasureDelta() {
-  if(Var.CurrChannel==1||Var.CurrChannel==2){
+  if(Var.CurrChannel==1){//||Var.CurrChannel==2){
     double Factor = 1.0 / (Var.CurrAbsWeight * Para.ReWeight[Var.CurrOrder]);
 
     for(int freq=0;freq<FreqBinSize;freq++){
       ver::weightMatrix deltaWeight=Weight.FreqEvaluate(freq,Var.CurrOrder,Var.CurrChannel);
-      Weight.VerQTheta.Delta.Measure(Var.LoopMom[1], Var.LoopMom[2], Var.CurrExtMomBin,
-                           freq,
-                           deltaWeight, Factor);
+      Weight.VerQTheta.Delta.Measure(Var.LoopMom[1], Var.LoopMom[0], Var.CurrExtMomBin,
+                                     freq,Var.CurrOrder,
+                                     deltaWeight, Factor);
     }
   }
 };
@@ -139,7 +140,7 @@ void markov::LoadFile() { Weight.VerQTheta.LoadWeight(); };
 
 void markov::SaveToFile(bool Simple) { Weight.VerQTheta.Save(Simple); };
 
-void markov::SaveDelta() { Weight.VerQTheta.Delta.Save(true); };
+void markov::SaveDelta() { Weight.VerQTheta.Delta.Save(false); };
 
 void markov::ClearStatis() { Weight.VerQTheta.ClearStatis(); }
 

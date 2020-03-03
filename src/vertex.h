@@ -92,8 +92,8 @@ namespace ver {
     void LoadF();
     void Save(bool Simple);
 
-    void Measure(const momentum &InL, const momentum &InR,
-                 const int QIndex, int Freq,
+    void Measure(const momentum &InL, const momentum &Tran,
+                 const int QIndex, int Freq,int Order,
                  ver::weightMatrix &Weight, double Factor);
 
     double &DeltaVal(int Freq, int Angle, int ExtQ, int Dir);
