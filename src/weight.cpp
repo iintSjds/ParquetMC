@@ -125,9 +125,10 @@ ver::weightMatrix weight::FreqEvaluate(int freq,int LoopNum, int Channel) {
       //////// Measure Scattering amplitude ////////////////////
       for (int i=0;i<Root.Weight.size();i++) {
         auto &w = Root.Weight[i];
+        double momfactor = 1;//Var.LoopMom[1].norm()*2*PI;
         double difftau = Var.Tau[Root.T[i][OUTR]]-Var.Tau[Root.T[i][OUTL]];
-        Weight(DIR) += w(DIR) * Factor * cos(Para.FreqTable[freq]*difftau);
-        Weight(EX) += w(EX) * Factor * cos(Para.FreqTable[freq]*difftau);
+        Weight(DIR) += w(DIR) * Factor * cos(Para.FreqTable[freq]*difftau) * momfactor;
+        Weight(EX) += w(EX) * Factor * cos(Para.FreqTable[freq]*difftau) * momfactor;
       }
 
       /////// Measure Landau Parameters  /////////////////////////

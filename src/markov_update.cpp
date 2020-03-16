@@ -151,6 +151,7 @@ void markov::ChangeMomentum() {
     Var.LoopMom[LoopIndex][0] = Para.ExtMomTable[NewExtMomBin].norm() * cos(theta)-Var.LoopMom[1][0];
     Var.LoopMom[LoopIndex][1] = Para.ExtMomTable[NewExtMomBin].norm() * sin(theta);
 
+    Prop *= sin(theta);
     // if (Var.LoopMom[LoopIndex].norm() > Para.MaxExtMom) {
     //   Var.LoopMom[LoopIndex] = CurrMom;
     //   return;
