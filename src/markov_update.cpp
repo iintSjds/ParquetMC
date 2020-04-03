@@ -118,8 +118,6 @@ void markov::ChangeMomentum() {
   int LoopIndex = Random.irn(0, GetLoopNum(Var.CurrOrder) - 1);
   // int LoopIndex = int(Random.urn() * (Var.CurrGroup->Order + 3));
 
-  // InL momentum is locked
-
   Proposed[CHANGE_MOM][Var.CurrOrder]++;
 
   double Prop;
@@ -140,6 +138,7 @@ void markov::ChangeMomentum() {
   }
 
   if (LoopIndex == 0) {
+
     // transfer momentum
     // propose a new K from ExtMomTable
     Prop = ShiftExtTransferK(Var.CurrExtMomBin, NewExtMomBin);
@@ -148,14 +147,20 @@ void markov::ChangeMomentum() {
     double AngCos = ver::Index2Angle(NewKBin, AngBinSize);
     double theta = acos(AngCos);
     // update transfer K0=K-P
-    Var.LoopMom[LoopIndex][0] = Para.ExtMomTable[NewExtMomBin].norm() * cos(theta)-Var.LoopMom[1][0];
-    Var.LoopMom[LoopIndex][1] = Para.ExtMomTable[NewExtMomBin].norm() * sin(theta);
+    NewExtMomBin=0;
+    double newMom=Para.ExtMomTable[NewExtMomBin].norm();
+    Var.LoopMom[LoopIndex][0] = newMom * cos(theta)-Var.LoopMom[1][0];
+    Var.LoopMom[LoopIndex][1] = newMom * sin(theta);
 
     Prop *= sin(theta);
     // if (Var.LoopMom[LoopIndex].norm() > Para.MaxExtMom) {
     //   Var.LoopMom[LoopIndex] = CurrMom;
     //   return;
     // }
+
+    // test
+    //    Prop = ShiftExtLegK(CurrMom, Var.LoopMom[LoopIndex]);
+
   } else if (LoopIndex == 2) {
     // InR momentum
     // update InR and InL
