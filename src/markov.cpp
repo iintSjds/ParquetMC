@@ -48,10 +48,11 @@ markov::markov() : Var(Weight.Var) {
     Var.LoopMom[1][i] = 0.0;
     Var.LoopMom[2][i] = 0.0;
   }
-  Var.LoopMom[1][0] = -Para.Kf;
-  Var.LoopMom[2][0] = Para.Kf;
+  Var.LoopMom[1][0] = -Para.ExtMomTable[1][0];
+  Var.LoopMom[2][0] = Para.ExtMomTable[1][0];
 
   Var.CurrExtMomBin = 0;
+  Var.CurrInMomBin = 1;
 
   // Var.LoopMom[0].fill(0.0);
   Var.LoopMom[0] = Var.LoopMom[1]-Para.ExtMomTable[Var.CurrExtMomBin];
@@ -140,7 +141,7 @@ void markov::LoadFile() { Weight.VerQTheta.LoadWeight(); };
 
 void markov::SaveToFile(bool Simple) { Weight.VerQTheta.Save(Simple); };
 
-void markov::SaveDelta() { Weight.VerQTheta.Delta.Save(false); };
+void markov::SaveDelta() { Weight.VerQTheta.Delta.Save(true); };
 
 void markov::ClearStatis() { Weight.VerQTheta.ClearStatis(); }
 

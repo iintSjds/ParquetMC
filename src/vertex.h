@@ -97,13 +97,16 @@ namespace ver {
                  ver::weightMatrix &Weight, double Factor);
 
     double &DeltaVal(int Freq, int Angle, int ExtQ, int Dir);
+    double &FVal(int tau, int ExtQ);
+    double F(double tau, int ExtQ);
   private:
     double Normalization;
     double PhyWeightT;
     int AngleIndex;
     int FreqIndex;
     vector<double> _data;
-
+    vector<double> _f;
+    vector<double> _taulist;
   };
 
   class verQTheta {

@@ -20,6 +20,7 @@ struct variable {
   long int CurrVersion;
 
   int CurrExtMomBin; // current bin of the external momentum
+  int CurrInMomBin;
   double CurrTau;    // current external tau
   double CurrScale;  // Current (Reference) Scale: Index=1, ..., ScaleBinSize
   int CurrIRScaleBin;

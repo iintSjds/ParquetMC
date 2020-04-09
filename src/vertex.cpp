@@ -6,6 +6,7 @@
 #include "utility/utility.h"
 #include <cmath>
 #include <iostream>
+#include <algorithm>
 
 using namespace ver;
 using namespace std;
@@ -25,6 +26,8 @@ delta::delta(){
   FreqIndex = AngleIndex * AngBinSize;
   PhyWeightT = FreqBinSize * ExtMomBinSize * AngBinSize;
   _data = vector<double>(FreqBinSize * AngBinSize * ExtMomBinSize * 2,0);
+  _f = vector<double>(FreqBinSize * ExtMomBinSize);
+  _taulist = vector<double>(FreqBinSize);
   Initialize();
 }
 
@@ -40,9 +43,32 @@ void delta::Initialize(){
         DeltaVal(freq, ang, mom, 1) = 0.0;
       }
     }
+  for (int tau = 0; tau < FreqBinSize; ++tau){
+    for (int mom = 0; mom < ExtMomBinSize; ++mom) {
+      FVal(tau, mom) = 0.0;
+    }
+  }
+  LoadF();
 }
 
 void delta::LoadF(){
+  try {
+    string FileName = fmt::format("./f.dat");
+    ifstream VerFile;
+    VerFile.open(FileName, ios::in);
+    if (VerFile.is_open()) {
+      for (int tau = 0; tau < FreqBinSize; tau++){
+        VerFile >> _taulist[tau];
+      }
+      for (int tau =0; tau<FreqBinSize;tau++)
+        for (int qindex = 0; qindex<ExtMomBinSize; qindex++){
+          VerFile >> _f[tau*ExtMomBinSize+qindex];
+        }
+      VerFile.close();
+    }
+  } catch (int e) {
+    LOG_INFO("Can not load f file!");
+  }
   // TBA
   // load F from file, and store
   return;
@@ -56,45 +82,42 @@ void delta::Save(bool Simple){
 
   if (VerFile.is_open()) {
 
-    VerFile << fmt::sprintf(
-                            "#PID:%d, Type:%d, rs:%.3f, Beta: %.3f, Step: %d\n", Para.PID,
-                            Para.ObsType, Para.Rs, Para.Beta, Para.Counter);
-
-    VerFile << "# Norm: " << Normalization << endl;
-
-    VerFile << "# FreqTable: ";
-    for (int freq = 0; freq < FreqBinSize; ++freq)
-      VerFile << Para.FreqTable[freq] << " ";
-    VerFile<<endl;
-
-    VerFile << "# AngleTable: ";
-    for (int angle = 0; angle < AngBinSize; ++angle)
-      VerFile << Para.AngleTable[angle] << " ";
-    VerFile << endl;
-
-    VerFile << "# ExtMomBinTable: ";
-    for (int qindex = 0; qindex < ExtMomBinSize; ++qindex){
-      // for (int dim=0;dim < D; dim++)
-      VerFile << Para.ExtMomTable[qindex][0] << " ";
-    }
-    VerFile << endl;
-
     if(Simple){
       for (int freq = 0; freq < FreqBinSize; ++freq)
-        for (int angle = 0; angle < AngBinSize; ++angle)
-          for (int qindex = 0; qindex < ExtMomBinSize; ++qindex)
-            for (int dir = 0; dir < 1; ++dir){//2; ++dir){
+        for (int qindex = 0; qindex < ExtMomBinSize; ++qindex){
               // VerFile << Para.AngleTable[angle] << "\t";
               // for(int dim=0;dim<D;dim++)
               //   VerFile << Para.ExtMomTable[qindex][dim] << "\t";
               // VerFile << dir << "\t";
-              VerFile << DeltaVal(freq, angle, qindex, dir) *
+              VerFile << DeltaVal(freq, 0, qindex, 0) *
                 PhyWeightT/Normalization
                       << " ";
-            }
+        }
       VerFile << endl;
     }
     else{
+      VerFile << fmt::sprintf(
+                              "#PID:%d, Type:%d, rs:%.3f, Beta: %.3f, Step: %d\n", Para.PID,
+                              Para.ObsType, Para.Rs, Para.Beta, Para.Counter);
+
+      VerFile << "# Norm: " << Normalization << endl;
+
+      VerFile << "# FreqTable: ";
+      for (int freq = 0; freq < FreqBinSize; ++freq)
+        VerFile << Para.FreqTable[freq] << " ";
+      VerFile<<endl;
+
+      VerFile << "# AngleTable: ";
+      for (int angle = 0; angle < AngBinSize; ++angle)
+        VerFile << Para.AngleTable[angle] << " ";
+      VerFile << endl;
+
+      VerFile << "# ExtMomBinTable: ";
+      for (int qindex = 0; qindex < ExtMomBinSize; ++qindex){
+        // for (int dim=0;dim < D; dim++)
+        VerFile << Para.ExtMomTable[qindex][0] << " ";
+      }
+      VerFile << endl;
       for (int freq = 0; freq < FreqBinSize; freq++)
         for (int angle = 0; angle < 1; ++angle)//AngBinSize; ++angle)
           for (int qindex = 0; qindex < ExtMomBinSize; ++qindex){
@@ -122,7 +145,7 @@ void delta::Measure(const momentum &InL, const momentum &Tran,
   else{
     double CosAng = Angle3D(InL, InL+Tran);
     int AngleIndex = Angle2Index(CosAng, AngBinSize);
-    DeltaVal(Freq, 0, QIndex, DIR) += Weight(DIR) * Factor /AngBinSize*2.0;//*exp(-(InL+Tran).norm()) / AngBinSize;
+    DeltaVal(Freq, 0, QIndex, DIR) += Weight(DIR) * Factor /AngBinSize*2.0/ExtMomBinSize*Para.MaxExtMom;//*exp(-(InL+Tran).norm()) / AngBinSize;
     //DeltaVal(Freq, AngleIndex, QIndex, EX) += Weight(EX) * Factor;
   }
   return;
@@ -130,6 +153,16 @@ void delta::Measure(const momentum &InL, const momentum &Tran,
 
 double &delta::DeltaVal(int Freq, int Angle, int ExtQ, int Dir){
   return _data.at(Freq*FreqIndex + Angle * AngleIndex + ExtQ * 2 + Dir);
+}
+
+double &delta::FVal(int Tau,  int ExtQ){
+  return _f.at(Tau*ExtMomBinSize + ExtQ);
+}
+
+double delta::F(double tau,  int ExtQ){
+  // find tau in tau list, and return value
+  int t=std::upper_bound(_taulist.begin(),_taulist.end()-1,tau+EPS)-_taulist.begin();
+  return FVal(t,ExtQ);
 }
 
 verTensor::verTensor() {
@@ -171,8 +204,8 @@ double &verTensor::Estimator(int Order, int Angle, int ExtQ, int Dir) {
 // double norm2(const momentum &Mom) { return sqrt(sum2(Mom)); }
 verQTheta::verQTheta() {
 
-  _TestAngle2D();
-  _TestAngleIndex();
+  //  _TestAngle2D();
+  //  _TestAngleIndex();
 
   Normalization = 1.0e-10;
   // PhyWeight = Para.Kf * (1.0 - exp(-Para.MaxExtMom / Para.Kf)) * 4.0 * PI *
@@ -617,8 +650,8 @@ void ver::_TestAngle2D() {
 
   ASSERT_ALLWAYS(
       abs(Angle3D(K1, K2) - 1.0) < 1.e-7,
-      fmt::format("Angle between K1 and K2 are not zero! It is {:.13f}",
-                  Angle3D(K1, K2)));
+      fmt::format("Angle between K1 and K2 are not zero! It is {:.13f},K1*K2= {:.13f}",
+                  Angle3D(K1, K2),K1.dot(K2)));
 
   K1 = {1.0, 0.0};
   K2 = {-1.0, 0.0};

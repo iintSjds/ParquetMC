@@ -127,7 +127,7 @@ ver::weightMatrix weight::FreqEvaluate(int freq,int LoopNum, int Channel) {
         auto &w = Root.Weight[i];
         double momfactor = 1;//Var.LoopMom[1].norm()*2*PI;
         double difftau = Var.Tau[Root.T[i][OUTR]]-Var.Tau[Root.T[i][OUTL]];
-        Weight(DIR) += w(DIR) * Factor * cos(Para.FreqTable[freq]*difftau) * momfactor;
+        Weight(DIR) += w(DIR) * Factor * cos(Para.FreqTable[freq]*difftau) * momfactor * VerQTheta.Delta.F(difftau,Var.CurrInMomBin);
         Weight(EX) += w(EX) * Factor * cos(Para.FreqTable[freq]*difftau) * momfactor;
       }
 

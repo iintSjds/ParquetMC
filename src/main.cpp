@@ -25,12 +25,34 @@ parameter Para; // parameters as a global variable
 RandomFactory Random;
 
 int main(int argc, const char *argv[]) {
-  cout << "Order, Beta, Rs, Mass2, Lambda, Charge2, MaxExtMom(*kF), "
-          "TotalStep(*1e6), "
-          "Seed, "
-          "PID\n";
-  cin >> Para.Order >> Para.Beta >> Para.Rs >> Para.Mass2 >> Para.Lambda >>
-      Para.Charge2 >> Para.MaxExtMom >> Para.TotalStep >> Para.Seed >> Para.PID;
+  // cout << "Order, Beta, Rs, Mass2, Lambda, Charge2, MaxExtMom(*kF), "
+  //         "TotalStep(*1e6), "
+  //         "Seed, "
+  //         "PID\n";
+  // cin >> Para.Order >> Para.Beta >> Para.Rs >> Para.Mass2 >> Para.Lambda >>
+  //     Para.Charge2 >> Para.MaxExtMom >> Para.TotalStep >> Para.Seed >> Para.PID;
+
+  string FileName = "config.dat";
+  double omega_c;
+  ifstream ConfigFile;
+  ConfigFile.open(FileName,ios::in);
+  if(ConfigFile.is_open()){
+    ConfigFile >> Para.Order >> Para.Beta >> Para.Rs >> Para.Mass2 >> Para.Lambda >>
+      Para.Charge2 >> Para.MaxExtMom >> Para.TotalStep >> Para.Seed >> Para.PID >> omega_c;
+    for (int i = 0; i < FreqBinSize; i++) {
+      ConfigFile >> Para.FreqTable[i];
+    }
+    for (int i = 0; i < ExtMomBinSize; i++) {
+      // the external momentum only has x component
+      ConfigFile >> Para.ExtMomTable[i][0];
+      for (int j = 1; j < D; j++)
+        Para.ExtMomTable[i][j] = 0.0;
+    }
+  }
+  else{
+    cout << "can't read config!" << endl;
+    return 1;
+  }
   InitPara(); // initialize global parameters
   MonteCarlo();
   return 0;
@@ -90,19 +112,19 @@ void InitPara() {
     Para.dAngleTable[i] = 2.0 / AngBinSize;
   }
 
-  for (int i = 0; i < FreqBinSize; i++) {
-    Para.FreqTable[i] = PI/Para.Beta*(2*i);
-  }
+  // for (int i = 0; i < FreqBinSize; i++) {
+  //   Para.FreqTable[i] = PI/Para.Beta*(2*i);
+  // }
 
-  // initialize external momentum
-  for (int i = 0; i < ExtMomBinSize; i++) {
-    // the external momentum only has x component
-    Para.ExtMomTable[i][0] = (i+0.0001) * Para.MaxExtMom / ExtMomBinSize;
-    for (int j = 1; j < D; j++)
-      Para.ExtMomTable[i][j] = 0.0;
-  }
-  // Para.ExtMomTable[0][0] = 0.0;
-  // Para.ExtMomTable[1][0] = 2. * Para.Kf;
+  // // initialize external momentum
+  // for (int i = 0; i < ExtMomBinSize; i++) {
+  //   // the external momentum only has x component
+  //   Para.ExtMomTable[i][0] = (i+0.0001) * Para.MaxExtMom / ExtMomBinSize;
+  //   for (int j = 1; j < D; j++)
+  //     Para.ExtMomTable[i][j] = 0.0;
+  // }
+  // // Para.ExtMomTable[0][0] = 0.0;
+  // // Para.ExtMomTable[1][0] = 2. * Para.Kf;
 
   LOG_INFO("Inverse Temperature: " << Para.Beta << "\n"
                                    << "UV Energy Scale: " << Para.UVScale

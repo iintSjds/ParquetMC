@@ -147,7 +147,7 @@ void markov::ChangeMomentum() {
     double AngCos = ver::Index2Angle(NewKBin, AngBinSize);
     double theta = acos(AngCos);
     // update transfer K0=K-P
-    NewExtMomBin=0;
+    //    NewExtMomBin=1;
     double newMom=Para.ExtMomTable[NewExtMomBin].norm();
     Var.LoopMom[LoopIndex][0] = newMom * cos(theta)-Var.LoopMom[1][0];
     Var.LoopMom[LoopIndex][1] = newMom * sin(theta);
@@ -164,7 +164,7 @@ void markov::ChangeMomentum() {
   } else if (LoopIndex == 2) {
     // InR momentum
     // update InR and InL
-    Prop = ShiftExtLegK(CurrMom, Var.LoopMom[LoopIndex]);
+    Prop = ShiftExtLegK(NewExtMomBin,CurrMom, Var.LoopMom[LoopIndex]);
     Var.LoopMom[1][0]=-Var.LoopMom[LoopIndex][0];
   } else {
     Prop = ShiftK(CurrMom, Var.LoopMom[LoopIndex]);
@@ -181,6 +181,8 @@ void markov::ChangeMomentum() {
     Var.CurrAbsWeight = NewAbsWeight;
     if (LoopIndex == 0)
       Var.CurrExtMomBin = NewExtMomBin;
+    if (LoopIndex == 2)
+      Var.CurrInMomBin = NewExtMomBin;
   } else {
     Var.LoopMom[LoopIndex] = CurrMom;
   }
@@ -405,7 +407,7 @@ double markov::ShiftExtTransferK(const int &OldExtMomBin, int &NewExtMomBin) {
   return 1.0;
 };
 
-double markov::ShiftExtLegK(const momentum &OldExtMom, momentum &NewExtMom) {
+double markov::ShiftExtLegK(int & NewInMomBin, const momentum &OldExtMom, momentum &NewExtMom) {
   // double Theta = Random.urn() * 1.0 * PI;
   // NewExtMom[0] = Para.Kf * cos(Theta);
   // NewExtMom[1] = Para.Kf * sin(Theta);
@@ -420,6 +422,7 @@ double markov::ShiftExtLegK(const momentum &OldExtMom, momentum &NewExtMom) {
 
   int NewKBin = Random.irn(0, ExtMomBinSize - 1);
   NewExtMom = Para.ExtMomTable[NewKBin];
+  NewInMomBin = NewKBin;
 
   // ASSERT_ALLWAYS(diag::Angle2Index(cos(theta), AngBinSize) == NewKBin,
   //                "Not matched, " << NewKBin << " vs "
