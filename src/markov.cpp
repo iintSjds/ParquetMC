@@ -126,11 +126,11 @@ void markov::MeasureDelta() {
   if(Var.CurrChannel==1){//||Var.CurrChannel==2){
     double Factor = 1.0 / (Var.CurrAbsWeight * Para.ReWeight[Var.CurrOrder]);
 
+    vector<ver::weightMatrix> deltaWeight=Weight.FreqEvaluate(Var.CurrOrder,Var.CurrChannel);
     for(int freq=0;freq<FreqBinSize;freq++){
-      ver::weightMatrix deltaWeight=Weight.FreqEvaluate(freq,Var.CurrOrder,Var.CurrChannel);
       Weight.VerQTheta.Delta.Measure(Var.LoopMom[1], Var.LoopMom[0], Var.CurrExtMomBin,
                                      freq,Var.CurrOrder,
-                                     deltaWeight, Factor);
+                                     deltaWeight[freq], Factor);
     }
   }
 };

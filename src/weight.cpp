@@ -84,16 +84,23 @@ ver::weightMatrix weight::Evaluate(int LoopNum, int Channel) {
   return Weight;
 }
 
-ver::weightMatrix weight::FreqEvaluate(int freq,int LoopNum, int Channel) {
+vector<ver::weightMatrix> weight::FreqEvaluate(int LoopNum, int Channel) {
+  vector<ver::weightMatrix> Weights;
   ver::weightMatrix Weight;
   if (LoopNum == 0) {
     // normalization
     Weight(DIR) = 1.0;
     Weight(EX) = 0.0;
+    for(int i=0;i<FreqBinSize;i++){
+      Weights.push_back(Weight);
+    }
   } else {
     // if (Channel != dse::T)
     //   return 0.0;
     Weight.SetZero();
+    for(int i=0;i<FreqBinSize;i++){
+      Weights.push_back(Weight);
+    }
     // if (Channel == dse::U || Channel == dse::S || Channel == dse::I) {
     //   //   // cout << "Reject" << Channel << endl;
     //   if (LoopNum == Para.Order)
@@ -127,8 +134,10 @@ ver::weightMatrix weight::FreqEvaluate(int freq,int LoopNum, int Channel) {
         auto &w = Root.Weight[i];
         double momfactor = 1;//Var.LoopMom[1].norm()*2*PI;
         double difftau = Var.Tau[Root.T[i][OUTR]]-Var.Tau[Root.T[i][OUTL]];
-        Weight(DIR) += w(DIR) * Factor * cos(Para.FreqTable[freq]*difftau) * momfactor * VerQTheta.Delta.F(difftau,Var.CurrInMomBin);
-        Weight(EX) += w(EX) * Factor * cos(Para.FreqTable[freq]*difftau) * momfactor;
+        for(int freq=0;freq<FreqBinSize;freq++){
+          Weights[freq](DIR) += w(DIR) * Factor * cos(Para.FreqTable[freq]*difftau) * momfactor * VerQTheta.Delta.F(difftau,Var.CurrInMomBin);
+          Weights[freq](EX) += w(EX) * Factor * cos(Para.FreqTable[freq]*difftau) * momfactor;
+        }
       }
 
       /////// Measure Landau Parameters  /////////////////////////
@@ -140,7 +149,7 @@ ver::weightMatrix weight::FreqEvaluate(int freq,int LoopNum, int Channel) {
       // }
     }
   }
-  return Weight;
+  return Weights;
 }
 
 void weight::Ver0(ver4 &Ver4) {
