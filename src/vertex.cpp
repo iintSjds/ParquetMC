@@ -127,7 +127,7 @@ void delta::Save(bool Simple){
               // for(int dim=0;dim<D;dim++)
               VerFile << Para.ExtMomTable[qindex][0] << "\t";
               //VerFile << dir << "\t";
-              VerFile << (DeltaVal(freq, angle, qindex, 0)+DeltaVal(freq, angle, qindex, 1)) *
+              VerFile << DeltaVal(freq, angle, qindex, 0) *
                 PhyWeightT / Normalization
                       << endl;
             }
@@ -145,8 +145,8 @@ void delta::Measure(const momentum &InL, const momentum &Tran,
   else{
     double CosAng = Angle3D(InL, InL+Tran);
     int AngleIndex = Angle2Index(CosAng, AngBinSize);
-    DeltaVal(Freq, 0, QIndex, DIR) += Weight(DIR) * Factor /AngBinSize*2.0/ExtMomBinSize*Para.MaxExtMom
-      *InL.norm()*InL.norm()/8.0/PI/PI;//*exp(-(InL+Tran).norm()) / AngBinSize;
+    DeltaVal(Freq, 0, QIndex, DIR) += Weight(DIR) * Factor *2.0*Para.MaxExtMom/AngBinSize
+      *InL.norm()*(InL+Tran).norm()/4.0/PI/PI;//*exp(-(InL+Tran).norm()) / AngBinSize;
     //DeltaVal(Freq, AngleIndex, QIndex, EX) += Weight(EX) * Factor;
   }
   return;

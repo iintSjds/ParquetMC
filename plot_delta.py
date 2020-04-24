@@ -174,11 +174,11 @@ for loopcounter in range(100):
             for k in range(ExtMomBinSize):
                 file.write("{0}\t".format(2*ff.real[i][k]))
     
-    if(loopcounter%5==0):
-         IterationType=(IterationType+1)%2
+    #if(loopcounter%5==0):
+    #     IterationType=(IterationType+1)%2
     print IterationType
-    #myCmd='./feyncalc.exe >out.txt'
-    myCmd='python phonon.py>out.txt'
+    myCmd='./feyncalc.exe >out.txt'
+    #myCmd='python phonon.py>out.txt'
     os.system(myCmd)
 
     d = None

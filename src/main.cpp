@@ -202,7 +202,7 @@ void MonteCarlo() {
 
       // if (i % 2 == 0)
       Markov.Measure();
-      if(i % FreqBinSize==0) Markov.MeasureDelta();
+      Markov.MeasureDelta();
       // Markov.DynamicTest();
 
       if (i % 1000 == 0) {

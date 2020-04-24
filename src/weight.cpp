@@ -84,8 +84,7 @@ ver::weightMatrix weight::Evaluate(int LoopNum, int Channel) {
   return Weight;
 }
 
-vector<ver::weightMatrix> weight::FreqEvaluate(int LoopNum, int Channel) {
-  vector<ver::weightMatrix> Weights;
+vector<ver::weightMatrix> weight::FreqEvaluate(int LoopNum, int Channel,vector<ver::weightMatrix>& Weights) {
   ver::weightMatrix Weight;
   if (LoopNum == 0) {
     // normalization
@@ -134,8 +133,17 @@ vector<ver::weightMatrix> weight::FreqEvaluate(int LoopNum, int Channel) {
         auto &w = Root.Weight[i];
         double momfactor = 1;//Var.LoopMom[1].norm()*2*PI;
         double difftau = Var.Tau[Root.T[i][OUTR]]-Var.Tau[Root.T[i][OUTL]];
+        double difftauin = Var.Tau[Root.T[i][INR]]-Var.Tau[Root.T[i][INL]];
+        double sign=1;
+        if(difftauin<0){
+          sign = -1;
+          difftauin = Para.Beta+difftauin;
+        }
         for(int freq=0;freq<FreqBinSize;freq++){
-          Weights[freq](DIR) += w(DIR) * Factor * cos(Para.FreqTable[freq]*difftau) * momfactor * VerQTheta.Delta.F(difftau,Var.CurrInMomBin);
+          double frequency=Para.FreqTable[freq];
+          //double F=exp(-Var.LoopMom[1].norm()*Var.LoopMom[1].norm())*sin(2*PI*difftauin)*sign;
+          double F=sign*VerQTheta.Delta.F(difftauin,Var.CurrInMomBin);
+          Weights[freq](DIR) += w(DIR) * Factor * cos(Para.FreqTable[freq]*difftau) * momfactor*F;
           Weights[freq](EX) += w(EX) * Factor * cos(Para.FreqTable[freq]*difftau) * momfactor;
         }
       }
@@ -149,6 +157,10 @@ vector<ver::weightMatrix> weight::FreqEvaluate(int LoopNum, int Channel) {
       // }
     }
   }
+  // Weight.SetZero();
+  // for(int i=0;i<FreqBinSize;i++){
+  //   Weights[i]=Weight;
+  // }
   return Weights;
 }
 

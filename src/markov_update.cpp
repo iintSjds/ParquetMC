@@ -122,10 +122,10 @@ void markov::ChangeMomentum() {
 
   double Prop;
   int NewExtMomBin;
-  static momentum CurrMom;
+  static momentum CurrMom,CurrTran;
 
   CurrMom = Var.LoopMom[LoopIndex];
-
+  CurrTran = Var.LoopMom[0];
   /* Update strategy for cooper gap function equation:
      Four legs are OL=-K, OR=K, IL=-P, IR=P; K0=P-K, K1=-P, K2=P
      - For K0(transfer), propose a New K s.t. |K| is random from ExtMomTable, Angle is random.
@@ -165,6 +165,7 @@ void markov::ChangeMomentum() {
     // InR momentum
     // update InR and InL
     Prop = ShiftExtLegK(NewExtMomBin,CurrMom, Var.LoopMom[LoopIndex]);
+    Var.LoopMom[0]=Var.LoopMom[0]+Var.LoopMom[1]+Var.LoopMom[LoopIndex];
     Var.LoopMom[1][0]=-Var.LoopMom[LoopIndex][0];
   } else {
     Prop = ShiftK(CurrMom, Var.LoopMom[LoopIndex]);
@@ -185,6 +186,10 @@ void markov::ChangeMomentum() {
       Var.CurrInMomBin = NewExtMomBin;
   } else {
     Var.LoopMom[LoopIndex] = CurrMom;
+    if (LoopIndex == 2){
+      Var.LoopMom[0] = CurrTran;
+      Var.LoopMom[1][0] = -CurrMom[0];
+    }
   }
 };
 

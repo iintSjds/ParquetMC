@@ -1,0 +1,88 @@
+[MC][INFO][20/3/24 14:46:16]@[main.cpp:135]
+Inverse Temperature: 1
+UV Energy Scale: 2
+UV Coupling: 0.999998
+r_s: 1.91916
+Fermi Mom: 0.999999
+Fermi Energy: 0.999998
+
+
+[MC][INFO][20/3/24 14:46:16]@[weight.cpp:27]
+├Level: 0, LVer4 ID: 0, LoopNum: 1, RexpandBare: false, RenormVer4: false, IsFullVer4: false
+├─T: 
+├─LegK: 1, 12, 2, 13
+└─BUBBLE - Projected: false
+
+
+[MC][INFO][20/3/24 14:46:16]@[weight.cpp:27]
+├Level: 0, LVer4 ID: 0, LoopNum: 1, RexpandBare: false, RenormVer4: false, IsFullVer4: false
+├─T: (0, 0, 1, 1), 
+├─LegK: 1, 12, 2, 13
+└─BUBBLE - Projected: false
+. ├PAIR - Channel: 1, LVerLoopNum: 0
+. ├─Map:(0,0):0, 
+. │
+. ├Level: 1, LVer4 ID: 1, LoopNum: 0, RexpandBare: false, RenormVer4: false, IsFullVer4: false
+. ├─T: (0, 0, 0, 0), 
+. └─LegK: 1, 12, 14, 3
+. │
+. ├Level: 1, RVer4 ID: 2, LoopNum: 0, RexpandBare: false, RenormVer4: false, IsFullVer4: true
+. ├─T: (1, 1, 1, 1), 
+. └─LegK: 3, 14, 2, 13
+.  
+
+
+[MC][INFO][20/3/24 14:46:16]@[weight.cpp:27]
+├Level: 0, LVer4 ID: 0, LoopNum: 1, RexpandBare: false, RenormVer4: false, IsFullVer4: false
+├─T: (0, 1, 1, 0), 
+├─LegK: 1, 12, 2, 13
+└─BUBBLE - Projected: false
+. ├PAIR - Channel: 2, LVerLoopNum: 0
+. ├─Map:(0,0):0, 
+. │
+. ├Level: 1, LVer4 ID: 1, LoopNum: 0, RexpandBare: false, RenormVer4: false, IsFullVer4: false
+. ├─T: (0, 0, 0, 0), 
+. └─LegK: 1, 13, 14, 3
+. │
+. ├Level: 1, RVer4 ID: 2, LoopNum: 0, RexpandBare: false, RenormVer4: false, IsFullVer4: true
+. ├─T: (1, 1, 1, 1), 
+. └─LegK: 3, 14, 2, 12
+.  
+
+
+[MC][INFO][20/3/24 14:46:16]@[weight.cpp:27]
+├Level: 0, LVer4 ID: 0, LoopNum: 1, RexpandBare: false, RenormVer4: false, IsFullVer4: false
+├─T: (0, 1, 0, 1), 
+├─LegK: 1, 12, 2, 13
+└─BUBBLE - Projected: false
+. ├PAIR - Channel: 3, LVerLoopNum: 0
+. ├─Map:(0,0):0, 
+. │
+. ├Level: 1, LVer4 ID: 1, LoopNum: 0, RexpandBare: false, RenormVer4: false, IsFullVer4: false
+. ├─T: (0, 0, 0, 0), 
+. └─LegK: 1, 14, 2, 3
+. │
+. ├Level: 1, RVer4 ID: 2, LoopNum: 0, RexpandBare: false, RenormVer4: false, IsFullVer4: true
+. ├─T: (1, 1, 1, 1), 
+. └─LegK: 3, 12, 14, 13
+.  
+
+
+[MC][INFO][20/3/24 14:46:16]@[markov.cpp:32]
+Initializating MC variables ...
+
+[MC][INFO][20/3/24 14:46:16]@[markov.cpp:82]
+Calculating the weights of all objects...
+
+[MC][INFO][20/3/24 14:46:16]@[markov.cpp:87]
+Initializating variables done.
+
+[MC][INFO][20/3/24 14:46:16]@[main.cpp:157]
+Start simulation ...
+
+[MC][INFO][20/3/24 14:46:16]@[main.cpp:162]
+Loading Weight...
+
+[MC][INFO][20/3/24 14:47:33]@[abort.cpp:16]
+Signal 2 received. Interrupting program...
+

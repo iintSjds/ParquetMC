@@ -3,20 +3,20 @@ import sys
 import numpy as np
 
 Order=1
-Beta=2000.0
+Beta=1.0
 Temp=1.0/Beta
 rs=1.91916
 Mass2=1.0
 Lambda=1.0
 charge2=1.0
-MaxExtMom=7.0
+MaxExtMom=5.0
 TotalStep=10
 seed=1453
 Duplication=0
-Omega_c=0.5
+Omega_c=100
 
-Freqsize=2000
-ExtMomBinSize=80
+Freqsize=64
+ExtMomBinSize=128
 Freq=np.pi*Temp
 Mom=1e-7
 step=(MaxExtMom-Mom)/(ExtMomBinSize-1)
