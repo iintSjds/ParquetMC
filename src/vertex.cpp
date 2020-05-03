@@ -145,7 +145,7 @@ void delta::Measure(const momentum &InL, const momentum &Tran,
   else{
     double CosAng = Angle3D(InL, InL+Tran);
     int AngleIndex = Angle2Index(CosAng, AngBinSize);
-    DeltaVal(Freq, 0, QIndex, DIR) += Weight(DIR) * Factor *2.0*Para.MaxExtMom/AngBinSize
+    DeltaVal(Freq, 0, QIndex, DIR) += -Weight(DIR) * Factor *2.0*Para.MaxExtMom/AngBinSize
       *InL.norm()*(InL+Tran).norm()/4.0/PI/PI;//*exp(-(InL+Tran).norm()) / AngBinSize;
     //DeltaVal(Freq, AngleIndex, QIndex, EX) += Weight(EX) * Factor;
   }

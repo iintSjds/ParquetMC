@@ -3,7 +3,7 @@ import sys
 import numpy as np
 
 Order=1
-Beta=1.0
+Beta=0.05
 Temp=1.0/Beta
 rs=1.91916
 Mass2=1.0

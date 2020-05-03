@@ -200,11 +200,11 @@ void MonteCarlo() {
       //   Markov.PrintDeBugMCInfo();
       // }
 
-      // if (i % 2 == 0)
-      Markov.Measure();
-      Markov.MeasureDelta();
-      // Markov.DynamicTest();
-
+      if (i % 10 == 0){
+        //Markov.Measure();
+        Markov.MeasureDelta();
+        // Markov.DynamicTest();
+      }
       if (i % 1000 == 0) {
         // cout << Markov.Weight.Var.Tau[0] << " vs " <<
         // Markov.Weight.Var.Tau[1]
