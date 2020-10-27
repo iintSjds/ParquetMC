@@ -15,6 +15,8 @@ from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import grid
 
+is_IR=False
+
 plt.style.use(['science','grid'])
 #rs = None
 #Lambda = None
@@ -73,11 +75,17 @@ Para = param()
 EPS= 1.0e-9
 Beta=Para.Beta
 Temp=1/Beta
-order_num=Para.Order 
-K=grid.FermiK()
-K.build(Para.kF,Para.MaxExtMom,Para.MomGridSize,math.sqrt(1.0 / Para.Beta) * 2) #kf,maxk,size,scale
-Ta=grid.Tau()
-Ta.build(Para.Beta, Para.TauGridSize, 6.0/Para.EF) #Beta,size,scale
+order_num=Para.Order
+
+scale=1e-1/Para.Beta/Para.EF
+kscale=1e-1/np.sqrt(Para.Beta*Para.EF)
+KMult=8
+TaMult=8
+K=grid.FermiKUL()
+K.build(Para.kF,Para.MaxExtMom,Para.MomGridSize//KMult//2-1,KMult,kscale) #kf,maxk,size,scale
+Ta=grid.TauUL()
+Ta.build(Para.Beta, Para.TauGridSize//TaMult//2-1, TaMult, scale) #Beta,size,scale
+print("grid sizes:",Ta.size,",",K.size)
 
 def epsilon(p):
     #E=np.abs(p**2-Para.EF)+0.0001/Para.Beta
@@ -271,10 +279,8 @@ def Plot_F(F,F_err):
     d_naive,_=Fourier.SpectralT2W(fff)
     lines=6
     cutf_dum=0.9
-    q_cut1=np.searchsorted(ExtMomBin,(1.0-q_cut)*Para.kF,side='right') 
-    q_cut2=np.searchsorted(ExtMomBin,(1.0+q_cut)*Para.kF,side='right')
-    q_cut1=0
-    q_cut2=len(ExtMomBin)-1
+    q_cut1=0#np.searchsorted(ExtMomBin,(1.0-q_cut)*Para.kF,side='right') 
+    q_cut2=-1#np.searchsorted(ExtMomBin,(1.0+q_cut)*Para.kF,side='right') 
     fig, ax = plt.subplots()
     for i in range(lines):
         pidx=len(ExtMomBin)//lines*i
@@ -312,19 +318,6 @@ def Plot_F(F,F_err):
     fig.savefig("f_wq.pdf")
     plt.close()
 
-    fig, ax = plt.subplots()
-    freq0=len(phyFreq)//2
-    for i in range(lines):
-        fidx=freq0+len(phyFreq)//(2*lines)*i
-        ax.plot(ExtMomBin[q_cut1:q_cut2]/Para.kF,d_naive.real[q_cut1:q_cut2,fidx],label="$\omega/(\pi T)={0:.2e}$".format(phyFreq[fidx]/np.pi*Para.Beta))
-    ax.legend(bbox_to_anchor=(0.9,0.9),fontsize=6.0)
-    ax.set(xlabel="Momentum ($k_F$)")
-    ax.set(ylabel="$F$")
-    ax.autoscale(tight=True)
-    fig.savefig("f_qw.pdf")
-    plt.close()
-
-
 def Plot_D(fff):
     print("plotting d")
     #fff=F.T#/epsilon(ExtMomBin)[:,np.newaxis]
@@ -336,8 +329,8 @@ def Plot_D(fff):
     fig, ax = plt.subplots()
     for i in range(lines):
         pidx=len(ExtMomBin)//lines*i
-        ax.plot(TauBin,fff[pidx,:],label="q={0:.2e}".format(ExtMomBin[pidx]))
-   #     ax.errorbar(TauBin,fff[pidx,:],yerr=f_err[pidx,:],fmt=".-",label="q={0:.2e}".format(ExtMomBin[pidx]), capthick=0.1,capsize=0.5,markersize=0.3,elinewidth=0.2,barsabove=True,ecolor="k")
+        ax.plot(TauBin,fff[pidx,:],",-",label="q={0:.2e}".format(ExtMomBin[pidx]))
+   #     ax.errorbar(TauBin,fff[pidx,:],yerr=f_err[pidx,:],fmt=",-",label="q={0:.2e}".format(ExtMomBin[pidx]), capthick=0.1,capsize=0.5,markersize=0.3,elinewidth=0.2,barsabove=True,ecolor="k")
     ax.legend(bbox_to_anchor=(0.55,0.55),fontsize=6)
     ax.set(xlabel="Tau($E_F$)")
     ax.set(ylabel="$\Delta$")
@@ -348,8 +341,8 @@ def Plot_D(fff):
     fig, ax = plt.subplots()
     for i in range(lines):
         tidx=len(TauBin)//2//lines*i
-        ax.plot(ExtMomBin[q_cut1:q_cut2]/Para.kF,fff[q_cut1:q_cut2,tidx],label="t={0:.2e}".format(TauBin[tidx]))
-        #ax.errorbar(ExtMomBin[q_cut1:q_cut2]/Para.kF,fff[q_cut1:q_cut2,tidx],yerr=f_err[q_cut1:q_cut2,tidx],fmt=".-",label="t={0:.2e}".format(TauBin[tidx]),capthick=0.1,capsize=0.5,markersize=0.3,elinewidth=0.2,barsabove=True,ecolor="k")
+        ax.plot(ExtMomBin[q_cut1:q_cut2]/Para.kF,fff[q_cut1:q_cut2,tidx],",-",label="t={0:.2e}".format(TauBin[tidx]))
+        #ax.errorbar(ExtMomBin[q_cut1:q_cut2]/Para.kF,fff[q_cut1:q_cut2,tidx],yerr=f_err[q_cut1:q_cut2,tidx],fmt=",-",label="t={0:.2e}".format(TauBin[tidx]),capthick=0.1,capsize=0.5,markersize=0.3,elinewidth=0.2,barsabove=True,ecolor="k")
     ax.legend(bbox_to_anchor=(0.80,0.88),fontsize=6.0)
     ax.set(xlabel="Momentum($k_F$)")
     ax.set(ylabel="$\Delta$")
@@ -357,7 +350,7 @@ def Plot_D(fff):
     fig.savefig("d_qt.pdf")
     plt.close()
 
-def Plot_D_o1(fff):
+def Plot_D_o1(fff,filename="do1_qt.pdf"):
     print("plotting do1")
     #fff=F.T#/epsilon(ExtMomBin)[:,np.newaxis]
     d_naive,_=Fourier.SpectralT2W(fff)
@@ -368,19 +361,20 @@ def Plot_D_o1(fff):
     fig, ax = plt.subplots()
 
     tidx=0
-    ax.plot(ExtMomBin[q_cut1:q_cut2]/Para.kF,fff[q_cut1:q_cut2,tidx],label="t={0:.2e}".format(TauBin[tidx]))
-        #ax.errorbar(ExtMomBin[q_cut1:q_cut2]/Para.kF,fff[q_cut1:q_cut2,tidx],yerr=f_err[q_cut1:q_cut2,tidx],fmt=".-",label="t={0:.2e}".format(TauBin[tidx]),capthick=0.1,capsize=0.5,markersize=0.3,elinewidth=0.2,barsabove=True,ecolor="k")
+    ax.plot(ExtMomBin[q_cut1:q_cut2]/Para.kF,fff[q_cut1:q_cut2,tidx],",-",label="t={0:.2e}".format(TauBin[tidx]))
+        #ax.errorbar(ExtMomBin[q_cut1:q_cut2]/Para.kF,fff[q_cut1:q_cut2,tidx],yerr=f_err[q_cut1:q_cut2,tidx],fmt=",-",label="t={0:.2e}".format(TauBin[tidx]),capthick=0.1,capsize=0.5,markersize=0.3,elinewidth=0.2,barsabove=True,ecolor="k")
     #ax.legend(bbox_to_anchor=(0.60,0.88),fontsize=6.0)
     ax.set(xlabel="Momentum($k_F$)")
     ax.set(ylabel="$\Delta_0$")
     #ax.autoscale(tight=True)
-    fig.savefig("do1_qt.pdf")
+    fig.savefig(filename)
     plt.close()
 
 def Plot_Dfreq(fff,fff_o1):
     print("plotting dfreq")
     #fff=F.T#/epsilon(ExtMomBin)[:,np.newaxis]
-    d_naive,_=Fourier.SpectralT2W(fff)
+    #d_naive,_=Fourier.SpectralT2W(fff)
+    d_naive=Fourier.naiveT2W(fff)
     lines=6
     cutf_dum=0.9
     q_cut1=0
@@ -391,7 +385,7 @@ def Plot_Dfreq(fff,fff_o1):
     freq0=len(phyFreq)//2
     for i in range(lines):
         pidx=len(ExtMomBin)//lines*i
-        ax.plot(phyFreq[freq0:]/np.pi*Para.Beta,d_freq[pidx,freq0:],label="$q/k_F={0:.2e}$".format(ExtMomBin[pidx]/Para.kF))
+        ax.plot(phyFreq[freq0:]/np.pi*Para.Beta,d_freq[pidx,freq0:],",-",label="$q/k_F={0:.2e}$".format(ExtMomBin[pidx]/Para.kF))
     ax.legend(bbox_to_anchor=(0.6,0.7),fontsize=4.0)
     ax.set(xlabel="Frequency ($\pi T$)")
     ax.set(ylabel="$\Delta$")
@@ -403,7 +397,7 @@ def Plot_Dfreq(fff,fff_o1):
     freq0=len(phyFreq)//2
     for i in range(lines):
         fidx=freq0+len(phyFreq)//(2*lines)*i
-        ax.plot(ExtMomBin[q_cut1:q_cut2]/Para.kF,d_freq[q_cut1:q_cut2,fidx],label="$\omega/(\pi T)={0:.2e}$".format(phyFreq[fidx]/np.pi*Para.Beta))
+        ax.plot(ExtMomBin[q_cut1:q_cut2]/Para.kF,d_freq[q_cut1:q_cut2,fidx],",-",label="$\omega/(\pi T)={0:.2e}$".format(phyFreq[fidx]/np.pi*Para.Beta))
     ax.legend(bbox_to_anchor=(0.9,0.9),fontsize=6.0)
     ax.set(xlabel="Momentum ($k_F$)")
     ax.set(ylabel="$\Delta$")
@@ -412,8 +406,8 @@ def Plot_Dfreq(fff,fff_o1):
     plt.close()
 
 
-Omega=3.0#0.1*Para.EF
-g=2.0
+Omega=1.0#0.1*Para.EF
+g=32.0
 kF = 1.0
 
 
@@ -438,7 +432,7 @@ omega_c=10000000.0 #float(line0.split(",")[-1])
 #for order in Order:
    # for chan in Channel:
 
-MaxFreq = 50
+MaxFreq = 64
 Freq = np.array(range(-MaxFreq, MaxFreq))
 phyFreq = (Freq*2.0+1.0)*np.pi/Para.Beta  # the physical frequency
 shape = (Para.Order+1, Para.MomGridSize, Para.TauGridSize)
@@ -457,10 +451,14 @@ DataList = []
 
 #initialize F
 
-q_cut=0.1*Para.kF
+q_cut=0.2*Para.kF
 
-cut_left=0 #np.searchsorted(ExtMomBin,Para.kF-q_cut,side='right') 
-cut_right=ExtMomBinSize #np.searchsorted(ExtMomBin,Para.kF+q_cut,side='right')
+if is_IR==False:
+    cut_left=0
+    cut_right=ExtMomBinSize
+else:
+    cut_left=np.searchsorted(ExtMomBin,Para.kF-q_cut,side='right') 
+    cut_right=np.searchsorted(ExtMomBin,Para.kF+q_cut,side='right')
 cut_left_plt=np.searchsorted(ExtMomBin,Para.kF-5*q_cut,side='right') 
 cut_right_plt=np.searchsorted(ExtMomBin,Para.kF+5*q_cut,side='right')
 
@@ -506,11 +504,17 @@ gggg=Convol(g_int,g_int,TauBin,ExtMomBinSize,1)
 #Plot_Everything(gggg,0)
 
 
+# for testing p channel
+alpha_0=(ExtMomBin**2)[np.newaxis,:]+(ExtMomBin**2)[:,np.newaxis]+Para.Mass2+Para.Lambda
+alpha_0=alpha_0/2.0/np.tensordot(ExtMomBin,ExtMomBin,axes=0)
+W_1_0=8.0*np.pi/np.tensordot(ExtMomBin,ExtMomBin,axes=0)/2.0*( alpha_0 * np.log((alpha_0+1)/(alpha_0-1))  -2.0)
+
+
 #print(gggg.shape)
 
 IterationType=1
 lamu=0
-shift=0.00
+shift=1.00
 lamu_sum=0.0
 modulus_dum=0.0
 
@@ -518,7 +522,7 @@ modulus_dum=0.0
 
 #os set
 Duplicate=4
-SleepTime=1800
+SleepTime=3601
 WaitTime=5
 ThermoSteps=10
 
@@ -537,14 +541,7 @@ high_mom_counter=0
 low_mom_counter=0
 low_block_counter=np.zeros((block_size))
 if(If_read==0):
-    with open(folder+FileName1,"w") as file:
-        file.write("{0} ".format(loopcounter))
-        file.write("\n")
-        for i in range(TauBinSize):
-            for k in range(ExtMomBinSize):
-                F[i][k]=gggg[k][i]
-                file.write("{0}\t".format(F[i][k]))
-    
+    print("No")
 else:
     print("Continue with exist f.dat")
     with open(folder+FileName1,"r"):
@@ -585,6 +582,7 @@ while notyet:
             d=d+d0.reshape((int(order_num+1),int(size0)))[ll].reshape((ExtMomBinSize,TauBinSize))
             err=err+err0.reshape((int(order_num+1),int(size0)))[ll].reshape((ExtMomBinSize,TauBinSize))**2
             # d=d*0
+        d=d0.reshape((int(order_num+1),int(size0)))[3].reshape((ExtMomBinSize,TauBinSize))
         err=np.sqrt(err)
         d_o1=np.average(d0.reshape((int(order_num+1),int(size0)))[1].reshape((ExtMomBinSize,TauBinSize)),axis=-1)
         d_o1=d_o1[:,np.newaxis]+0*d

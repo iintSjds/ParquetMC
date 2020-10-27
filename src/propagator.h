@@ -29,6 +29,7 @@ public:
   double CounterBubble(const momentum &K);
 
   bool LoadF();
+  bool LoadF(int chan);
   void TestF();
   void LoadGreen();
 

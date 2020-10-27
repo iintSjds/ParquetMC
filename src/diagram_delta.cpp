@@ -11,11 +11,16 @@ extern variable Var;
 extern propagator Prop;
 
 double legendre(double xi, int channel){
-  if(channel==0) return 1;
+  //if(channel==0) return 1;
+  if(channel==0) return 0.5*(3*xi*xi-1);
+  //if(channel==1) return xi;
   if(channel==1) return xi;
   if(channel==2) return 0.5*(3*xi*xi-1);
+  if(channel==3) return 0.5*(5*xi*xi*xi-3*xi);
   else return 0;
 }
+
+double SigSign=1;
 
 double epsilon(double p){
   double E=abs(p*p-Para.Ef);
@@ -86,13 +91,14 @@ double delta::Evaluate() {
   double result=0;
   double Factor = 1.0 / pow(2.0 * π, D);
   int main_channel=0;
+  int main_channelf=0;
   // normalization
   if (Order == 0)
     return 1.0;
   else if (Order == 1) {
     // bare interaction
     double Weight = Prop.Interaction(Var.LoopMom[0] - Var.LoopMom[1], -1);
-    Weight *= Prop.F(1.0e-8, Var.LoopMom[1], UP, 0,main_channel);
+    Weight *= Prop.F(1.0e-8, Var.LoopMom[1], UP, 0,main_channelf);
     // cout << "1: " << Weight * Factor * 0.5 << endl;
     double xi=Var.LoopMom[0].dot(Var.LoopMom[1])/Var.LoopMom[0].norm()/Var.LoopMom[1].norm();
     result= Weight * Factor * legendre(xi,main_channel);
@@ -106,7 +112,7 @@ double delta::Evaluate() {
 
   // loop order >=2
   vertex4 &Ver4 = Vertex;
-  F.Evaluate(Var.LoopMom[1], main_channel);
+  F.Evaluate(Var.LoopMom[1], main_channelf);
   // if (Var.CurrOrder == 2)
   //   cout << Var.LoopMom[1].norm() << endl;
 
@@ -117,7 +123,7 @@ double delta::Evaluate() {
   double Weight = 0.0;
   for (int i = 0; i < Size; ++i) {
     auto &fidx = Fidx[i];
-    Weight += (Ver4.Weight[i][DIR] - Ver4.Weight[i][EX]) * F[fidx];
+    Weight += (Ver4.Weight[i][DIR] -SigSign* Ver4.Weight[i][EX]) * F[fidx];
     //Weight += (Ver4.Weight[i][DIR]) * F[fidx];
 
   }
@@ -163,7 +169,7 @@ double delta::Evaluate(int channel) {
   double Weight = 0.0;
   for (int i = 0; i < Size; ++i) {
     auto &fidx = Fidx[i];
-    Weight += (Ver4.Weight[i][DIR] - Ver4.Weight[i][EX]) * F[fidx];
+    Weight += (Ver4.Weight[i][DIR] -SigSign* Ver4.Weight[i][EX]) * F[fidx];
     //Weight += (Ver4.Weight[i][DIR]) * F[fidx];
   }
   // there is a symmetry factor -0.5

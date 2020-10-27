@@ -3,7 +3,7 @@ from utility.IO import *
 import utility.fourier as fourier
 from utility.plot import *
 
-# XType = "Tau"
+#XType = "Tau"
 XType = "Mom"
 OrderByOrder = False
 # Unit=1.0
@@ -42,7 +42,8 @@ if(XType == "Mom"):
         # print "{:10.6f} {:10.6f} {:10.6f}".format(
         #     MomGrid[i]/Para.kF, y[i, 0].real*Unit, err[i, 0].real*Unit*2.0)
         # err = np.average(Err[o, :, :], axis=1)
-        Errorbar(MomGrid/Para.kF, y[:, 0], err*2.0, fmt='o-',
+        print(y.shape,err.shape)
+        Errorbar(MomGrid/Para.kF, y[:, 0], err[:,0]*2.0, fmt='o-',
                  color=ColorList[o], label="Order {0}".format(o))
 
     # x = ExtMomBin*kF
@@ -56,7 +57,7 @@ if(XType == "Mom"):
 
 elif(XType == "Tau"):
     N = 8
-    o = 1
+    o = 3
     for i in range(N):
         q = int(i*MomGridSize/N)
         Avg, Err = Estimate(Data, Norm)

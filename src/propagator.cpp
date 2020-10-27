@@ -36,13 +36,13 @@ propagator::propagator(){
 }
 
 void propagator::Initialize(){
-  loopcounter=0;
+  loopcounter=-1;
   _f = vector<double>(Para.TauGrid.size * Para.FermiKGrid.size * ChannelNum);
   _taulist = vector<double>(Para.TauGrid.size);
   for(int i=0;i<Para.FermiKGrid.size;i++){
     _extMom.push_back(Para.FermiKGrid.grid[i]);
   }
-  LoadF();
+  LoadF(ChannelNum-1);
   //TestF();
 }
 
@@ -73,6 +73,33 @@ bool propagator::LoadF(){
   loopcounter=loopcounter_new;
   return true;
 }
+
+bool propagator::LoadF(int chan){
+  int loopcounter_new=-1;
+  try {
+    string FileName = fmt::format("./f{0}.dat",chan);
+    ifstream VerFile;
+    VerFile.open(FileName, ios::in);
+    if (VerFile.is_open()) {
+      VerFile >> loopcounter_new;
+      if(loopcounter_new==loopcounter){
+        return false;
+      }
+      for (int tau =0; tau<Para.TauGrid.size;tau++)
+        for (int qindex = 0; qindex<Para.FermiKGrid.size; qindex++){
+          VerFile >> _f.at(chan*Para.TauGrid.size*Para.FermiKGrid.size+tau*Para.FermiKGrid.size+qindex);
+        }
+      VerFile.close();
+    }
+  } catch (int e) {
+    LOG_INFO("Can not load f file!");
+    throw ;
+  }
+  // load F from file, and store
+  loopcounter=loopcounter_new;
+  return true;
+}
+
 
 void propagator::TestF(){
   try {

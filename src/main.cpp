@@ -132,7 +132,7 @@ int main(int argc, const char *argv[]) {
           try{
           if (BoldG)
             Prop.LoadGreen();
-          if(Prop.LoadF()){
+          if(Prop.LoadF(ChannelNum-1)){
               Markov.Reset();
              Var.Counter=0;
             // InitPara(); // initialize global parameters
@@ -227,11 +227,12 @@ void InitPara() {
   // initialize grids
   int TauMult=8;
   int KMult=8;
-  double mingrid=0.000001;
-  Para.TauGrid.build(Para.Beta, TauSize/TauMult/2-1,TauMult, Para.Ef*mingrid);
+  double mingrid=1e-1/Para.Beta/Para.Ef;
+  double kscale=1e-1/sqrt(Para.Beta*Para.Ef);
+  Para.TauGrid.build(Para.Beta, TauSize/TauMult/2-1,TauMult, mingrid);
   Para.AngleGrid.build({-1.0, 1.0}, AngSize);
-  Para.FermiKGrid.build(Para.Kf, MaxK, KSize/KMult/2-1,KMult, Para.Kf*mingrid);
-  Para.BoseKGrid.build(Para.Kf, MaxK, KSize/KMult/2-1,KMult, Para.Kf*mingrid);
+  Para.FermiKGrid.build(Para.Kf, MaxK, KSize/KMult/2-1,KMult, kscale);
+  Para.BoseKGrid.build(Para.Kf, MaxK, KSize/KMult/2-1,KMult, kscale);
 
   if (BoldG)
     Prop.LoadGreen();
