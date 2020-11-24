@@ -406,8 +406,8 @@ def Plot_Dfreq(fff,fff_o1):
     plt.close()
 
 
-Omega=1.0#0.1*Para.EF
-g=32.0
+Omega=3.0#0.1*Para.EF
+g=1.0
 kF = 1.0
 
 
@@ -451,7 +451,7 @@ DataList = []
 
 #initialize F
 
-q_cut=0.05*Para.kF
+q_cut=0.25*Para.kF
 
 if is_IR==False:
     cut_left=0
@@ -522,7 +522,7 @@ modulus_dum=0.0
 
 #os set
 Duplicate=4
-SleepTime=311
+SleepTime=71
 WaitTime=5
 ThermoSteps=10
 
@@ -597,9 +597,11 @@ while True:
         err_o1=+np.average(err0.reshape((int(order_num+1),int(size0)))[1].reshape((ExtMomBinSize,TauBinSize)),axis=-1)
         err_o1=err_o1[:,np.newaxis]+0*d
 
-        #d=-d0[3].reshape((int(order_num+1),int(size0)))[2].reshape((ExtMomBinSize,TauBinSize))
+        #d=d0.reshape((int(order_num+1),int(size0)))[3].reshape((ExtMomBinSize,TauBinSize))
         d=d
+        #d_o1=Para.Beta*np.average(d0.reshape((int(order_num+1),int(size0)))[3].reshape((ExtMomBinSize,TauBinSize)),axis=-1)
         d_o1=d_o1
+        #d_o1=d_o1[:,np.newaxis]+0*d
         #print ("sum_delta0",np.sum(d_o1))
         #print ("sum_delta",np.sum(d))
         if(np.isnan(np.sum(d))):
@@ -705,8 +707,8 @@ while True:
 
        # if loopcounter>ThermoSteps:
        
-        #if loopcounter<-1:
-        if loopcounter>-1:
+        if loopcounter<-1:
+        #if loopcounter>-1:
             if(IterationType==0):
                 high_mom_counter += 1
                 F_accumulate[:,0:cut_left] += F[:,0:cut_left]
@@ -735,7 +737,7 @@ while True:
         #     Plot_F(gggg.T)
         Plot_F(F,F_errors)
         loopcounter += 1
-        if(loopcounter%2==0 and is_IR==True):
+        if(loopcounter%4==0 and is_IR==True):
            IterationType=(IterationType+1)%2
         print ("$$$$iterationtype=",IterationType)
     

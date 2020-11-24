@@ -42,6 +42,8 @@ class vertex4 {
 public:
   void Build(int Level, int Order, int LoopIdx, int InTIdx,
              const vector<channel> &Channel, int Side);
+  void Build(int Level, int Order, int LoopIdx, int InTIdx,
+             const vector<channel> &Channel, int Side, int lastTidx);
 
   vector<channel> Channel;      // list of channels except I
   vector<channel> ChannelCT;    // list of counterterm channels except I
@@ -63,12 +65,13 @@ public:
   string ToString(string indent = "");
   void Test() { _TestOneLoopGamma(); };
 
-private:
+  private:
   int Level;
   int Side; // right side vertex is always a full gamma4
   int Order;
   int Tidx;
   int LoopIdx;
+  int LastTidx;
 
   // vector<envelope> Envelope; // envelop diagrams
 

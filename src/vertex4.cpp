@@ -104,6 +104,57 @@ void vertex4::Build(int level, int order, int loopIdx, int inTL,
     ChanWeight.resize(4);
 }
 
+void vertex4::Build(int level, int order, int loopIdx, int inTL,
+                    const vector<channel> &chan, int side, int lastTidx) {
+  // vertex builder for DELTA
+  Level = level;
+  Side = side;
+  Tidx = inTL;
+  LoopIdx = loopIdx;
+  Order = order;
+  Channel.clear();
+  ChannelCT.clear();
+  LastTidx=lastTidx;
+  if (LoopNum() == 0) {
+    // the same for left and right vertex with loopnum=0
+    _AddTidxPair({Tidx, Tidx, Tidx, Tidx});
+  } else {
+    // push counter-term Tpair first
+    for (auto &c : chan) {
+      if (c == TC || c == UC) {
+        ChannelCT.push_back(c);
+        if(DiagType==DELTA){
+          int Tidx2=Tidx+LoopNum();
+          if(Tidx2==LastTidx)
+            _AddTidxPair({Tidx2, Tidx2, Tidx2, Tidx2});
+          else
+            _AddTidxPair({Tidx, Tidx, Tidx, Tidx});
+        }
+        else
+          _AddTidxPair({Tidx, Tidx, Tidx, Tidx});
+      }
+    }
+
+    for (auto &c : chan) {
+      if (c == T || c == U || c == S) {
+        Channel.push_back(c);
+        for (int ol = 0; ol < LoopNum(); ol++) {
+          auto bubble = _BuildBubble(c, ol);
+          _UST.push_back(bubble);
+        }
+      } else if (c == I) {
+        // I channel
+        Channel.push_back(c);
+      }
+    }
+  }
+
+  Weight.resize(Tpair.size());
+  if (Level == 0 && Order >= 1)
+    ChanWeight.resize(4);
+}
+
+
 int vertex4::_AddTidxPair(const array<int, 4> &T) {
   // find the T array in the list, if failed, create a new array
   for (int i = 0; i < Tpair.size(); i++) {
@@ -112,11 +163,13 @@ int vertex4::_AddTidxPair(const array<int, 4> &T) {
     // force equal 
     //t[INL]=T[INL];
     //
-    ASSERT_ALLWAYS(t[INL] == T[INL],
+    if(DiagType!=DELTA){
+      ASSERT_ALLWAYS(t[INL] == T[INL],
                    "left Tin must be the same for all subvertex!"
                        << t[INL] << " vs " << T[INL]);
+    }
 
-    if (t[OUTL] == T[OUTL] && t[INR] == T[INR] && t[OUTR] == T[OUTR])
+    if (t[INL]==T[INL] && t[OUTL] == T[OUTL] && t[INR] == T[INR] && t[OUTR] == T[OUTR])
       return i;
   }
   Tpair.push_back(T);
@@ -124,9 +177,13 @@ int vertex4::_AddTidxPair(const array<int, 4> &T) {
 }
 
 bubble vertex4::_BuildBubble(channel chan, int ol) {
-  vector<channel> FULL = {I, T, U, S, TC, UC};
-  vector<channel> F = {I, U, S, TC, UC};
-  vector<channel> V = {I, T, U, TC, UC};
+  // vector<channel> FULL = {I, T, U, S, TC, UC};
+  // vector<channel> F = {I, U, S, TC, UC};
+  // vector<channel> V = {I, T, U, TC, UC};
+
+  vector<channel> FULL = {T,TC };
+  vector<channel> F = {TC};
+  vector<channel> V = { T,TC};
 
   ASSERT_ALLWAYS(chan != I, "BuildUST can not process I channel!");
   ASSERT_ALLWAYS(ol < LoopNum(),
@@ -140,26 +197,48 @@ bubble vertex4::_BuildBubble(channel chan, int ol) {
   int RInT = Tidx + (ol + 1);
   int Llopidx = LoopIdx + 1, Rlopidx = LoopIdx + 1 + ol;
 
-  switch (chan) {
-  case T:
-    bub.LVer.Build(lvl, ol, Llopidx, Tidx, F, LEFT);
-    bub.RVer.Build(lvl, oR, Rlopidx, RInT, FULL, RIGHT);
-    break;
-  case U:
-    // continue;
-    bub.LVer.Build(lvl, ol, Llopidx, Tidx, F, LEFT);
-    bub.RVer.Build(lvl, oR, Rlopidx, RInT, FULL, RIGHT);
-    break;
-  case S:
-    // continue;
-    bub.LVer.Build(lvl, ol, Llopidx, Tidx, V, LEFT);
-    bub.RVer.Build(lvl, oR, Rlopidx, RInT, FULL, RIGHT);
-    break;
-  default:
-    ABORT("The channel does not exist!");
-    break;
+  if(DiagType!=DELTA){
+    switch (chan) {
+    case T:
+      bub.LVer.Build(lvl, ol, Llopidx, Tidx, F, LEFT);
+      bub.RVer.Build(lvl, oR, Rlopidx, RInT, FULL, RIGHT);
+      break;
+    case U:
+      // continue;
+      bub.LVer.Build(lvl, ol, Llopidx, Tidx, F, LEFT);
+      bub.RVer.Build(lvl, oR, Rlopidx, RInT, FULL, RIGHT);
+      break;
+    case S:
+      // continue;
+      bub.LVer.Build(lvl, ol, Llopidx, Tidx, V, LEFT);
+      bub.RVer.Build(lvl, oR, Rlopidx, RInT, FULL, RIGHT);
+      break;
+    default:
+      ABORT("The channel does not exist!");
+      break;
+    }
   }
-
+  else{
+    switch (chan) {
+    case T:
+      bub.LVer.Build(lvl, ol, Llopidx, Tidx, F, LEFT,LastTidx);
+      bub.RVer.Build(lvl, oR, Rlopidx, RInT, FULL, RIGHT,LastTidx);
+      break;
+    case U:
+      // continue;
+      bub.LVer.Build(lvl, ol, Llopidx, Tidx, F, LEFT,LastTidx);
+      bub.RVer.Build(lvl, oR, Rlopidx, RInT, FULL, RIGHT,LastTidx);
+      break;
+    case S:
+      // continue;
+      bub.LVer.Build(lvl, ol, Llopidx, Tidx, V, LEFT,LastTidx);
+      bub.RVer.Build(lvl, oR, Rlopidx, RInT, FULL, RIGHT,LastTidx);
+      break;
+    default:
+      ABORT("The channel does not exist!");
+      break;
+    } 
+  }
   ////// construct a map from LVer and RVer Tidx to the Ver Tidx //////
   for (int lt = 0; lt < bub.LVer.Tpair.size(); ++lt)
     for (int rt = 0; rt < bub.RVer.Tpair.size(); ++rt) {
@@ -210,6 +289,10 @@ string vertex4::ToString(string indent) {
     Info +=
         fmt::format("({0}, {1}, {2}, {3}), ", t[INL], t[OUTL], t[INR], t[OUTR]);
   Info += "\n";
+  Info += indent + fmt::format("├─CT: ");
+  for (auto &c : ChannelCT)
+    Info += fmt::format("{0}, ", ChanName[c]);
+  Info += "\n";
 
   ASSERT_ALLWAYS(Tpair.size() == Weight.size(),
                  "Tpair size must be equal to Weight size!");
@@ -255,7 +338,7 @@ string vertex4::ToString(string indent) {
     // Info += "\n" + indent + ". │\n";
     Info += pp.LVer.ToString(indent + ". ");
     // Info +=
-    //     indent +
+    //     indeppnt +
     //     ".....................................................\n";
 
     // Info += indent + ". │\n";

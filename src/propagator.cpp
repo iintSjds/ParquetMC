@@ -222,7 +222,7 @@ double propagator::ExtrapF(double Tau, double K, int chan){
 }
 
 double propagator::F(double Tau, const momentum &K, spin Spin, int GType, int chan) {
-  if (Tau == 0.0)
+  if (abs(Tau)<EPS)
     Tau = 1.0e-10;
 
   double Sign = 1.0;
@@ -285,7 +285,7 @@ verWeight propagator::Interaction(const momentum &KInL, const momentum &KOutL,
   // check irreducibility
   if (DiagType == POLAR && IsEqual(kExQ, ExtQ))
       Weight[EX] = 0.0;
-  //Weight[EX] = 0.0;
+  Weight[EX] = 0.0;
   // cout << "Ver0: " << Weight[DIR] << ", " << Weight[EX] << endl;
   // cout << "extnal: " << ExtQ << ", " << kDiQ << endl;
   return Weight;
@@ -305,8 +305,9 @@ double propagator::Interaction(const momentum &TranQ, int VerOrder,
       for(int i=1;i<Para.Order;i++){
           Weight += Weight0 * pow(Weight0 * Para.Lambda / 8.0 / π, i);
       }
+      //return -Weight0 * pow(Weight0 * Para.Lambda / 8.0 / π, 2);
       return -Weight;
-      //return -8.0 * PI * Para.Charge2 / (kQ * kQ+2.0);
+      //return -8.0 * PI * Para.Charge2 / (kQ * kQ+Para.Mass2);
     }
      else
       return 0.0;

@@ -582,7 +582,7 @@ while notyet:
             d=d+d0.reshape((int(order_num+1),int(size0)))[ll].reshape((ExtMomBinSize,TauBinSize))
             err=err+err0.reshape((int(order_num+1),int(size0)))[ll].reshape((ExtMomBinSize,TauBinSize))**2
             # d=d*0
-        d=d0.reshape((int(order_num+1),int(size0)))[3].reshape((ExtMomBinSize,TauBinSize))
+        d=d0.reshape((int(order_num+1),int(size0)))[2].reshape((ExtMomBinSize,TauBinSize))
         err=np.sqrt(err)
         d_o1=np.average(d0.reshape((int(order_num+1),int(size0)))[1].reshape((ExtMomBinSize,TauBinSize)),axis=-1)
         d_o1=d_o1[:,np.newaxis]+0*d

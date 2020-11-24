@@ -108,11 +108,11 @@ void vertex4::_EvalUST(const momentum &KInL, const momentum &KOutL,
       if (chan == T) {
         W[DIR] = Lw[DIR] * Rw[DIR] * SPIN + Lw[DIR] * Rw[EX] + Lw[EX] * Rw[DIR];
         W[EX] = Lw[EX] * Rw[EX];
-        //W[EX] = 0.0;
+        // W[EX] = 0.0;
       } else if (chan == U) {
         W[EX] = Lw[DIR] * Rw[DIR] * SPIN + Lw[DIR] * Rw[EX] + Lw[EX] * Rw[DIR];
         W[DIR] = Lw[EX] * Rw[EX];
-        //W[EX] = 0.0;
+        // W[EX] = 0.0;
         //W[DIR] = 0.0;
       } else if (chan == S) {
         // see the note "code convention"
@@ -137,15 +137,18 @@ void vertex4::_EvalUST(const momentum &KInL, const momentum &KOutL,
 void vertex4::_EvalUST_CT(const momentum &KInL, const momentum &KOutL,
                           const momentum &KInR, const momentum &KOutR,
                           bool IsFast) {
+  //cout<<"in evalct!"<<endl;
   if (ChannelCT.size() > 0) {
+  
     double Factor = 1.0 / pow(2.0 * π, D);
     // cout << weight << endl;
     // ProjFactor = SymFactor[chan] * Factor;
     // cout << Tpair[0][0] << ", " << Tpair[0][1] << Tpair[0][2] << Tpair[0][3]
     //      << endl;
     for (auto &c : ChannelCT) {
+      double weight=0;
       if (c == TC) {
-        double weight =
+        weight =
             pow(Prop.Interaction(KInL - KOutL, 0, Var.LoopMom[0].norm()),
                 LoopNum() + 1);
         for (int o = LoopIdx; o < LoopIdx + LoopNum(); o++) {
@@ -157,7 +160,7 @@ void vertex4::_EvalUST_CT(const momentum &KInL, const momentum &KOutL,
           // counter-term Tpair and the weight are always the first element
           Weight[0][DIR] += weight * SymFactor[TC];
       } else if (c == UC) {
-        double weight =
+        weight =
             pow(Prop.Interaction(KInL - KOutR, 0, Var.LoopMom[0].norm()),
                 LoopNum() + 1);
         for (int o = LoopIdx; o < LoopIdx + LoopNum(); o++) {
@@ -169,6 +172,8 @@ void vertex4::_EvalUST_CT(const momentum &KInL, const momentum &KOutL,
           // counter-term Tpair and the weight are always the first element
           Weight[0][EX] += weight * SymFactor[UC];
       }
+      //cout<<"weight:"<<weight<<endl;
     }
   }
+  //  cout<<"out evalct!"<<endl;
 }

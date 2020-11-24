@@ -11,8 +11,8 @@ extern variable Var;
 extern propagator Prop;
 
 double legendre(double xi, int channel){
-  //if(channel==0) return 1;
-  if(channel==0) return 0.5*(3*xi*xi-1);
+  if(channel==0) return 1.0;
+  //if(channel==0) return 0.5*(3*xi*xi-1);
   //if(channel==1) return xi;
   if(channel==1) return xi;
   if(channel==2) return 0.5*(3*xi*xi-1);
@@ -40,14 +40,16 @@ void delta::Build(int order) {
   // vertex is only needed for order>=2
   if (Order < 1)
     return;
-  vector<channel> Chan = {I, T, U};
+  //vector<channel> Chan = {I, T, U};
+  vector<channel> Chan = {T,U};
   // if the bare part of W is re-expaned, then TC and UC are also needed
   //   vector<channel> Chan = {I, T, U, TC, UC};
   Vertex.Build(0,         // level
                Order - 1, // loopNum
                2,         // loop index of the first internal K of the vertex
                0,         // tau index of the InTL leg
-               Chan, RIGHT);
+               Chan, RIGHT,
+               TauNum()-1);
   for (auto &t : Vertex.Tpair) {
     int idx = F.AddTidxPair({t[OUTL], t[OUTR]});
     Fidx.push_back(idx);
@@ -71,8 +73,9 @@ void delta::_ResetLastTidx(vertex4 &Vertex) {
 
   for (auto &T : Vertex.Tpair)
     for (auto &t : T)
-      if (t == LastTidx)
+      if (t == LastTidx){
         t = ExtTidx;
+      }
 
   for (auto &g : Vertex.G)
     for (auto &T : g._Tpair)
@@ -131,6 +134,8 @@ double delta::Evaluate() {
   // cout << "2: " << Weight * Factor * 0.5 << endl;
   double xi=Var.LoopMom[0].dot(Var.LoopMom[1])/Var.LoopMom[0].norm()/Var.LoopMom[1].norm();
   result= Weight * Factor * (0.5)* legendre(xi,main_channel);
+
+  //  if(Order==3)cout<<Ver4.Weight[0][DIR]<<endl;
 
   // if(result<1e-300){
   //     throw std::invalid_argument("delta Eval order 2");
